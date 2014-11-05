@@ -23,8 +23,8 @@ namespace Professional.Data
             return new ApplicationDbContext();
         }
 
-        public virtual IDbSet<Article> Articles { get; set; }
-        public virtual IDbSet<ArticleEndorsement> ArticleEndorsements { get; set; }
+        public virtual IDbSet<Post> Posts { get; set; }
+        public virtual IDbSet<PostEndorsement> PostEndorsements { get; set; }
         public virtual IDbSet<UserEndorsement> UserEndorsements { get; set; }
     }
 }

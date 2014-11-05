@@ -5,6 +5,7 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
+    margin-top: 35px;
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -21,4 +22,8 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.navbar-brand:before {
+  text-decoration: none;
 }

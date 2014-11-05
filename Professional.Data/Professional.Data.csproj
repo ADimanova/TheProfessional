@@ -52,7 +52,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationData.cs" />
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="GenericRepository.cs" />
+    <Compile Include="IApplicationData.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

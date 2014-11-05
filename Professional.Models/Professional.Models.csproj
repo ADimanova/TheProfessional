@@ -53,8 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationUser.cs" />
-    <Compile Include="Article.cs" />
-    <Compile Include="ArticleEndorsement.cs" />
+    <Compile Include="Post.cs" />
+    <Compile Include="PostEndorsement.cs" />
     <Compile Include="UserEndorsement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
