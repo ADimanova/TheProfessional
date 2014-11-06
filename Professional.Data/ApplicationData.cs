@@ -23,6 +23,46 @@ namespace Professional.Data
             this.context = context;
         }
 
+        public IRepository<Post> Posts
+        {
+            get
+            {
+                return this.GetRepository<Post>();
+            }
+        }
+
+        public IRepository<EndorsementOfPost> EndorsementsOfPosts
+        {
+            get
+            {
+                return this.GetRepository<EndorsementOfPost>();
+            }
+        }
+
+        public IRepository<EndorsementOfUser> EndorsementsOfUsers
+        {
+            get
+            {
+                return this.GetRepository<EndorsementOfUser>();
+            }
+        }
+
+        public IRepository<FieldOfExpertise> FieldsOfExpertise
+        {
+            get
+            {
+                return this.GetRepository<FieldOfExpertise>();
+            }
+        }
+
+        public IRepository<Occupation> Occupations
+        {
+            get
+            {
+                return this.GetRepository<Occupation>();
+            }
+        }
+
         private IRepository<T> GetRepository<T>() where T : class
         {
             if (!this.repositories.ContainsKey(typeof(T)))
@@ -44,20 +84,12 @@ namespace Professional.Data
         {
             this.context.Dispose();
         }
-
-        public IRepository<Post> Posts
+        public IRepository<Company> Companies
         {
-            get { throw new NotImplementedException(); }
-        }
-
-        public IRepository<PostEndorsement> PostEndorsements
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public IRepository<UserEndorsement> UserEndorsements
-        {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return this.GetRepository<Company>();
+            }
         }
     }
 }

@@ -158,10 +158,15 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Profiles\ProfilesAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PostViewsDesignController.cs" />
+    <Compile Include="Controllers\ProfilesDesignController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -179,6 +184,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Administration\Views\web.config" />
+    <Content Include="Areas\Profiles\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -229,9 +236,26 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Admin\AdminPanel.cshtml" />
+    <Content Include="Views\ProfilesDesign\UserProfile.cshtml" />
+    <Content Include="Views\ProfilesDesign\PublicUserProfile.cshtml" />
+    <Content Include="Views\Admin\AdmiPanelUsers.cshtml" />
+    <Content Include="Views\Admin\AdminPanelPosts.cshtml" />
+    <Content Include="Views\ProfilesDesign\PublicCompanyProfile.cshtml" />
+    <Content Include="Views\ProfilesDesign\CompanyProfile.cshtml" />
+    <Content Include="Views\PostViewsDesign\UserPosts.cshtml" />
+    <Content Include="Views\PostViewsDesign\CompanyEndorsements.cshtml" />
+    <Content Include="Views\PostViewsDesign\UserEndorsements.cshtml" />
+    <Content Include="Views\Home\HomeDesign.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Administration\Controllers\" />
+    <Folder Include="Areas\Administration\Models\" />
+    <Folder Include="Areas\Administration\Views\Shared\" />
+    <Folder Include="Areas\Profiles\Controllers\" />
+    <Folder Include="Areas\Profiles\Models\" />
+    <Folder Include="Areas\Profiles\Views\Shared\" />
     <Folder Include="Images\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

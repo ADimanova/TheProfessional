@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Professional.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,8 +14,21 @@ namespace Professional.Web.Controllers
             return View();
         }
 
+        public ActionResult HomeDesign()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
+            this.data.FieldsOfExpertise.Add(
+            new FieldOfExpertise
+            {
+                Name = "Fishing"
+            });
+
+            this.data.SaveChanges();
+
             ViewBag.Message = "Your application description page.";
 
             return View();

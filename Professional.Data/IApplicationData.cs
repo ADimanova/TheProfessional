@@ -11,7 +11,10 @@ namespace Professional.Data
     public interface IApplicationData
     {
         IRepository<Post> Posts { get; }
-        IRepository<PostEndorsement> PostEndorsements { get; }
-        IRepository<UserEndorsement> UserEndorsements { get; }
+        IRepository<EndorsementOfPost> EndorsementsOfPosts { get; }
+        IRepository<EndorsementOfUser> EndorsementsOfUsers { get; }
+        IRepository<FieldOfExpertise> FieldsOfExpertise { get; }
+        IRepository<Occupation> Occupations { get; }
+        int SaveChanges();
     }
 }

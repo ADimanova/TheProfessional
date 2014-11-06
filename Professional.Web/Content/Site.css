@@ -27,3 +27,21 @@ textarea {
 .navbar-brand:before {
   text-decoration: none;
 }
+
+.list-group-margin {
+    margin-top: 2px;
+}
+
+.btn-posts {
+    margin-bottom: 1em;
+}
+
+.enlarged-glif {
+    margin-right: 4px;
+    font-size: 1.2em;
+}
+
+.panel-heading-wide {
+    font-size: 1.3em;
+    color: #666666;
+}

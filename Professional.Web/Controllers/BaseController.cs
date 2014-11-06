@@ -7,7 +7,7 @@ namespace Professional.Web.Controllers
 {
     public class BaseController : Controller
     {
-        IApplicationData data;
+        protected IApplicationData data;
 
         public BaseController(IApplicationData data)
         {
