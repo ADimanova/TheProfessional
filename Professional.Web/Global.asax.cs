@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Professional.Web.Infrastructure.Mappings;
+using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -12,15 +11,15 @@ namespace Professional.Web
     {
         protected void Application_Start()
         {
-            // Using only RazorViewEngine to increase performance
-            // (by default WebForms view engine is used as well). 
-            ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new RazorViewEngine());
+            ViewEnginesConfig.SetEngines(ViewEngines.Engines);
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            var autoMapperConfig = new AutoMapperConfig();
+            autoMapperConfig.Execute();
         }
     }
 }

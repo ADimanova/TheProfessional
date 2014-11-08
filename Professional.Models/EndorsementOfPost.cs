@@ -18,12 +18,12 @@ namespace Professional.Models
         public string Comment { get; set; }
 
         [Required]
-        public int EndorsedPostID { get; set; }
+        public string EndorsedPostID { get; set; }
 
         public virtual Post EndorsedPost { get; set; }
 
         [Required]
-        public int EndorsingUserID { get; set; }
+        public string EndorsingUserID { get; set; }
 
         public virtual User EndorsingUser { get; set; }
     }

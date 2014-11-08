@@ -17,13 +17,13 @@ namespace Professional.Models
         public int Value { get; set; }
         public string Comment { get; set; }
 
-        [Required]
-        public int EndorsedUserID { get; set; }
+        //[Required]
+        public string EndorsedUserID { get; set; }
 
         public virtual User EndorsedUser { get; set; }
 
         [Required]
-        public int EndorsingUserID { get; set; }
+        public string EndorsingUserID { get; set; }
 
         public virtual User EndorsingUser { get; set; }
     }

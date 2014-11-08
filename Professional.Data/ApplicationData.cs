@@ -23,6 +23,14 @@ namespace Professional.Data
             this.context = context;
         }
 
+        public IRepository<User> Users
+        {
+            get
+            {
+                return GetRepository<User>();
+            }
+        }
+
         public IRepository<Post> Posts
         {
             get

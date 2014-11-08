@@ -10,6 +10,7 @@ namespace Professional.Data
 {
     public interface IApplicationData
     {
+        IRepository<User> Users { get; }
         IRepository<Post> Posts { get; }
         IRepository<EndorsementOfPost> EndorsementsOfPosts { get; }
         IRepository<EndorsementOfUser> EndorsementsOfUsers { get; }

@@ -60,6 +60,11 @@ namespace Professional.Web.Controllers
             return View(model);
         }
 
+        public ActionResult AddInfoOnRegistrationView()
+        {
+            return View();
+        }
+
         //
         // GET: /Manage/RemoveLogin
         public ActionResult RemoveLogin()

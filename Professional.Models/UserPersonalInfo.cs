@@ -23,6 +23,7 @@ namespace Professional.Models
         [MinLength(2)]
         [MaxLength(40)]
         public string LastName { get; set; }
+
         public DateTime DateOfBirth { get; set; }
 
         [Column(TypeName = "ntext")]

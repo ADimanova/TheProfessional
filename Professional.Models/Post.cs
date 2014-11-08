@@ -28,7 +28,7 @@ namespace Professional.Models
         public string Content { get; set; }
 
         [Required]
-        public int CreatorID { get; set; }
+        public string CreatorID { get; set; }
         public User Creator { get; set; }
 
         public virtual ICollection<EndorsementOfPost> PostEndorsementsents

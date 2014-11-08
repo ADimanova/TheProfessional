@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Professional.Web.Models.IndexViewModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -10,62 +12,32 @@
     <div class="col-md-2 navbar navbar-default">
         <h6>Our top categories</h6>
         <ul class="nav nav-tabs nav-stacked" role="tablist">
-            <li role="presentation" class="active"><a href="#">Management</a></li>
-            <li role="presentation"><a href="#">Fishing</a></li>
-            <li role="presentation"><a href="#">Extreme Sports</a></li>
-            <li role="presentation"><a href="#">Cooking</a></li>
-            <li role="presentation"><a href="#">DIY</a></li>
-            <li role="presentation"><a href="#">Martial Arts</a></li>
-            <li role="presentation"><a href="#">Psycology</a></li>
-            <li role="presentation"><a href="#">Cinema</a></li>
-            <li role="presentation"><a href="#">Advertisement</a></li>
+            @foreach (var field in Model.Fields)
+            {
+                <li role="presentation"><a href="#">@field</a></li>
+            }
             <li role="presentation"><a href="#">More...</a></li>
         </ul>
     </div>
 
     <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="media">
-                    <a class="media-left" href="#">
-                        <img src="~/Images/news.png" style="width: 7em; height: auto;" />
-                    </a>
-                    <div class="media-body">
-                        <h5 class="media-heading">Some awesome news title here</h5>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin...
+        @foreach (var post in Model.Posts)
+        {
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="media">
+                        <a class="media-left" href="#">
+                            <img src="~/Images/news.png" style="width: 7em; height: auto;" />
+                        </a>
+                        <div class="media-body">
+                            <h5 class="media-heading">@post.Title</h5>
+                            @post.Content
+                        </div>
                         <a href="#" class="btn btn-default pull-right">Read more...</a>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="media">
-                    <a class="media-left" href="#">
-                        <img src="~/Images/news.png" style="width: 7em; height: auto;" />
-                    </a>
-                    <div class="media-body">
-                        <h5 class="media-heading">Some awesome news title here</h5>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin...
-                        <a href="#" class="btn btn-default pull-right">Read more...</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="media">
-                    <a class="media-left" href="#">
-                        <img src="~/Images/news.png" style="width: 7em; height: auto;" />
-                    </a>
-                    <div class="media-body">
-                        <h5 class="media-heading">Some awesome news title here</h5>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin...
-                        <a href="#" class="btn btn-default pull-right">Read more...</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        }
         <div>
             <a href="#" class="btn btn-default pull-left">View More...</a>
         </div>
@@ -75,35 +47,18 @@
         <div class="panel-body">
             <h4>Featured Professionals</h4>
             <hr />
-            <div class="media">
-                <a class="media-left" href="#">
-                    <img src="~/Images/default-profile-pic.png" alt="News Image" class="center-block img-circle" style="width: 5em; height: auto;" />
-                </a>
-                <div class="media-body">
-                    <h5 class="media-heading">Media heading</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin...
+            @foreach (var pro in Model.Featured)
+            {
+                <div class="media">
+                    <a class="media-left" href="~/ProfilesDesign/PublicUserProfile/@pro.ID">
+                        <img src="~/Images/default-profile-pic.png" alt="News Image" class="center-block img-circle" style="width: 5em; height: auto;" />
+                    </a>
+                    <div class="media-body">
+                        <h5 class="media-heading">@pro.FullName</h5>
+                        @pro.Description
+                    </div>
                 </div>
-            </div>
-            <br />
-            <div class="media">
-                <a class="media-left" href="#">
-                    <img src="~/Images/default-profile-pic.png" alt="News Image" class="center-block img-circle" style="width: 5em; height: auto;" />
-                </a>
-                <div class="media-body">
-                    <h5 class="media-heading">Media heading</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin...
-                </div>
-            </div>
-            <br />
-            <div class="media">
-                <a class="media-left" href="#">
-                    <img src="~/Images/default-profile-pic.png" alt="News Image" class="center-block img-circle" style="width: 5em; height: auto;" />
-                </a>
-                <div class="media-body">
-                    <h5 class="media-heading">Media heading</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin...
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>

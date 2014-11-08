@@ -28,6 +28,8 @@ textarea {
   text-decoration: none;
 }
 
+/*Added styles*/
+
 .list-group-margin {
     margin-top: 2px;
 }
@@ -44,4 +46,28 @@ textarea {
 .panel-heading-wide {
     font-size: 1.3em;
     color: #666666;
+}
+
+.bordered {
+    border: 1px solid rgba(0,0,0,0.08) !important;
+    border-radius: 3px !important;
+}
+
+.footer-customised {
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.static-link {
+    font-size: 110%;
+    color: #666666;
+    margin: 0 1em;
+}
+
+.content-area {
+    min-height: 50%;
+    min-width: 50%;
 }
