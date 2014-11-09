@@ -1,0 +1,56 @@
+﻿@model PublicProfileViewModel
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading">Personal Information</div>
+            <div class="panel-body">
+                <div class="media">
+                    <a class="media-left" href="#">
+                        <img src="~/Images/default-profile-pic.png" alt="News Image" style="width: 15em; height: auto;" />
+                    </a>
+                    <div class="media-body">
+                        <h5 class="media-heading">@Model.UserInfo.FullName</h5>
+                        @Model.UserInfo.GetPersonalHistory()
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Professional Information</div>
+            <div class="panel-body">
+                <h5 class="media-heading">Field</h5>
+                More info...
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">User Endorsements</div>
+            <div class="panel-body">
+                <h5 class="media-heading">Field</h5>
+                More info...
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+
+        @Html.Partial("~/Views/Shared/Partials/_BtnNavigate.cshtml", Model.BtnNavigatePosts)
+        @Html.Partial("~/Views/Shared/Partials/_BtnNavigate.cshtml", Model.BtnNavigateEndorsements)
+
+        <div id="top-posts">
+            @Html.Partial("~/Views/Shared/Partials/_ListPanel.cshtml", Model.TopPostsList)
+        </div>
+
+        <div id="top-posts">
+            @Html.Partial("~/Views/Shared/Partials/_ListPanel.cshtml", Model.RecentPostsList)
+        </div>
+    </div>
+</div>
+
+
+

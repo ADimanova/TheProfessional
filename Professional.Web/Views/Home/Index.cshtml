@@ -1,4 +1,4 @@
-﻿@model Professional.Web.Models.IndexViewModel
+﻿@model IndexViewModel
 
 @{
     ViewBag.Title = "Home Page";
@@ -9,16 +9,7 @@
 </div>
 
 <div class="row">    
-    <div class="col-md-2 navbar navbar-default">
-        <h6>Our top categories</h6>
-        <ul class="nav nav-tabs nav-stacked" role="tablist">
-            @foreach (var field in Model.Fields)
-            {
-                <li role="presentation"><a href="#">@field</a></li>
-            }
-            <li role="presentation"><a href="#">More...</a></li>
-        </ul>
-    </div>
+    @Html.Partial("~/Views/Shared/Partials/_HorizontalNavBar.cshtml", Model.FieldsListing)
 
     <div class="col-md-6">
         @foreach (var post in Model.Posts)
@@ -50,7 +41,7 @@
             @foreach (var pro in Model.Featured)
             {
                 <div class="media">
-                    <a class="media-left" href="~/ProfilesDesign/PublicUserProfile/@pro.ID">
+                    <a class="media-left" href="~/UserArea/Public/Profile/@pro.ID">
                         <img src="~/Images/default-profile-pic.png" alt="News Image" class="center-block img-circle" style="width: 5em; height: auto;" />
                     </a>
                     <div class="media-body">

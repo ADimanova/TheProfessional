@@ -194,11 +194,14 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
-    <Compile Include="Areas\Profiles\Controllers\UsersProfileController.cs" />
-    <Compile Include="Areas\Profiles\Models\UserViewModel.cs" />
-    <Compile Include="Areas\Profiles\ProfilesAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\AdminController.cs" />
+    <Compile Include="Areas\UserArea\Controllers\PublicController.cs" />
+    <Compile Include="Areas\UserArea\Controllers\UserController.cs" />
+    <Compile Include="Areas\UserArea\Controllers\PrivateController.cs" />
+    <Compile Include="Areas\UserArea\Models\PublicProfileViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\UserViewModel.cs" />
+    <Compile Include="Areas\UserArea\UserAreaAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -212,7 +215,9 @@
     <Compile Include="Infrastructure\Mappings\IHaveCustomMappings.cs" />
     <Compile Include="Infrastructure\Mappings\IMapFrom.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\HorizontalNavbarViewModel.cs" />
     <Compile Include="Models\IndexViewModel.cs" />
+    <Compile Include="Models\ListPanelViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PostSimpleViewModel.cs" />
     <Compile Include="Models\PostViewModel.cs" />
@@ -230,11 +235,12 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Administration\Views\web.config" />
-    <Content Include="Areas\Profiles\Views\web.config" />
-    <Content Include="Areas\Profiles\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Profiles\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Profiles\Views\View.cshtml" />
-    <Content Include="Areas\Profiles\Views\UserPublicView.cshtml" />
+    <Content Include="Areas\UserArea\Views\web.config" />
+    <Content Include="Areas\UserArea\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\View.cshtml" />
+    <Content Include="Areas\UserArea\Views\Public\Profile.cshtml" />
+    <Content Include="Areas\UserArea\Views\Private\Profile.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -298,13 +304,21 @@
     <Content Include="Views\Home\HomeDesign.cshtml" />
     <Content Include="Views\Manage\AddInfoOnRegistrationView.cshtml" />
     <Content Include="Views\PostViewsDesign\CreatePostView.cshtml" />
+    <Content Include="Views\Shared\Partials\_SearchBar.cshtml" />
+    <Content Include="Views\Shared\Partials\_BtnNavigate.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Boolean.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
+    <Content Include="Views\Shared\Partials\_ListPanel.cshtml" />
+    <Content Include="Views\Shared\Partials\_InputField.cshtml" />
+    <Content Include="Views\Shared\Partials\_HorizontalNavBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Administration\Controllers\" />
     <Folder Include="Areas\Administration\Models\" />
+    <Folder Include="Areas\Administration\Views\Admin\" />
     <Folder Include="Areas\Administration\Views\Shared\" />
-    <Folder Include="Areas\Profiles\Views\UsersProfile\" />
     <Folder Include="Images\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

@@ -17,7 +17,7 @@ namespace Professional.Web.Models
 
         public void CreateMappings(IConfiguration configuration)
         {
-             // Can't use string.Format() with Linq - instead using string concatenation
+            // TODO: Try to get aroud using string concatenation - use model GetFullName method
             configuration.CreateMap<User, UserSimpleViewModel>()
                .ForMember(p => p.FullName,
                options => options.MapFrom(u => u.FirstName + " " + u.LastName));
@@ -26,14 +26,5 @@ namespace Professional.Web.Models
                 .ForMember(p => p.Description,
                 options => options.MapFrom(u => "added description"));
         }
-
-        //public class CustomFullNameResolver : ValueResolver<User, string>
-        //{
-        //    protected override string ResolveCore(User source)
-        //    {
-        //        var fullName = string.Format("{0} {1}", source.FirstName, source.LastName);
-        //        return fullName;
-        //    }
-        //}
     }
 }

@@ -15,6 +15,6 @@ namespace Professional.Web.Models
         public bool BrowserRemembered { get; set; }
         public IEnumerable<UserSimpleViewModel> Featured { get; set; }
         public IEnumerable<PostSimpleViewModel> Posts { get; set; }
-        public IEnumerable<string> Fields { get; set; }
+        public HorizontalNavbarViewModel FieldsListing { get; set; }
     }
 }

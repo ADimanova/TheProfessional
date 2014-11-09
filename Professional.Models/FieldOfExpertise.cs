@@ -9,6 +9,11 @@ namespace Professional.Models
 {
     public class FieldOfExpertise
     {
+        private ICollection<User> holders;
+        public FieldOfExpertise()
+		{
+            this.holders = new HashSet<User>();
+		}
         [Key]
         public int ID { get; set; }
 
@@ -17,5 +22,11 @@ namespace Professional.Models
 
         [Required]
         public int Rank { get; set; }
+
+        public virtual ICollection<User> Holders
+        {
+            get { return this.holders; }
+            set { this.holders = value; }
+        }
     }
 }

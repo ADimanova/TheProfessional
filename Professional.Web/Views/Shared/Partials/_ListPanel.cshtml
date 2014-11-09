@@ -1,0 +1,40 @@
+﻿@model ListPanelViewModel
+
+@using (Ajax.BeginForm("TopPosts", null,
+        new AjaxOptions
+        {
+            UpdateTargetId = "posts",
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "POST"
+        }, new { id = "topPostsForm" }))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Top Posts
+            <div class="dropdown pull-right">
+                <button class="btn btn-xs btn-default dropdown-toggle" type="button" id="dropdownFields" data-toggle="dropdown">
+                    by field
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuTopPosts">
+                    @foreach (var field in Model.Fields)
+                    {
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">@field.Name</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="list-group list-group-margin">
+            @foreach (var item in Model.Items)
+            {
+                <a href="#" class="list-group-item">@item.Title</a>
+            }
+        </div>
+    </div>
+}
+
+<script>
+    function changed() {
+        $("#dropdownFields").submit();
+    }
+</script>

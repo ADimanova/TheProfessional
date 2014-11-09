@@ -30,15 +30,19 @@ namespace Professional.Web.Controllers
                 .Project().To<PostSimpleViewModel>()
                 .ToList<PostSimpleViewModel>();
 
-            // TODO: Don't get administrators
+            // TODO: Don't get administrators (the code is ready to be added)
             var featured = this.data.Users.All()
                 .OrderByDescending(u => u.UsersEndorsements.Count)
                 .Take(FeaturedCount)
                 .Project().To<UserSimpleViewModel>()
                 .ToList<UserSimpleViewModel>();
 
+            var fieldsView = new HorizontalNavbarViewModel();
+            fieldsView.Title = "Our top fields";
+            fieldsView.ListItems = fields;
+
             var vielModel = new IndexViewModel();
-            vielModel.Fields = fields;
+            vielModel.FieldsListing = fieldsView;
             vielModel.Posts = posts;
             vielModel.Featured = featured;
 
@@ -52,12 +56,6 @@ namespace Professional.Web.Controllers
 
         public ActionResult About()
         {
-            this.data.FieldsOfExpertise.Add(
-            new FieldOfExpertise
-            {
-                Name = "Fishing"
-            });
-
             this.data.SaveChanges();
 
             ViewBag.Message = "Your application description page.";

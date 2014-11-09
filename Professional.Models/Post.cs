@@ -30,6 +30,7 @@ namespace Professional.Models
         [Required]
         public string CreatorID { get; set; }
         public User Creator { get; set; }
+        public int Rank { get; set; }
 
         public virtual ICollection<EndorsementOfPost> PostEndorsementsents
         {
