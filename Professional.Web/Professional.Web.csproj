@@ -198,8 +198,11 @@
     <Compile Include="Areas\UserArea\Controllers\PublicController.cs" />
     <Compile Include="Areas\UserArea\Controllers\UserController.cs" />
     <Compile Include="Areas\UserArea\Controllers\PrivateController.cs" />
-    <Compile Include="Areas\UserArea\Models\PublicProfileViewModel.cs" />
-    <Compile Include="Areas\UserArea\Models\UserViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\ListCollectionViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\PostsByFieldViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\PageViewModel\PrivateProfileViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\PageViewModel\PublicProfileViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\DatabaseVeiwModels\UserViewModel.cs" />
     <Compile Include="Areas\UserArea\UserAreaAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -216,12 +219,13 @@
     <Compile Include="Infrastructure\Mappings\IMapFrom.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HorizontalNavbarViewModel.cs" />
-    <Compile Include="Models\IndexViewModel.cs" />
+    <Compile Include="Models\PageViewModels\IndexViewModel.cs" />
     <Compile Include="Models\ListPanelViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\PostSimpleViewModel.cs" />
-    <Compile Include="Models\PostViewModel.cs" />
-    <Compile Include="Models\UserSimpleViewModel.cs" />
+    <Compile Include="Models\NavigationItem.cs" />
+    <Compile Include="Models\DatabaseViewModels\PostSimpleViewModel.cs" />
+    <Compile Include="Models\DatabaseViewModels\PostViewModel.cs" />
+    <Compile Include="Models\DatabaseViewModels\UserSimpleViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -237,10 +241,11 @@
     <Content Include="Areas\Administration\Views\web.config" />
     <Content Include="Areas\UserArea\Views\web.config" />
     <Content Include="Areas\UserArea\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\UserArea\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\View.cshtml" />
     <Content Include="Areas\UserArea\Views\Public\Profile.cshtml" />
     <Content Include="Areas\UserArea\Views\Private\Profile.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\_ListCollection.cshtml" />
+    <Content Include="Areas\UserArea\Views\Public\Posts.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -319,6 +324,7 @@
     <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Areas\Administration\Views\Admin\" />
     <Folder Include="Areas\Administration\Views\Shared\" />
+    <Folder Include="Helpers\" />
     <Folder Include="Images\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

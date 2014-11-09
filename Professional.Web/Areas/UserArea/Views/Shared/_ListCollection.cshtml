@@ -1,0 +1,54 @@
+﻿@model ListCollectionViewModel
+
+@{
+    ViewBag.Title = "_ListCollection";
+}
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading panel-heading-wide">
+                <span class="panel-heading-wide">
+                    @Model.Title
+                </span>
+                <div class="dropdown pull-right">
+                    @* Partial for dropdown *@
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownFields" data-toggle="dropdown">
+                        by field
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuEndorsements">
+                        @foreach (var field in Model.Fields)
+                        {
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">@field.Name</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="list-group list-group-margin">
+                @for (int i = 0; i < Model.Fields.Count; i++)
+                {
+                    var field = Model.Fields[i];
+                    <span class="list-group-item"><strong>@field.Name</strong></span>
+                    for (int j = 0; j < field.Posts.Count; j++)
+                    {
+                        var post = field.Posts[j];
+                        <a href="#" class="list-group-item">@post.Title</a>
+                    }
+                }                
+            </div>
+            <ul class="pagination pagination-sm pull-left">
+                <li class="disabled"><a href="#">«</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">»</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+
+

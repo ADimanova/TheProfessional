@@ -22,7 +22,11 @@ namespace Professional.Web.Controllers
             var fields = this.data.FieldsOfExpertise.All()
                 .OrderByDescending(f => f.Rank)
                 .Take(FieldsCount)
-                .Select(f => f.Name);
+                .Select(f => new NavigationItem
+                {
+                    Content = f.Name,
+                    Url = "#"
+                });
 
             var posts = this.data.Posts.All()
                 .OrderByDescending(p => p.DateCreated)

@@ -36,6 +36,7 @@
     </div>
     <div class="container body-content">
         @RenderBody()
+        @RenderSection("SideBar", false)
         <div class="footer-customised">
             <hr />
             @Html.ActionLink("Home", "Index", "Home", new { @class = "static-link" })

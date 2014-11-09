@@ -1,11 +1,11 @@
 ﻿@model HorizontalNavbarViewModel
 
-<div class="col-md-2 navbar navbar-default">
+<div class="navbar navbar-default text-center">
     <h6>@Model.Title</h6>
     <ul class="nav nav-tabs nav-stacked" role="tablist">
         @foreach (var item in Model.ListItems)
         {
-            <li role="presentation"><a href="#">@item</a></li>
+            <li role="presentation"><a href="@item.Url">@item.Content</a></li>
         }
         <li role="presentation"><a href="#">More...</a></li>
     </ul>

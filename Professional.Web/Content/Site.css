@@ -71,3 +71,13 @@ textarea {
     min-height: 50%;
     min-width: 50%;
 }
+
+.holder {
+    position: relative;
+}
+
+.set-bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

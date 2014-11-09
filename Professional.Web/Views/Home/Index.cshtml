@@ -8,8 +8,10 @@
     <img src="~/Images/professionals.jpg" class="center-block" />
 </div>
 
-<div class="row">    
-    @Html.Partial("~/Views/Shared/Partials/_HorizontalNavBar.cshtml", Model.FieldsListing)
+<div class="row">
+    <div class="col-md-2">
+        @Html.Partial("~/Views/Shared/Partials/_HorizontalNavBar.cshtml", Model.FieldsListing)
+    </div>
 
     <div class="col-md-6">
         @foreach (var post in Model.Posts)

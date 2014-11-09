@@ -34,11 +34,29 @@ namespace Professional.Web.Areas.UserArea.Controllers
             var publicProfileInfo = new PublicProfileViewModel();
             publicProfileInfo.UserInfo = userInfoForView;
             publicProfileInfo.BtnNavigatePosts = "See post's page";
-            publicProfileInfo.BtnNavigateEndorsements = "See post's page";
+            publicProfileInfo.BtnNavigateEndorsements = "See endorsements's page";
             publicProfileInfo.TopPostsList = topPostPanel;
             publicProfileInfo.RecentPostsList = recentPostPanel;
 
             return View(publicProfileInfo);
+        }
+
+        // GET: UserArea/Public/Posts/{id}
+        public ActionResult Posts(string id)
+        {
+            var posts = this.GetAllPosts(id);
+            var grouped = posts.GroupBy(p => p.FieldID)
+                .Select(p => new PostsByFieldViewModel
+                {
+                    Name = p.FirstOrDefault().Field.Name,
+                    Posts = p.ToList()
+                });
+
+            var viewModel = new ListCollectionViewModel();
+            viewModel.Title = "Posts";
+            viewModel.Fields = grouped.ToList();
+
+            return View(viewModel);
         }
     }
 }

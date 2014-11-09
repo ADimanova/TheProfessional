@@ -30,6 +30,11 @@ namespace Professional.Models
         [Required]
         public string CreatorID { get; set; }
         public User Creator { get; set; }
+
+        [Required]
+        public int FieldID { get; set; }
+        public FieldOfExpertise Field { get; set; }
+
         public int Rank { get; set; }
 
         public virtual ICollection<EndorsementOfPost> PostEndorsementsents

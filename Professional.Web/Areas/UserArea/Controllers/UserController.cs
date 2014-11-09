@@ -1,4 +1,5 @@
 ﻿using Professional.Common;
+using Professional.Models;
 using Professional.Web.Controllers;
 using System;
 using System.Collections;
@@ -21,6 +22,14 @@ namespace Professional.Web.Areas.UserArea.Controllers
             return fields;
         }
 
+        protected IQueryable<Post> GetAllPosts(string currentUserId)
+        {
+            var post = this.data.Posts.All()
+                .Where(p => p.CreatorID == currentUserId)
+                .OrderBy(p => p.Title);
+
+            return post;
+        }
         protected IList GetRecentPosts(string currentUserId)
         {
             var recentPost = this.data.Posts.All()

@@ -26,24 +26,35 @@ namespace Professional.Web.Areas.UserArea.Controllers
             Mapper.CreateMap<User, UserViewModel>();
             var userInfoForView = Mapper.Map<UserViewModel>(currentUser);
 
-            var userFields = (List<FieldOfExpertise>)this.GetUserFields(currentUserId);
+            var privateProfileInfo = new PrivateProfileViewModel();
 
-            var topPostPanel = new ListPanelViewModel();
-            topPostPanel.Items = (List<Post>)this.GetTopPosts(currentUserId);
-            topPostPanel.Fields = userFields;
+            IList<NavigationItem> navItems = this.GetNavItems();
+            var navList = new HorizontalNavbarViewModel();
+            navList.Title = "Navigation";
+            navList.ListItems = navItems;
+            privateProfileInfo.UserInfo = userInfoForView;
+            privateProfileInfo.NavigationList = navList;
 
-            var recentPostPanel = new ListPanelViewModel();
-            recentPostPanel.Items = (List<Post>)this.GetRecentPosts(currentUserId);
-            recentPostPanel.Fields = userFields;
+            return View(privateProfileInfo);
+        }
 
-            var publicProfileInfo = new PublicProfileViewModel();
-            publicProfileInfo.UserInfo = userInfoForView;
-            publicProfileInfo.BtnNavigatePosts = "See post's page";
-            publicProfileInfo.BtnNavigateEndorsements = "See post's page";
-            publicProfileInfo.TopPostsList = topPostPanel;
-            publicProfileInfo.RecentPostsList = recentPostPanel;
-
-            return View(publicProfileInfo);
+        private IList<NavigationItem> GetNavItems()
+        {
+            return new List<NavigationItem>
+            {
+                new NavigationItem { 
+                    Content = "Create Post",
+                    Url = ""
+                },
+                new NavigationItem { 
+                    Content = "Go to post's page",
+                    Url = ""
+                },
+                new NavigationItem { 
+                    Content = "Go to endorsements's page",
+                    Url = ""
+                },
+            };
         }
     }
 }
