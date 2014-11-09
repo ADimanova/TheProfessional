@@ -44,7 +44,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             {
                 new NavigationItem { 
                     Content = "Create Post",
-                    Url = ""
+                    Url = "/UserArea/CreateItem/Post"
                 },
                 new NavigationItem { 
                     Content = "Go to post's page",

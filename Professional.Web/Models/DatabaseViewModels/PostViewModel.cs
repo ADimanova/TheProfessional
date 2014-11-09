@@ -15,12 +15,20 @@ namespace Professional.Web.Models
         public DateTime DateCreated { get; set; }
         public string Content { get; set; }
         public String Creator { get; set; }
+        public string FieldName { get; set; }
+        public IEnumerable<string> Fields { get; set; }
 
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Post, PostViewModel>()
                 .ForMember(p => p.Creator, 
                 options => options.MapFrom(c => string.Format("{0} {1}", c.Creator.FirstName, c.Creator.LastName)));
+            configuration.CreateMap<Post, PostViewModel>()
+                .ForMember(p => p.Fields,
+                options => options.MapFrom(c => c.Creator
+                    .FieldsOfExpertise
+                    .Select(f => f.Name)
+                    .ToList()));
         }
     }
 }
