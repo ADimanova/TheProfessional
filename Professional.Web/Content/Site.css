@@ -81,3 +81,8 @@ textarea {
     bottom: 0;
     right: 0;
 }
+
+.widden {
+    width: 100%;
+    position: relative;
+}

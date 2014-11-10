@@ -6,8 +6,13 @@
     <title>@ViewBag.Title - The Professional</title>
     @Styles.Render("~/Content/bootstrap.min.css")
     @Styles.Render("~/Content/Site.css")
+
     @Scripts.Render("~/bundles/modernizr")
 
+    @Scripts.Render("~/bundles/jquery") @*Needed for Kendo*@
+
+    @RenderSection("styles", false);
+    @*@Styles.Render("~/Content/custom"); - create bundle*@
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top">
@@ -48,7 +53,6 @@
         </div>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

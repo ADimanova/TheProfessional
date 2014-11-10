@@ -1,0 +1,39 @@
+﻿@using Professional.Web.Models
+@model UserSimpleViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="usersDb">
+    @(Html.Kendo().Grid<UserSimpleViewModel>()
+    .Name("grid-users")
+    .Columns(columns =>
+    {
+        columns.Bound(u => u.FullName);
+    })
+    .Scrollable()
+    .Groupable()
+    .Sortable()
+    .Pageable(pageable => pageable
+        .Refresh(true)
+        .PageSizes(true)
+        .ButtonCount(5))
+    .DataSource(data =>
+        {
+            data
+                .Ajax()
+                .Read("Read_Users", "UsersAdmin");
+        }
+    )
+)
+</div>
+
+<style scoped>
+    #usersDb {
+        width: 952px;
+        height: 396px;
+        margin: 20px auto 0;
+        padding: 51px 4px 0 4px;
+    }
+</style>

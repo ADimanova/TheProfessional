@@ -11,6 +11,6 @@ namespace Professional.Web.Areas.Administration.Controllers
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public abstract class AdminController : BaseController
     {
-        //ChildActionOnly]
+        //[ChildActionOnly]
     }
 }

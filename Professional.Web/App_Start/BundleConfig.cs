@@ -8,8 +8,27 @@ namespace Professional.Web
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+            bundles.IgnoreList.Clear();
+
+            RegisterScripts(bundles);
+
+            RegisterStyles(bundles);
+
+            //// Set EnableOptimizations to false for debugging. For more information,
+            //// visit http://go.microsoft.com/fwlink/?LinkId=301862
+
+            BundleTable.EnableOptimizations = true;
+        }
+
+        public static void RegisterScripts(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/jquery")
+                .Include("~/Scripts/kendo/jquery.min.js"));
+                //.Include("~/Scripts/jquery-{version}.js"));
+
+            bundles.Add(new ScriptBundle("~/Js/kendo").Include(
+                    "~/Scripts/kendo/kendo.all.min.js",
+                    "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -22,14 +41,17 @@ namespace Professional.Web
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
+        }
 
+        public static void RegisterStyles(BundleCollection bundles)
+        {
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            // Set EnableOptimizations to false for debugging. For more information,
-            // visit http://go.microsoft.com/fwlink/?LinkId=301862
-            BundleTable.EnableOptimizations = true;
+            bundles.Add(new StyleBundle("~/Css/kendo").Include(
+                        "~/Content/kendo/kendo.common.*",
+                        "~/Content/kendo/kendo.default.*"));
         }
     }
 }

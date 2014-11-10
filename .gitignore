@@ -183,3 +183,8 @@ UpgradeLog*.htm
 FakesAssemblies/
 /R2D2/R2D2.WebClient/Web.config
 /R2D2/R2D2.WebClient/Books/*
+
+#Kendo
+Professional.Web/Libraries/*
+Professional.Web/Scripts/kendo/*
+Professional.Web/Content/kendo/*

@@ -1,0 +1,20 @@
+﻿@model PostViewModel
+@{
+    ViewBag.Title = "Post";
+}
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="page-header">
+                <h1>
+                    @Model.Title <small>created by @Model.Creator</small>
+                </h1>
+            </div>
+            <p>
+                @Model.Content
+            </p>
+        </div>
+    </div>
+</div>
+
