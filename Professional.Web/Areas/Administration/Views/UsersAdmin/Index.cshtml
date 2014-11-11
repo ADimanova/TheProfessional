@@ -1,16 +1,16 @@
 ﻿@using Professional.Web.Models
-@model UserSimpleViewModel
-
+@model IEnumerable<UserSimpleViewModel>
 @{
     ViewBag.Title = "Index";
 }
 
 <div id="usersDb">
-    @(Html.Kendo().Grid<UserSimpleViewModel>()
+    @(Html.Kendo().Grid<UserSimpleViewModel>(Model)
     .Name("grid-users")
     .Columns(columns =>
     {
         columns.Bound(u => u.FullName);
+        columns.Bound(u => u.Description);
     })
     .Scrollable()
     .Groupable()

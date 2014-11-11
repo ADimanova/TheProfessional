@@ -1,4 +1,6 @@
-﻿@model IndexViewModel
+﻿@using Professional.Web.Helpers;
+
+@model IndexViewModel
 
 @{
     ViewBag.Title = "Home Page";
@@ -25,7 +27,7 @@
                         <div class="media-body widden">
                             <h5 class="media-heading">@post.Title</h5>
                             @post.Content
-                            <a href="#" class="btn btn-default set-bottom-right">Read more...</a>
+                            <a href="@(WebConstants.PostPageRoute + post.ID)" class="btn btn-default set-bottom-right">Read more...</a>
                         </div>
                     </div>
                 </div>

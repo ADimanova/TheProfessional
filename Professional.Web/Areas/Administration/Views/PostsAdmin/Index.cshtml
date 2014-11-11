@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Professional.Web.Models.PostViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+<div id="clientsDb">
+    @(Html.Kendo().Grid<Professional.Web.Models.PostViewModel>(Model)
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Title);
+        })
+        .Scrollable()
+        .Groupable()
+        .Sortable()
+        .Pageable(pageable => pageable
+            .Refresh(true)
+            .PageSizes(true)
+            .ButtonCount(5))
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .Read(read => read.Action("Posts_Read", "PostsAdmin"))
+        )
+    )
+</div>
+
+
+

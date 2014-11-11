@@ -11,7 +11,7 @@ namespace Professional.Web.Controllers
 {
     public class PostDisplayController : BaseController
     {
-        // GET: Post
+        // GET: PostDisplay/Post
         public ActionResult Post(int id)
         {
             //TODO: handle if post does not exist

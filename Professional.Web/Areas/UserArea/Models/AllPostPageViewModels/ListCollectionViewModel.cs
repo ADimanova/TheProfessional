@@ -10,6 +10,6 @@ namespace Professional.Web.Areas.UserArea.Models
     public class ListCollectionViewModel
     {
         public string Title { get; set; }
-        public IList<PostsByFieldViewModel> Fields { get; set; }
+        public IList<ItemsByFieldViewModel> Fields { get; set; }
     }
 }

@@ -41,15 +41,28 @@ namespace Professional.Web.Areas.UserArea.Controllers
             return View(publicProfileInfo);
         }
 
-        // GET: UserArea/Public/Posts/{id}
+        // GET: UserArea/Public/Posts/{id} - the user id here 
         public ActionResult Posts(string id)
         {
-            var posts = this.GetAllPosts(id);
+            IQueryable<Post> posts = new List<Post>().AsQueryable();
+            if (id != null)
+            {
+                posts = this.GetAllPostsOfUser(id);                
+            }
+            else
+            {
+                posts = this.GetAllPosts(); 
+            }
+
             var grouped = posts.GroupBy(p => p.FieldID)
-                .Select(p => new PostsByFieldViewModel
+                .Select(p => new ItemsByFieldViewModel
                 {
                     Name = p.FirstOrDefault().Field.Name,
-                    Posts = p.ToList()
+                    Items = p.Select(i => new NavigationItem
+                    {
+                        Content = i.Title,
+                        Url = "#"
+                    }).ToList()
                 });
 
             var viewModel = new ListCollectionViewModel();

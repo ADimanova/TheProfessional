@@ -30,10 +30,10 @@
                 {
                     var field = Model.Fields[i];
                     <span class="list-group-item"><strong>@field.Name</strong></span>
-                    for (int j = 0; j < field.Posts.Count; j++)
+                    for (int j = 0; j < field.Items.Count; j++)
                     {
-                        var post = field.Posts[j];
-                        <a href="#" class="list-group-item">@post.Title</a>
+                        var item = field.Items[j];
+                        <a href="@item.Url" class="list-group-item">@item.Content</a>
                     }
                 }                
             </div>

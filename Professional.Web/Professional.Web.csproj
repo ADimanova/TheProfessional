@@ -198,13 +198,15 @@
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Administration\Controllers\PostsAdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\UsersAdminController.cs" />
     <Compile Include="Areas\UserArea\Controllers\CreateItemController.cs" />
     <Compile Include="Areas\UserArea\Controllers\PublicController.cs" />
+    <Compile Include="Areas\UserArea\Controllers\SearchController.cs" />
     <Compile Include="Areas\UserArea\Controllers\UserController.cs" />
     <Compile Include="Areas\UserArea\Controllers\PrivateController.cs" />
     <Compile Include="Areas\UserArea\Models\AllPostPageViewModels\ListCollectionViewModel.cs" />
-    <Compile Include="Areas\UserArea\Models\AllPostPageViewModels\PostsByFieldViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\AllPostPageViewModels\ItemsByFieldViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\PageViewModel\PrivateProfileViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\PageViewModel\PublicProfileViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\DatabaseVeiwModels\UserViewModel.cs" />
@@ -269,6 +271,8 @@
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Url.cshtml" />
+    <Content Include="Areas\Administration\Views\PostsAdmin\Index.cshtml" />
+    <Content Include="Areas\UserArea\Views\Search\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -321,11 +325,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Admin\AdminPanel.cshtml" />
     <Content Include="Views\ProfilesDesign\UserProfile.cshtml" />
     <Content Include="Views\ProfilesDesign\PublicUserProfile.cshtml" />
-    <Content Include="Views\Admin\AdmiPanelUsers.cshtml" />
-    <Content Include="Views\Admin\AdminPanelPosts.cshtml" />
     <Content Include="Views\ProfilesDesign\PublicCompanyProfile.cshtml" />
     <Content Include="Views\ProfilesDesign\CompanyProfile.cshtml" />
     <Content Include="Views\PostViewsDesign\UserPosts.cshtml" />
@@ -344,6 +345,7 @@
     <Content Include="Views\Shared\Partials\_InputField.cshtml" />
     <Content Include="Views\Shared\Partials\_HorizontalNavBar.cshtml" />
     <Content Include="Views\PostDisplay\Post.cshtml" />
+    <Content Include="Views\Shared\Partials\_Dropdown.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

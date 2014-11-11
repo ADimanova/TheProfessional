@@ -22,7 +22,15 @@ namespace Professional.Web.Areas.UserArea.Controllers
             return fields;
         }
 
-        protected IQueryable<Post> GetAllPosts(string currentUserId)
+        protected IQueryable<Post> GetAllPosts()
+        {
+            var post = this.data.Posts.All()
+                .OrderBy(p => p.Title);
+
+            return post;
+        }
+
+        protected IQueryable<Post> GetAllPostsOfUser(string currentUserId)
         {
             var post = this.data.Posts.All()
                 .Where(p => p.CreatorID == currentUserId)

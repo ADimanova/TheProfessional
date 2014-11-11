@@ -1,0 +1,10 @@
+﻿@model IEnumerable<NavigationItem>
+
+<ul class="dropdown-menu">
+    @foreach (var item in Model)
+    {
+        <li><a href="@item.Url">@item.Content</a></li>
+    }
+</ul>
+
+

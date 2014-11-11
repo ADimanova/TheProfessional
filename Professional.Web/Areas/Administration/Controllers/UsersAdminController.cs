@@ -13,17 +13,12 @@ namespace Professional.Web.Areas.Administration.Controllers
     public class UsersAdminController : AdminController
     {
         // GET: Administration/UsersAdmin
-        public ActionResult Index()
+        public ActionResult Index([DataSourceRequest]DataSourceRequest request)
         {
-            ViewBag.Users = this.data.Users.All()
-                .Project().To<UserSimpleViewModel>()
-                .ToList<UserSimpleViewModel>();
-
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Read_Users([DataSourceRequest]DataSourceRequest request)
+        public JsonResult Read_Users([DataSourceRequest]DataSourceRequest request)
         {
             var users = this.data.Users.All()
                 .OrderByDescending(u => u.FirstName)
@@ -31,7 +26,7 @@ namespace Professional.Web.Areas.Administration.Controllers
                 .Project().To<UserSimpleViewModel>()
                 .ToDataSourceResult(request); // allows paging, sorting, etc.
 
-            return Json(users);
+            return Json(users, JsonRequestBehavior.AllowGet);
         }
     }
 }

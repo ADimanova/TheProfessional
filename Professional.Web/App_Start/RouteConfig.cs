@@ -20,6 +20,11 @@ namespace Professional.Web
             );
 
             routes.MapRoute(
+            name: "EntityNavigation",
+            url: "Home/{controller}/{action}/{id}"
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
