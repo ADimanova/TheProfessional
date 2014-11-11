@@ -25,8 +25,10 @@
                             <img src="~/Images/news.png" style="width: 7em; height: auto;" />
                         </a>
                         <div class="media-body widden">
-                            <h5 class="media-heading">@post.Title</h5>
-                            @post.Content
+                            <h5 class="media-heading">
+                                @StringManipulations.GetSubstring(post.Title, 0, WebConstants.TitleLength)
+                            </h5>
+                            @StringManipulations.GetSubstring(post.Content, 0, WebConstants.ContentLength)
                             <a href="@(WebConstants.PostPageRoute + post.ID)" class="btn btn-default set-bottom-right">Read more...</a>
                         </div>
                     </div>
@@ -34,7 +36,7 @@
             </div>
         }
         <div>
-            <a href="#" class="btn btn-default pull-left">View More...</a>
+            <a href="@WebConstants.PostsPageRoute" class="btn btn-default pull-left">View More...</a>
         </div>
     </div>
 
@@ -45,13 +47,13 @@
             @foreach (var pro in Model.Featured)
             {
                 <div class="media">
-                    <a class="media-left" href="~/UserArea/Public/Profile/@pro.ID">
+                    <a class="media-left" href="@(WebConstants.PublicProfilePageRoute + pro.ID)">
                         <img src="~/Images/default-profile-pic.png" alt="News Image" class="center-block img-circle" style="width: 5em; height: auto;" />
                     </a>
-                    <div class="media-body">
-                        <h5 class="media-heading">@pro.FullName</h5>
-                        @pro.Description
-                    </div>
+                        <div class="media-body feature">
+                            <h5 class="media-heading">@pro.FullName</h5>
+                             pro at @StringManipulations.GetJoinedList(pro.FieldList)
+                        </div>
                 </div>
             }
         </div>

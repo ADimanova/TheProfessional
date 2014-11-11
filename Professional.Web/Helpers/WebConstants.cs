@@ -8,9 +8,16 @@ namespace Professional.Web.Helpers
 {
     public static class WebConstants
     {
-        public static string PostPageRoute = "/PostDisplay/Post/";
-        public static string PostsPageRoute = "/UserArea/Public/Posts/";
+        // Routes
+        public const string PostPageRoute = "/PostDisplay/Post/";
+        public const string PostsPageRoute = "/UserArea/Public/Posts/";
+        public const string PublicProfilePageRoute = "/UserArea/Public/Profile/";
+
+        //Visualization
         public const int PostsPerPage = 5;
+
+        public const int TitleLength = 20;
+        public const int ContentLength = 100;
 
         public static List<NavigationItem> SiteSections = new List<NavigationItem> {
             new NavigationItem

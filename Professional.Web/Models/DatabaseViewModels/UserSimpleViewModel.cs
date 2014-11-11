@@ -13,7 +13,7 @@ namespace Professional.Web.Models
     {
         public string ID { get; set; }
         public string FullName { get; set; }
-        public string Description { get; set; }
+        public ICollection<string> FieldList { get; set; }
 
         public void CreateMappings(IConfiguration configuration)
         {
@@ -23,8 +23,8 @@ namespace Professional.Web.Models
                options => options.MapFrom(u => u.FirstName + " " + u.LastName));
 
              configuration.CreateMap<User, UserSimpleViewModel>()
-                .ForMember(p => p.Description,
-                options => options.MapFrom(u => "added description"));
+                .ForMember(p => p.FieldList,
+                options => options.MapFrom(u => u.FieldsOfExpertise.Select(f => f.Name)));
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Professional.Web.Helpers;
+using System.Web.Caching;
 
 namespace Professional.Web.Controllers
 {
@@ -20,7 +21,13 @@ namespace Professional.Web.Controllers
         private const int FeaturedCount = 3;
         public ActionResult Index()
         {
-            var fields = this.data.FieldsOfExpertise.All()
+            IQueryable<NavigationItem> fields;
+            IQueryable<PostSimpleViewModel> posts;
+            IQueryable<UserSimpleViewModel> featured;
+
+            if (this.HttpContext.Cache["Fields"] == null)
+	        {
+                fields = this.data.FieldsOfExpertise.All()
                 .OrderByDescending(f => f.Rank)
                 .Take(FieldsCount)
                 .Select(f => new NavigationItem
@@ -29,29 +36,43 @@ namespace Professional.Web.Controllers
                     Url = "#"
                 });
 
-            var posts = this.data.Posts.All()
-                .OrderByDescending(p => p.DateCreated)
-                .Take(PostCount)
-                .Project().To<PostSimpleViewModel>()
-                .ToList<PostSimpleViewModel>();
+                posts = this.data.Posts.All()
+                    .OrderByDescending(p => p.DateCreated)
+                    .Take(PostCount)
+                    .Project().To<PostSimpleViewModel>();
 
-            // TODO: Don't get administrators (the code is ready to be added)
-            var featured = this.data.Users.All()
-                .OrderByDescending(u => u.UsersEndorsements.Count)
-                .Take(FeaturedCount)
-                .Project().To<UserSimpleViewModel>()
-                .ToList<UserSimpleViewModel>();
+                // TODO: Don't get administrators (the code is ready to be added)
+                featured = this.data.Users.All()
+                    .Where(u => u.FieldsOfExpertise.Count > 0)
+                    .OrderByDescending(u => u.UsersEndorsements.Count)
+                    .Take(FeaturedCount)
+                    .Project().To<UserSimpleViewModel>();
+
+                AddToCache<NavigationItem>("Fields", fields);
+                AddToCache<PostSimpleViewModel>("Posts", posts);
+                AddToCache<UserSimpleViewModel>("Featured", featured);
+	        }
+
+            fields = this.HttpContext.Cache["Fields"] as IQueryable<NavigationItem>;
+            posts = this.HttpContext.Cache["Posts"] as IQueryable<PostSimpleViewModel>;
+            featured = this.HttpContext.Cache["Featured"] as IQueryable<UserSimpleViewModel>;
 
             var fieldsView = new HorizontalNavbarViewModel();
             fieldsView.Title = "Our top fields";
-            fieldsView.ListItems = fields;
+            fieldsView.ListItems = fields.ToList<NavigationItem>();
 
             var vielModel = new IndexViewModel();
             vielModel.FieldsListing = fieldsView;
-            vielModel.Posts = posts;
-            vielModel.Featured = featured;
+            vielModel.Posts = posts.ToList<PostSimpleViewModel>();
+            vielModel.Featured = featured.ToList<UserSimpleViewModel>();
 
             return View(vielModel);
+        }
+ 
+        private void AddToCache<T>(string key, IQueryable<T> items)
+        {
+            this.HttpContext.Cache.Add(key, items, null, DateTime.Now.AddMinutes(1),
+                TimeSpan.Zero, CacheItemPriority.Default, null);
         }
 
         public ActionResult HomeDesign()

@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper;
+using Professional.Web.Helpers;
 
 namespace Professional.Web.Models
 {
     public class PostViewModel : IMapFrom<Post>, IHaveCustomMappings
     {
+        //.Substring(0, WebConstants.TitleLength)
         public int ID { get; set; }
         public string Title { get; set; }
         public DateTime DateCreated { get; set; }
@@ -23,6 +25,7 @@ namespace Professional.Web.Models
             configuration.CreateMap<Post, PostViewModel>()
                 .ForMember(p => p.Creator, 
                 options => options.MapFrom(c => c.Creator.FirstName + " " +  c.Creator.LastName));
+
             configuration.CreateMap<Post, PostViewModel>()
                 .ForMember(p => p.Fields,
                 options => options.MapFrom(c => c.Creator

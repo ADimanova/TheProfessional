@@ -49,7 +49,7 @@ namespace Professional.Web
 
             bundles.Add(new StyleBundle("~/Css/kendo").Include(
                         "~/Content/kendo/kendo.common.*",
-                        "~/Content/kendo/kendo.default.*"));
+                        "~/Content/kendo/kendo.silver.*"));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Professional.Models;
+﻿using AutoMapper;
+using Professional.Models;
 using Professional.Web.Infrastructure.Mappings;
 using System;
 using System.Collections.Generic;
