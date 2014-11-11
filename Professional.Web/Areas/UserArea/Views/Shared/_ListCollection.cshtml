@@ -1,4 +1,6 @@
-﻿@model ListCollectionViewModel
+﻿@using Professional.Web.Helpers;
+
+@model ListCollectionViewModel
 
 @{
     ViewBag.Title = "_ListCollection";
@@ -14,7 +16,7 @@
                 <div class="dropdown pull-right">
                     @* Partial for dropdown *@
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownFields" data-toggle="dropdown">
-                        by field
+                        by @Model.GetBy
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuEndorsements">
@@ -37,18 +39,26 @@
                     }
                 }                
             </div>
-            <ul class="pagination pagination-sm pull-left">
-                <li class="disabled"><a href="#">«</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">»</a></li>
-            </ul>
+            @if (Model.PagesCount > 0)
+            {
+                <ul class="pagination pagination-sm pull-left">
+                    <li><a href="@(WebConstants.PostsPageRoute + "?page=" + @Model.PreviousPage)">«</a></li>
+                    @for (int i = 1; i <= Model.PagesCount; i++)
+                    {
+                        if (i == Model.CurrentPage)
+                        {
+                            <li class="active"><a href="@(WebConstants.PostsPageRoute + "?page=" + @i)">@i</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="@(WebConstants.PostsPageRoute + "?page=" + @i)">@i</a></li>
+                        }
+                    }
+                    <li><a href="@(WebConstants.PostsPageRoute + "?page=" + @Model.NextPage)">»</a></li>
+                </ul>
+            }
         </div>
     </div>
     <div class="col-md-1"></div>
 </div>
-
-
 

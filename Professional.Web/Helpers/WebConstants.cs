@@ -10,6 +10,7 @@ namespace Professional.Web.Helpers
     {
         public static string PostPageRoute = "/PostDisplay/Post/";
         public static string PostsPageRoute = "/UserArea/Public/Posts/";
+        public const int PostsPerPage = 5;
 
         public static List<NavigationItem> SiteSections = new List<NavigationItem> {
             new NavigationItem

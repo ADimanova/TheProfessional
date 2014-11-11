@@ -11,5 +11,37 @@ namespace Professional.Web.Areas.UserArea.Models
     {
         public string Title { get; set; }
         public IList<ItemsByFieldViewModel> Fields { get; set; }
+
+        public string GetBy { get; set; }
+
+        public int PagesCount { get; set; }
+
+        public int CurrentPage { get; set; }
+
+        public int NextPage
+        {
+            get
+            {
+                if (this.CurrentPage >= this.PagesCount)
+                {
+                    return 1;
+                }
+
+                return this.CurrentPage + 1;
+            }
+        }
+
+        public int PreviousPage
+        {
+            get
+            {
+                if (this.CurrentPage <= 1)
+                {
+                    return this.PagesCount;
+                }
+
+                return this.CurrentPage - 1;
+            }
+        }
     }
 }

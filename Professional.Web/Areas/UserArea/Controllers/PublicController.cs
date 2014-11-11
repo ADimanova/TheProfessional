@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Professional.Models;
 using Professional.Web.Areas.UserArea.Models;
+using Professional.Web.Helpers;
 using Professional.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,17 @@ namespace Professional.Web.Areas.UserArea.Controllers
 {
     public class PublicController : UserController
     {
+        //private readonly IQuearyable<BlogPost> blogPostsData;
+        private readonly IQueryable<Post> postsData;
+        //private readonly IRepository<Page> pagesData;
+        public PublicController()
+        {
+            this.postsData = this.data.Posts.All().OrderBy(p => p.Title);
+                //.Skip(perPage * (page - 1))
+                //.Take(perPage);
+            //this.pagesData = pages;
+        }
+
         // GET: UserArea/Public/Profile/{id}
         public ActionResult Profile(string id)
         {
@@ -42,8 +54,10 @@ namespace Professional.Web.Areas.UserArea.Controllers
         }
 
         // GET: UserArea/Public/Posts/{id} - the user id here 
-        public ActionResult Posts(string id)
+        public ActionResult Posts(string id, int page = 1, int perPage = WebConstants.PostsPerPage)
         {
+            var pagesCount = (int)Math.Ceiling(this.postsData.Count() / (decimal)perPage);
+
             IQueryable<Post> posts = new List<Post>().AsQueryable();
             if (id != null)
             {
@@ -54,7 +68,11 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 posts = this.GetAllPosts(); 
             }
 
-            var grouped = posts.GroupBy(p => p.FieldID)
+            var postRaw = posts.OrderBy(p => p.Field.Name)
+                .Skip(perPage * (page - 1))
+                .Take(perPage);
+
+            var grouped = postRaw.GroupBy(p => p.Field.Name)
                 .Select(p => new ItemsByFieldViewModel
                 {
                     Name = p.FirstOrDefault().Field.Name,
@@ -67,7 +85,10 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
             var viewModel = new ListCollectionViewModel();
             viewModel.Title = "Posts";
+            viewModel.GetBy = "first letter";
             viewModel.Fields = grouped.ToList();
+            viewModel.CurrentPage = page;
+            viewModel.PagesCount = pagesCount;
 
             return View(viewModel);
         }

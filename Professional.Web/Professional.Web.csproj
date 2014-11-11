@@ -200,6 +200,7 @@
     <Compile Include="Areas\Administration\Controllers\AdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\PostsAdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\UsersAdminController.cs" />
+    <Compile Include="Areas\UserArea\Controllers\AllUsersController.cs" />
     <Compile Include="Areas\UserArea\Controllers\CreateItemController.cs" />
     <Compile Include="Areas\UserArea\Controllers\PublicController.cs" />
     <Compile Include="Areas\UserArea\Controllers\SearchController.cs" />
@@ -273,6 +274,7 @@
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Areas\Administration\Views\PostsAdmin\Index.cshtml" />
     <Content Include="Areas\UserArea\Views\Search\Index.cshtml" />
+    <Content Include="Areas\UserArea\Views\AllUsers\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
