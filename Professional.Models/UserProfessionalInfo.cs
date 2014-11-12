@@ -16,6 +16,7 @@ namespace Professional.Models
         private ICollection<EndorsementOfPost> postsEndorsements;
         private ICollection<EndorsementOfUser> usersEndorsements;
 
+        public int Rank { get; set; }
         public virtual ICollection<Occupation> Occupations
         {
             get { return this.occupations; }

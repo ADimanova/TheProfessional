@@ -16,6 +16,8 @@ namespace Professional.Web.Helpers
         public const string PostPageRoute = "/PostDisplay/Post/";
         public const string PostsPageRoute = "/UserArea/Public/Posts/";
 
+        public const string UsersPageRoute = "/UserArea/AllUsers/Index";
+
         public const string PublicProfilePageRoute = "/UserArea/Public/Profile/";
         public const string PrivateProfilePageRoute = "/UserArea/Private/Profile/";
 
@@ -31,7 +33,7 @@ namespace Professional.Web.Helpers
             new NavigationItem
             {
                 Content = "Users",
-                Url = PostsPageRoute
+                Url = UsersPageRoute
             }, 
             new NavigationItem
             {

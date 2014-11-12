@@ -64,6 +64,7 @@ namespace Professional.Data
             entry.State = EntityState.Modified;
         }
 
+
         public virtual void Delete(T entity)
         {
             DbEntityEntry entry = this.Context.Entry(entity);

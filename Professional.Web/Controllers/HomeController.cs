@@ -106,10 +106,10 @@ namespace Professional.Web.Controllers
                 var post = posts[i];
 
                 var title = StringManipulations.GetSubstring(post.Title, 0, WebConstants.TitleLength);
-                title = StringManipulations.StripHTML(title);
+                title = StringManipulations.StripHtml(title);
 
                 var content = StringManipulations.GetSubstring(post.Content, 0, WebConstants.ContentLength);
-                content = StringManipulations.StripHTML(content);
+                content = StringManipulations.StripHtml(content);
 
                 posts[i].Title = title;
                 posts[i].Content = content;

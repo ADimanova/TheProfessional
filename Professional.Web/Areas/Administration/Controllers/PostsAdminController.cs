@@ -1,6 +1,7 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using Professional.Data;
 using Professional.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,11 @@ namespace Professional.Web.Areas.Administration.Controllers
 {
     public class PostsAdminController : AdminController
     {
+        public PostsAdminController(IApplicationData data)
+            :base(data)
+        {
+        }
+
         // GET: Administration/PostsAdmin
         public ActionResult Index()
         {

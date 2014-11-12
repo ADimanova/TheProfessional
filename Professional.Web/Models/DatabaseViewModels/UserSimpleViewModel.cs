@@ -22,7 +22,7 @@ namespace Professional.Web.Models
 
         public void CreateMappings(IConfiguration configuration)
         {
-            // TODO: Try to get aroud using string concatenation - use model GetFullName method
+            // TODO: Try to get around using string concatenation - use model GetFullName method
             configuration.CreateMap<User, UserSimpleViewModel>()
                .ForMember(p => p.FullName,
                options => options.MapFrom(u => u.FirstName + " " + u.LastName));

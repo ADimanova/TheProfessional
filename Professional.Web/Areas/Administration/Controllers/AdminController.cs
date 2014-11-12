@@ -1,4 +1,5 @@
 ﻿using Professional.Common;
+using Professional.Data;
 using Professional.Web.Controllers;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,10 @@ namespace Professional.Web.Areas.Administration.Controllers
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public abstract class AdminController : BaseController
     {
-        //[ChildActionOnly]
+        public AdminController(IApplicationData data)
+            : base(data)
+        {
+
+        }
     }
 }

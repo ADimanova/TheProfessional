@@ -198,8 +198,10 @@
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Administration\Controllers\KendoGridAdministrationController.cs" />
     <Compile Include="Areas\Administration\Controllers\PostsAdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\UsersAdminController.cs" />
+    <Compile Include="Areas\Administration\Models\UserAdminModel.cs" />
     <Compile Include="Areas\UserArea\Controllers\AllUsersController.cs" />
     <Compile Include="Areas\UserArea\Controllers\CreateItemController.cs" />
     <Compile Include="Areas\UserArea\Controllers\PublicController.cs" />
@@ -230,6 +232,7 @@
     <Compile Include="Infrastructure\Mappings\IHaveCustomMappings.cs" />
     <Compile Include="Infrastructure\Mappings\IMapFrom.cs" />
     <Compile Include="Models\AccountViewModels\AccountViewModels.cs" />
+    <Compile Include="Models\DatabaseViewModels\UserViewModel.cs" />
     <Compile Include="Models\HorizontalNavbarViewModel.cs" />
     <Compile Include="Models\PageViewModels\IndexViewModel.cs" />
     <Compile Include="Models\ListPanelViewModel.cs" />
@@ -524,7 +527,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Content\kendo\" />
     <Folder Include="Images\" />
     <Folder Include="Libraries\" />

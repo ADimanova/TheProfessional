@@ -28,7 +28,8 @@ namespace Professional.Web.Helpers
             return string.Join(", ", items);
         }
 
-        public static string StripHTML(string source)
+        //Source: http://www.codeproject.com/Articles/11902/Convert-HTML-to-Plain-Text
+        public static string StripHtml(string source)
         {
             try
             {

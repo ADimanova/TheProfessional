@@ -1,20 +1,26 @@
-﻿@using Professional.Web.Models
-@model IEnumerable<UserSimpleViewModel>
+﻿@using Professional.Web.Areas.Administration.Models
+
+@model IEnumerable<UserAdminModel>
 @{
-    ViewBag.Title = "Index";
+    var ControllerName = "UsersAdmin";
 }
 
 <div id="usersDb">
-    @(Html.Kendo().Grid<UserSimpleViewModel>(Model)
+    @(Html.Kendo().Grid<UserAdminModel>(Model)
     .Name("grid-users")
     .Columns(columns =>
     {
-        columns.Bound(u => u.FullName);
-        columns.Bound(u => u.Description);
+        columns.Bound(u => u.FirstName);
+        columns.Bound(u => u.LastName);
+        //columns.Command(c => c.Edit()).Title("Editing");
+        //columns.Command(c => c.Destroy()).Title("Deleting");      
     })
+    //.ColumnMenu()
     .Scrollable()
     .Groupable()
     .Sortable()
+    //.Editable(edit => edit.Mode(GridEditMode.PopUp))
+    //.ToolBar(toolbar => toolbar.Create())
     .Pageable(pageable => pageable
         .Refresh(true)
         .PageSizes(true)
@@ -23,7 +29,11 @@
         {
             data
                 .Ajax()
-                .Read("Read_Users", "UsersAdmin");
+                .Model(m => m.Id(u => u.Id))
+                .Read("Read", ControllerName);
+        //        .Create("Create", ControllerName)
+        //        .Update("Update", ControllerName)
+        //        .Destroy("Destroy", ControllerName);
         }
     )
 )
