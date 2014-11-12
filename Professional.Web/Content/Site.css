@@ -87,6 +87,10 @@ textarea {
     position: relative;
 }
 
+.enlarged-text {
+    font-size: 1.2em;
+}
+
 /*--Clickable div--*/
 div.feature {
     position: relative;
@@ -121,3 +125,4 @@ div.feature a {
     color: white;
 }
 /*--Form with text editor--*/
+

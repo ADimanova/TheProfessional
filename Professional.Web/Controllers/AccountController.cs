@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Professional.Web.Models;
 using Professional.Models;
+using Professional.Web.Helpers;
 
 namespace Professional.Web.Controllers
 {
@@ -172,7 +173,7 @@ namespace Professional.Web.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("AddInfoOnRegistrationView", "Manage");
+                    return RedirectToAction(WebConstants.OnRegistrationPageRoute, "Private", new { Area = WebConstants.UserArea });
                 }
                 AddErrors(result);
             }

@@ -11,6 +11,7 @@ using Professional.Web.Areas.UserArea.Models;
 using System.Collections;
 using Professional.Common;
 using Professional.Web.Models;
+using Professional.Web.Helpers;
 
 namespace Professional.Web.Areas.UserArea.Controllers
 {
@@ -36,6 +37,16 @@ namespace Professional.Web.Areas.UserArea.Controllers
             privateProfileInfo.NavigationList = navList;
 
             return View(privateProfileInfo);
+        }
+
+        public ActionResult OnRegistration()
+        {
+            var userId = User.Identity.GetUserId();
+            var profilePath = WebConstants.PrivateProfilePageRoute + userId;
+            ViewBag.Profile = profilePath;
+            ViewBag.AddInfo = "#";
+
+            return View();
         }
 
         private IList<NavigationItem> GetNavItems()

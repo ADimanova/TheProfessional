@@ -26,9 +26,9 @@
                         </a>
                         <div class="media-body widden">
                             <h5 class="media-heading">
-                                @StringManipulations.GetSubstring(post.Title, 0, WebConstants.TitleLength)
+                                @post.Title
                             </h5>
-                            @StringManipulations.GetSubstring(post.Content, 0, WebConstants.ContentLength)
+                            @post.Content
                             <a href="@(WebConstants.PostPageRoute + post.ID)" class="btn btn-default set-bottom-right">Read more...</a>
                         </div>
                     </div>

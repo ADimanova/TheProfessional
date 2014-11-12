@@ -8,10 +8,18 @@ namespace Professional.Web.Helpers
 {
     public static class WebConstants
     {
+        // Area names
+        public const string AdminArea = "Administration";
+        public const string UserArea = "UserArea";
+
         // Routes
         public const string PostPageRoute = "/PostDisplay/Post/";
         public const string PostsPageRoute = "/UserArea/Public/Posts/";
+
         public const string PublicProfilePageRoute = "/UserArea/Public/Profile/";
+        public const string PrivateProfilePageRoute = "/UserArea/Private/Profile/";
+
+        public const string OnRegistrationPageRoute = "/UserArea/Private/OnRegistration/";
 
         //Visualization
         public const int PostsPerPage = 5;

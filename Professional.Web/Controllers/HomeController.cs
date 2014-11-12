@@ -36,10 +36,12 @@ namespace Professional.Web.Controllers
                     Url = "#"
                 });
 
-                posts = this.data.Posts.All()
+                var rawPosts = this.data.Posts.All()
                     .OrderByDescending(p => p.DateCreated)
                     .Take(PostCount)
                     .Project().To<PostSimpleViewModel>();
+
+                posts = this.FormatItems(rawPosts);
 
                 // TODO: Don't get administrators (the code is ready to be added)
                 featured = this.data.Users.All()
@@ -94,6 +96,26 @@ namespace Professional.Web.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        private IQueryable<PostSimpleViewModel> FormatItems(IQueryable<PostSimpleViewModel> rawPosts)
+        {
+            IList<PostSimpleViewModel> posts = rawPosts.ToList();
+            for (int i = 0; i < posts.Count; i++)
+            {
+                var post = posts[i];
+
+                var title = StringManipulations.GetSubstring(post.Title, 0, WebConstants.TitleLength);
+                title = StringManipulations.StripHTML(title);
+
+                var content = StringManipulations.GetSubstring(post.Content, 0, WebConstants.ContentLength);
+                content = StringManipulations.StripHTML(content);
+
+                posts[i].Title = title;
+                posts[i].Content = content;
+            }
+
+            return posts.AsQueryable<PostSimpleViewModel>();
         }
     }
 }
