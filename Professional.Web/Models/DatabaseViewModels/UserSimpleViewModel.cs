@@ -6,13 +6,18 @@ using System.Linq;
 using System.Web;
 using AutoMapper;
 using System.Linq.Expressions;
+using System.ComponentModel.DataAnnotations;
 
 namespace Professional.Web.Models
 {
     public class UserSimpleViewModel : IMapFrom<User>, IHaveCustomMappings
     {
         public string ID { get; set; }
+
+        [Display(Name = "Full Name")]
         public string FullName { get; set; }
+
+        [Display(Name = "Fields of Expertise")]
         public ICollection<string> FieldList { get; set; }
 
         public void CreateMappings(IConfiguration configuration)

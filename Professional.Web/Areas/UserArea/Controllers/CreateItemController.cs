@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Professional.Models;
+using Professional.Web.Areas.UserArea.Models.InputModels;
 using Professional.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -16,16 +17,15 @@ namespace Professional.Web.Areas.UserArea.Controllers
         [HttpGet]
         public ActionResult Post()
         {
-            var viewData = new PostViewModel();
-            viewData.Fields = this.data.FieldsOfExpertise
+            ViewBag.Fields = this.data.FieldsOfExpertise
                 .All().Select(f => f.Name);
-            return View(viewData);
+            return View();
         }
 
         // POST: UserArea/CreateItem/Post
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Post(PostViewModel model)
+        public ActionResult Post(PostInputModel model)
         {
             if (ModelState.IsValid)
             {

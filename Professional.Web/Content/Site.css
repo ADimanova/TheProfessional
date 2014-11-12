@@ -105,3 +105,19 @@ div.feature a {
     filter: alpha(opacity=1); /* Fix to make div clickable in IE */
 }
 /*--Clickable div--*/
+
+/*--Form with text editor--*/
+.custom {
+    position: relative;
+}
+
+.to-left {
+    position: relative;
+    left: 0px;
+}
+
+.btn-custom {
+    background-color: #2196f3; 
+    color: white;
+}
+/*--Form with text editor--*/

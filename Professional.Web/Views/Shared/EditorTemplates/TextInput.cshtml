@@ -1,0 +1,10 @@
+﻿@model string
+
+<div class="form-group">
+    @Html.LabelFor(m => m, Model, new { @class = ViewData["label-classes"] })
+    <div class="col-md-10">
+        @Html.TextBoxFor(m => m, new { @class = "form-control bordered" })
+    </div>
+</div>
+
+@*"col-md-2 control-label"*@

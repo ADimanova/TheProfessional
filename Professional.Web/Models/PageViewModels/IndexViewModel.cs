@@ -13,6 +13,7 @@ namespace Professional.Web.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+
         public IEnumerable<UserSimpleViewModel> Featured { get; set; }
         public IEnumerable<PostSimpleViewModel> Posts { get; set; }
         public HorizontalNavbarViewModel FieldsListing { get; set; }

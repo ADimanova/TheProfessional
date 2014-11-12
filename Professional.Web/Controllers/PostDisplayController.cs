@@ -14,10 +14,14 @@ namespace Professional.Web.Controllers
         // GET: PostDisplay/Post
         public ActionResult Post(int id)
         {
-            //TODO: handle if post does not exist
-
             var post = this.data.Posts.All()
-                .First(p => p.ID == id);
+                .Where(p => p.ID == id)
+                .FirstOrDefault();
+
+            if (post == null)
+            {
+                return this.HttpNotFound("This post does not exist");
+            }
 
             Mapper.CreateMap<Post, PostViewModel>();
             var postInfoForView = Mapper.Map<PostViewModel>(post);
