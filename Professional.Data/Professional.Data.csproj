@@ -77,9 +77,10 @@
   <ItemGroup>
     <Compile Include="ApplicationData.cs" />
     <Compile Include="ApplicationDbContext.cs" />
-    <Compile Include="GenericRepository.cs" />
+    <Compile Include="IApplicationDbContext.cs" />
+    <Compile Include="Repositories\DeletableEntityRepository.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="IApplicationData.cs" />
-    <Compile Include="IRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -91,6 +92,10 @@
     <ProjectReference Include="..\Professional.Common\Professional.Common.csproj">
       <Project>{38C3DBC9-5A73-4039-AC05-85FA128418B6}</Project>
       <Name>Professional.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Professional.Contracts\Professional.Contracts.csproj">
+      <Project>{4ca1f0f9-414c-4866-91c8-c1c5e8ccde3a}</Project>
+      <Name>Professional.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Professional.Models\Professional.Models.csproj">
       <Project>{32231FBE-2402-4D27-921B-52AB316F3EB0}</Project>

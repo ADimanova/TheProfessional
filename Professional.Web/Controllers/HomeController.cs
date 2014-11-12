@@ -11,11 +11,18 @@ using System.Web;
 using System.Web.Mvc;
 using Professional.Web.Helpers;
 using System.Web.Caching;
+using Professional.Data;
 
 namespace Professional.Web.Controllers
 {
     public class HomeController : BaseController
     {
+        public HomeController(IApplicationData data)
+            : base(data)
+        {
+
+        }
+
         private const int FieldsCount = 9;
         private const int PostCount = 3;
         private const int FeaturedCount = 3;
@@ -25,7 +32,9 @@ namespace Professional.Web.Controllers
             IQueryable<PostSimpleViewModel> posts;
             IQueryable<UserSimpleViewModel> featured;
 
-            if (this.HttpContext.Cache["Fields"] == null)
+            if (this.HttpContext.Cache["Fields"] == null
+                || this.HttpContext.Cache["Posts"] == null
+                || this.HttpContext.Cache["Featured"] == null)
 	        {
                 fields = this.data.FieldsOfExpertise.All()
                 .OrderByDescending(f => f.Rank)

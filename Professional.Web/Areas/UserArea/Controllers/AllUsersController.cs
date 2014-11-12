@@ -1,4 +1,5 @@
-﻿using Professional.Web.Areas.UserArea.Models;
+﻿using Professional.Data;
+using Professional.Web.Areas.UserArea.Models;
 using Professional.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,12 @@ namespace Professional.Web.Areas.UserArea.Controllers
 {
     public class AllUsersController : UserController
     {
+        public AllUsersController(IApplicationData data)
+            : base(data)
+        {
+
+        }
+
         // GET: UserArea/AllUsers
         public ActionResult Index()
         {

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Professional.Data.Contracts;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Professional.Models
 {
-    public class EndorsementOfUser
+    public class EndorsementOfUser : AuditInfo, IDeletableEntity
     {
         [Key]
         public int ID { get; set; }
@@ -26,5 +28,10 @@ namespace Professional.Models
         public string EndorsingUserID { get; set; }
 
         public virtual User EndorsingUser { get; set; }
+
+        [Index]
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }

@@ -62,6 +62,16 @@ namespace Professional.Data.Migrations
                 userManager.Create(admin, password);
                 userManager.AddToRole(admin.Id, GlobalConstants.AdministratorRoleName);
             }
+
+            if (!context.FieldsOfExpertise.Any())
+            {
+                context.FieldsOfExpertise.Add(
+                    new FieldOfExpertise
+                    {
+                        Name = "Business",
+                        Rank = 0
+                    });
+            }
         }
     }
 }

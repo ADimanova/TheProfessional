@@ -13,10 +13,5 @@ namespace Professional.Web.Controllers
         {
             this.data = data;
         }
-
-        public BaseController()
-            : this(new ApplicationData())
-        {
-        }
     }
 }

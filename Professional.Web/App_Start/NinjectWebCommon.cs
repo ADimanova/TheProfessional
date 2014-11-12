@@ -11,6 +11,8 @@ namespace Professional.Web.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using Professional.Data;
+    using Professional.Data.Repositories;
+    using Professional.Data.Contracts;
 
     public static class NinjectWebCommon 
     {
@@ -62,6 +64,7 @@ namespace Professional.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IApplicationDbContext>().To<ApplicationDbContext>();
             kernel.Bind<IApplicationData>().To<ApplicationData>();
             kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
         }        

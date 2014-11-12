@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Professional.Data;
 using Professional.Models;
 using Professional.Web.Areas.UserArea.Models;
 using Professional.Web.Helpers;
@@ -16,12 +17,11 @@ namespace Professional.Web.Areas.UserArea.Controllers
         //private readonly IQuearyable<BlogPost> blogPostsData;
         private readonly IQueryable<Post> postsData;
         //private readonly IRepository<Page> pagesData;
-        public PublicController()
+
+        public PublicController(IApplicationData data)
+            : base(data)
         {
             this.postsData = this.data.Posts.All().OrderBy(p => p.Title);
-                //.Skip(perPage * (page - 1))
-                //.Take(perPage);
-            //this.pagesData = pages;
         }
 
         // GET: UserArea/Public/Profile/{id}

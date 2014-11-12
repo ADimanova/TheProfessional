@@ -12,11 +12,18 @@ using System.Collections;
 using Professional.Common;
 using Professional.Web.Models;
 using Professional.Web.Helpers;
+using Professional.Data;
 
 namespace Professional.Web.Areas.UserArea.Controllers
 {
     public class PrivateController : UserController
     {
+        public PrivateController(IApplicationData data)
+            : base(data)
+        {
+
+        }
+
         // GET: UserArea/Private/Profile
         public ActionResult Profile()
         {

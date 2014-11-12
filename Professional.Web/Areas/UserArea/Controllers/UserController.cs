@@ -1,4 +1,5 @@
 ﻿using Professional.Common;
+using Professional.Data;
 using Professional.Models;
 using Professional.Web.Controllers;
 using System;
@@ -13,6 +14,11 @@ namespace Professional.Web.Areas.UserArea.Controllers
     [Authorize]
     public abstract class UserController : BaseController
     {
+        public UserController(IApplicationData data)
+            : base(data)
+        {
+
+        }
         protected IList GetUserFields(string currentUserId)
         {
             var fields = this.data.Users.All()

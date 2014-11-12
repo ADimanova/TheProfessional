@@ -1,4 +1,5 @@
 ﻿using Professional.Data;
+using Professional.Data.Contracts;
 using Professional.Models;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,13 @@ namespace Professional.Data
 {
     public interface IApplicationData
     {
+        IApplicationDbContext Context { get; }
         IRepository<User> Users { get; }
-        IRepository<Post> Posts { get; }
-        IRepository<EndorsementOfPost> EndorsementsOfPosts { get; }
-        IRepository<EndorsementOfUser> EndorsementsOfUsers { get; }
-        IRepository<FieldOfExpertise> FieldsOfExpertise { get; }
-        IRepository<Occupation> Occupations { get; }
+        IDeletableEntityRepository<Post> Posts { get; }
+        IDeletableEntityRepository<EndorsementOfPost> EndorsementsOfPosts { get; }
+        IDeletableEntityRepository<EndorsementOfUser> EndorsementsOfUsers { get; }
+        IDeletableEntityRepository<FieldOfExpertise> FieldsOfExpertise { get; }
+        IDeletableEntityRepository<Occupation> Occupations { get; }
         int SaveChanges();
     }
 }

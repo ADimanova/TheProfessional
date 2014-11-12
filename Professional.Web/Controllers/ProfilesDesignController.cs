@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Professional.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,8 +7,14 @@ using System.Web.Mvc;
 
 namespace Professional.Web.Controllers
 {
-    public class ProfilesDesignController : Controller
+    public class ProfilesDesignController : BaseController
     {
+        public ProfilesDesignController(IApplicationData data)
+            : base(data)
+        {
+
+        }
+
         public ActionResult UserProfile()
         {
             return View();

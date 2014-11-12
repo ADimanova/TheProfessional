@@ -543,6 +543,10 @@
       <Project>{38C3DBC9-5A73-4039-AC05-85FA128418B6}</Project>
       <Name>Professional.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Professional.Contracts\Professional.Contracts.csproj">
+      <Project>{4ca1f0f9-414c-4866-91c8-c1c5e8ccde3a}</Project>
+      <Name>Professional.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Professional.Data\Professional.Data.csproj">
       <Project>{F1A77609-38B3-4189-A8F8-ADD0DF8097E4}</Project>
       <Name>Professional.Data</Name>

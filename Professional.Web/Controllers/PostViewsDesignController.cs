@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Professional.Data;
 using Professional.Models;
 using Professional.Web.Models;
 using System;
@@ -13,6 +14,11 @@ namespace Professional.Web.Controllers
     [Authorize]
     public class PostViewsDesignController : BaseController
     {
+        public PostViewsDesignController(IApplicationData data)
+            : base(data)
+        {
+
+        }
         public ActionResult UserEndorsements()
         {
             return View();

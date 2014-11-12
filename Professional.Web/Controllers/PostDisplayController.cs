@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Professional.Data;
 using Professional.Models;
 using Professional.Web.Models;
 using System;
@@ -11,6 +12,11 @@ namespace Professional.Web.Controllers
 {
     public class PostDisplayController : BaseController
     {
+        public PostDisplayController(IApplicationData data)
+            : base(data)
+        {
+
+        }
         // GET: PostDisplay/Post
         public ActionResult Post(int id)
         {

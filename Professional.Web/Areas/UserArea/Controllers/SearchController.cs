@@ -1,4 +1,5 @@
-﻿using Professional.Web.Models;
+﻿using Professional.Data;
+using Professional.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,14 @@ using System.Web.Mvc;
 
 namespace Professional.Web.Areas.UserArea.Controllers
 {
-    public class SearchController : Controller
+    public class SearchController : UserController
     {
-        //NavigationItem
+        public SearchController(IApplicationData data)
+            : base(data)
+        {
+
+        }
+
         // GET: UserArea/Search
         public ActionResult Index(string searchString)
         {

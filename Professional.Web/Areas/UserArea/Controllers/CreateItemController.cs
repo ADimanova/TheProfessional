@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Professional.Data;
 using Professional.Models;
 using Professional.Web.Areas.UserArea.Models.InputModels;
 using Professional.Web.Models;
@@ -12,8 +13,13 @@ namespace Professional.Web.Areas.UserArea.Controllers
 {
     public class CreateItemController : UserController
     {
-        // GET: UserArea/CreateItem/Post
+        public CreateItemController(IApplicationData data)
+            : base(data)
+        {
 
+        }
+
+        // GET: UserArea/CreateItem/Post
         [HttpGet]
         public ActionResult Post()
         {

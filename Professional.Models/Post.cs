@@ -1,13 +1,15 @@
-﻿using System;
+﻿using Professional.Data.Contracts;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Professional.Models
 {
-    public class Post
+    public class Post: AuditInfo, IDeletableEntity
     {
         private ICollection<EndorsementOfPost> postEndorsements;
         public Post()
@@ -42,5 +44,10 @@ namespace Professional.Models
             get { return this.postEndorsements; }
             set { this.postEndorsements = value; }
         }
+
+        [Index]
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }

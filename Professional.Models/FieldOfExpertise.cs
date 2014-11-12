@@ -1,13 +1,15 @@
-﻿using System;
+﻿using Professional.Data.Contracts;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Professional.Models
 {
-    public class FieldOfExpertise
+    public class FieldOfExpertise : AuditInfo, IDeletableEntity
     {
         private ICollection<User> holders;
         public FieldOfExpertise()
@@ -28,5 +30,10 @@ namespace Professional.Models
             get { return this.holders; }
             set { this.holders = value; }
         }
+
+        [Index]
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }
