@@ -201,6 +201,8 @@
     <Compile Include="Areas\Administration\Controllers\KendoGridAdministrationController.cs" />
     <Compile Include="Areas\Administration\Controllers\PostsAdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\UsersAdminController.cs" />
+    <Compile Include="Areas\Administration\Models\AdministrationViewModel.cs" />
+    <Compile Include="Areas\Administration\Models\PostAdminModel.cs" />
     <Compile Include="Areas\Administration\Models\UserAdminModel.cs" />
     <Compile Include="Areas\UserArea\Controllers\AllUsersController.cs" />
     <Compile Include="Areas\UserArea\Controllers\CreateItemController.cs" />
@@ -528,6 +530,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\kendo\" />
+    <Folder Include="Css\" />
     <Folder Include="Images\" />
     <Folder Include="Libraries\" />
   </ItemGroup>

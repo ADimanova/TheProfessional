@@ -5,15 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Professional.Web.Areas.Administration.Models
 {
-    public class UserAdminModel : IMapFrom<User>
+    public class UserAdminModel : AdministrationViewModel, IMapFrom<User>
     {
-        public string Id { get; set; }
+        [HiddenInput]
+        public object Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public bool IsMale { get; set; }
-        public int Rank { get; set; }
     }
 }

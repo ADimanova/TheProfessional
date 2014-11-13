@@ -86,7 +86,7 @@ namespace Professional.Web.Controllers
                 TimeSpan.Zero, CacheItemPriority.Default, null);
         }
 
-        public ActionResult HomeDesign()
+        public ActionResult Error()
         {
             return View();
         }
@@ -114,11 +114,14 @@ namespace Professional.Web.Controllers
             {
                 var post = posts[i];
 
-                var title = StringManipulations.GetSubstring(post.Title, 0, WebConstants.TitleLength);
+                // TODO: Refactor
+                var title = StringManipulations.GetSubstring(post.Title, 0, WebConstants.TitleLength + 20);
                 title = StringManipulations.StripHtml(title);
+                title = StringManipulations.GetSubstring(title, 0, WebConstants.TitleLength);
 
-                var content = StringManipulations.GetSubstring(post.Content, 0, WebConstants.ContentLength);
+                var content = StringManipulations.GetSubstring(post.Content, 0, WebConstants.ContentLength + 20);
                 content = StringManipulations.StripHtml(content);
+                content = StringManipulations.GetSubstring(content, 0, WebConstants.TitleLength);
 
                 posts[i].Title = title;
                 posts[i].Content = content;

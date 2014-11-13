@@ -12,28 +12,24 @@
     {
         columns.Bound(u => u.FirstName);
         columns.Bound(u => u.LastName);
-        //columns.Command(c => c.Edit()).Title("Editing");
-        //columns.Command(c => c.Destroy()).Title("Deleting");      
+        columns.Command(c => c.Edit()).Title("Editing");
+        columns.Command(c => c.Destroy()).Title("Deleting");      
     })
-    //.ColumnMenu()
     .Scrollable()
-    .Groupable()
     .Sortable()
-    //.Editable(edit => edit.Mode(GridEditMode.PopUp))
-    //.ToolBar(toolbar => toolbar.Create())
+    .Editable(edit => edit.Mode(GridEditMode.PopUp))
     .Pageable(pageable => pageable
-        .Refresh(true)
-        .PageSizes(true)
-        .ButtonCount(5))
+    .Refresh(true)
+    .PageSizes(true)
+    .ButtonCount(5))
     .DataSource(data =>
         {
             data
                 .Ajax()
                 .Model(m => m.Id(u => u.Id))
-                .Read("Read", ControllerName);
-        //        .Create("Create", ControllerName)
-        //        .Update("Update", ControllerName)
-        //        .Destroy("Destroy", ControllerName);
+                .Read("Read", ControllerName)
+                .Update("Update", ControllerName)
+                .Destroy("Destroy", ControllerName);
         }
     )
 )

@@ -12,14 +12,19 @@ using Professional.Web.Areas.Administration.Models;
 using Professional.Models;
 using AutoMapper;
 
+using Model = Professional.Models.User;
+using ViewModel = Professional.Web.Areas.Administration.Models.UserAdminModel;
+
 namespace Professional.Web.Areas.Administration.Controllers
 {
-    public class UsersAdminController : AdminController
+    public class UsersAdminController : KendoGridAdministrationController
     {
         public UsersAdminController(IApplicationData data)
             :base(data)
         {
+
         }
+
         // GET: Administration/UsersAdmin
         public ActionResult Index([DataSourceRequest]DataSourceRequest request)
         {
@@ -32,48 +37,46 @@ namespace Professional.Web.Areas.Administration.Controllers
                 .OrderByDescending(u => u.FirstName)
                 .ThenByDescending(u => u.LastName)
                 .Project().To<UserAdminModel>()
-                .ToDataSourceResult(request); // allows paging, sorting, etc.
+                .ToDataSourceResult(request);
 
             return Json(users, JsonRequestBehavior.AllowGet);
         }
 
+        protected override System.Collections.IEnumerable GetData()
+        {
+            return this.data.Users.All();
+        }
+
+        protected override T GetById<T>(object id)
+        {
+            return this.data.Users.GetById(id) as T;
+        }
+
         //[HttpPost]
-        //public ActionResult Create([DataSourceRequest]DataSourceRequest request, UserAdminModel model)
+        //public ActionResult Create([DataSourceRequest]DataSourceRequest request, ViewModel model)
         //{
-        //    if (model != null && ModelState.IsValid)
-        //    {
-        //        var dbModel = Mapper.Map<User>(model);
-        //        this.data.Users.Update(dbModel);
-        //        model.Id = dbModel.Id;
-        //    }
-
-        //    return Json(new[] { model }.ToDataSourceResult(request, ModelState), JsonRequestBehavior.AllowGet);
+        //    var dbModel = base.Create<Model>(model);
+        //    if (dbModel != null) model.Id = dbModel.Id;
+        //    return this.GridOperation(model, request);
         //}
 
-        //protected ActionResult Update([DataSourceRequest]DataSourceRequest request, UserAdminModel model)
-        //{
-        //    if (model != null && ModelState.IsValid)
-        //    {
-        //        var dbModel = this.data.Users.All().FirstOrDefault(u => u.Id == model.Id);
-        //        Mapper.Map<UserAdminModel, User>(model, dbModel);
-        //        this.data.Users.Update(dbModel);
-        //    }
+        [HttpPost]
+        public ActionResult Update([DataSourceRequest]DataSourceRequest request, ViewModel model)
+        {
+            base.Update<Model, ViewModel>(model, model.Id);
+            return this.GridOperation(model, request);
+        }
 
-        //    return Json(new[] { model }.ToDataSourceResult(request, ModelState), JsonRequestBehavior.AllowGet);
-        //}
+        [HttpPost]
+        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ViewModel model)
+        {
+            if (model != null && ModelState.IsValid)
+            {
+                this.data.Users.Delete(model.Id);
+                this.data.SaveChanges();
+            }
 
-        //public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, UserAdminModel model)
-        //{
-        //    if (model != null && ModelState.IsValid)
-        //    {
-        //        var dbModel = this.data.Users.All().FirstOrDefault(u => u.Id == model.Id);
-        //        Mapper.Map<UserAdminModel, User>(model, dbModel);
-
-        //        this.data.Users.Delete(dbModel);
-        //        this.data.SaveChanges();
-        //    }
-
-        //    return Json(new[] { model }.ToDataSourceResult(request, ModelState), JsonRequestBehavior.AllowGet);
-        //}
+            return this.GridOperation(model, request);
+        }
     }
 }

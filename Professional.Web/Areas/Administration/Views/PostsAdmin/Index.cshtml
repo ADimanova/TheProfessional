@@ -1,27 +1,41 @@
-﻿@model IEnumerable<Professional.Web.Models.PostViewModel>
+﻿@using Professional.Web.Areas.Administration.Models;
+@model IEnumerable<PostAdminModel>
 @{
-    ViewBag.Title = "Index";
+    var ControllerName = "PostsAdmin";
 }
-<div id="clientsDb">
-    @(Html.Kendo().Grid<Professional.Web.Models.PostViewModel>(Model)
-        .Name("grid")
-        .Columns(columns =>
-        {
-            columns.Bound(p => p.Title);
-        })
-        .Scrollable()
-        .Groupable()
-        .Sortable()
-        .Pageable(pageable => pageable
+<div id="postsDb">
+    @(Html.Kendo().Grid<PostAdminModel>(Model)
+            .Name("grid-posts")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.Title);
+                columns.Bound(p => p.Content);
+                columns.Command(c => c.Edit()).Title("Editing");
+                columns.Command(c => c.Destroy()).Title("Deleting");      
+            })
+            .ColumnMenu()
+            .Scrollable()
+            .Sortable()
+            .Editable(edit => edit.Mode(GridEditMode.PopUp))
+            .Pageable(pageable => pageable
             .Refresh(true)
             .PageSizes(true)
             .ButtonCount(5))
-        .DataSource(dataSource => dataSource
-            .Ajax()
-            .Read(read => read.Action("Posts_Read", "PostsAdmin"))
-        )
+            .DataSource(data =>
+                {
+                    data
+                        .Ajax()
+                        .Model(m => m.Id(u => u.ID))
+                        .Read("Read", ControllerName)
+                        .Update("Update", ControllerName)
+                        .Destroy("Destroy", ControllerName);
+                }
+            )
     )
 </div>
+@*<script type="text/javascript">
+     kendo.culture("en-US");
+</script>*@
 
 
 
