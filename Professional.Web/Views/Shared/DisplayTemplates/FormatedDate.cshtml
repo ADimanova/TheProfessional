@@ -1,0 +1,5 @@
+﻿﻿@model DateTime
+@{
+    System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
+    @Model.ToUniversalTime().ToShortDateString();
+}

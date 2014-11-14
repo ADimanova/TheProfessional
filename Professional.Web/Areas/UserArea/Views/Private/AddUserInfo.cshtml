@@ -1,0 +1,49 @@
+﻿@using Professional.Web.Areas.UserArea.Models.InputModels
+
+@model UserInputModel
+
+@{
+    ViewBag.Title = "AddUserInfo";
+}
+
+@using (Html.BeginForm("AddUserInfo", "Private", FormMethod.Post, new { @class = "form-horizontal custom", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h4>Add more information about yourself.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="form-group custom">
+        @Html.LabelFor(m => m.DateOfBirth, "Add date of birth", new { @class = "col-md-2 control-label label-centered" })
+        <div class="col-md-10">@Html.EditorFor(m => m.DateOfBirth)</div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.PersonalHistory, "Gender", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.RadioButtonFor(model => model.IsMale, true, new { id = "male", @style = "width:auto;background:none;border:none" })
+            <span class="control-label">Male:</span>
+            <br />
+            @Html.RadioButtonFor(model => model.IsMale, false, new { id = "female", @style = "width:auto;background:none;border:none" })
+            <span class="control-label">Female:</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.PersonalHistory, "Add some personal history", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.PersonalHistory)
+        </div>
+    </div>
+
+    <div class="form-group to-left">
+        <div class="col-md-offset-2 col-md-5">
+            <input type="submit" class="btn btn-custom btn-block" value="Add" />
+        </div>
+    </div>
+}
+
+
+
+

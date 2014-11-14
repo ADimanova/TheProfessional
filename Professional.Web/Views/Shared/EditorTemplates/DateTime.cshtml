@@ -1,29 +1,14 @@
-﻿﻿@model DateTime
+﻿﻿@model DateTime?
 
 @{
-    List<SelectListItem> days = new List<SelectListItem>();
-    for (int i = 1; i <= 31; i++)
+    DateTime dt = DateTime.Now;
+
+    if (Model != null)
     {
-        days.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString(), Selected = (i == Model.Day ? true : false) });
+
+        dt = (System.DateTime)Model;
+
     }
 
-    List<SelectListItem> months = new List<SelectListItem>();
-    for (int i = 1; i <= 12; i++)
-    {
-        months.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString(), Selected = (i == Model.Month ? true : false) });
-    }
-
-    List<SelectListItem> years = new List<SelectListItem>();
-
-    int previousYearCount = ViewBag.PreviousYearCount;
-    int nextYearCount = ViewBag.NextYearCount;
-
-    for (int i = Model.Year - previousYearCount; i <= Model.Year + nextYearCount; i++)
-    {
-        years.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString(), Selected = (i == Model.Year ? true : false) });
-    }
+    @Html.TextBox(String.Empty, String.Format("{0:d}", dt.ToShortDateString()), new { @class = "form-control datecontrol", type = "date" })
 }
-
-@Html.DropDownList("days", days)
-@Html.DropDownList("months", months)
-@Html.DropDownList("years", years)

@@ -1,5 +1,5 @@
-﻿@model string
-<a href="#" class="btn btn-default btn-posts">
+﻿@model NavigationItem
+<a href="@Model.Url" class="btn btn-default btn-posts">
     <span class="glyphicon glyphicon-list enlarged-glif"></span>
-    @Model
+    @Model.Content
 </a>

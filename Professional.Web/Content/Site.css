@@ -126,3 +126,17 @@ div.feature a {
 }
 /*--Form with text editor--*/
 
+.wrapped {
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.label-centered {
+    position: relative;
+    top: 1.4em;
+}
+
+.less-width {
+    width: 24em;
+    margin-bottom: 2em;
+}

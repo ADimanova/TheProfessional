@@ -9,6 +9,7 @@ namespace Professional.Web.Models
 {
     public class ListPanelViewModel
     {
+        public string Title { get; set; }
         public IEnumerable<FieldOfExpertise> Fields { get; set; }
         public IList<Post> Items { get; set; }
     }

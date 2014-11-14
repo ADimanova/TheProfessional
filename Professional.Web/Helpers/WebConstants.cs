@@ -16,12 +16,14 @@ namespace Professional.Web.Helpers
         public const string PostPageRoute = "/PostDisplay/Post/";
         public const string PostsPageRoute = "/UserArea/Public/Posts/";
 
-        public const string UsersPageRoute = "/UserArea/AllUsers/Index";
+        public const string UsersPageRoute = "/UserArea/AllUsers/Index/";
 
         public const string PublicProfilePageRoute = "/UserArea/Public/Profile/";
         public const string PrivateProfilePageRoute = "/UserArea/Private/Profile/";
 
         public const string OnRegistrationPageRoute = "/UserArea/Private/OnRegistration/";
+        public const string AddUserInfoPageRoute = "/UserArea/Private/AddUserInfo/";
+        
 
         //Visualization
         public const int PostsPerPage = 5;

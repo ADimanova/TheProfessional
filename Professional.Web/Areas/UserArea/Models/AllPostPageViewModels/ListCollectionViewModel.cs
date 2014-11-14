@@ -12,6 +12,10 @@ namespace Professional.Web.Areas.UserArea.Models
         public string Title { get; set; }
         public IList<ItemsByFieldViewModel> Fields { get; set; }
 
+        public IList<string> FieldsNames { get; set; }
+
+        public string Url { get; set; }
+
         public string GetBy { get; set; }
 
         public int PagesCount { get; set; }

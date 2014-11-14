@@ -25,7 +25,7 @@ namespace Professional.Models
         public string LastName { get; set; }
 
         public DateTime DateOfBirth { get; set; }
-        public bool IsMale { get; set; }
+        public bool? IsMale { get; set; }
 
         [Column(TypeName = "ntext")]
         [MaxLength]

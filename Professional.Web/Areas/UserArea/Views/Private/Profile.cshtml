@@ -1,4 +1,6 @@
-﻿@model PrivateProfileViewModel
+﻿@using Professional.Web.Helpers
+
+@model PrivateProfileViewModel
 
 @{
     ViewBag.Title = "Profile";
@@ -8,14 +10,23 @@
     <div class="col-md-6 col-md-offset-1">
         <div class="panel panel-default">
             <div class="panel-heading">Personal Information</div>
-            <div class="panel-body">
-                <div class="media holder">
+            <div class="panel-body ">
+                <div class="media holder ">
                     <a class="media-left" href="#">
                         <img src="~/Images/default-profile-pic.png" alt="News Image" style="width: 15em; height: auto;" />
                     </a>
                     <div class="media-body">
                         <h5 class="media-heading">@Model.UserInfo.FullName</h5>
-                        @Model.UserInfo.GetPersonalHistory()
+                        <div>
+                            <b>Gender</b>@Html.DisplayFor(m => m.UserInfo.IsMale)
+                        </div>
+                        <div>
+                            <b>Date of birth </b>@Html.DisplayFor(m => m.UserInfo.DateOfBirth)
+                        </div>
+                        <div class="less-width wrapped">
+                            <b>Personal history</b>
+                            <span>@StringManipulations.GetSubstring(Model.UserInfo.GetPersonalHistory(), 0, 250)</span>
+                        </div>
                         <a href="#" class="btn btn-default set-bottom-right">Edit</a>
                     </div>
                 </div>
@@ -31,14 +42,6 @@
             </div>
         </div>
 
-        @*<div class="panel panel-default">
-            <div class="panel-heading">User Endorsements</div>
-            <div class="panel-body">
-                <h5 class="media-heading">Field</h5>
-                More info...
-            </div>
-        </div>*@
-    </div>
     <div class="col-md-5">
         <div class="col-md-6">
             @Html.Partial("~/Views/Shared/Partials/_HorizontalNavBar.cshtml", Model.NavigationList)

@@ -9,8 +9,8 @@ namespace Professional.Web.Areas.UserArea.Models
     public class PublicProfileViewModel
     {
         public UserViewModel UserInfo { get; set; }
-        public string BtnNavigatePosts { get; set; }
-        public string BtnNavigateEndorsements { get; set; }
+        public NavigationItem BtnNavigatePosts { get; set; }
+        public NavigationItem BtnNavigateEndorsements { get; set; }
         public ListPanelViewModel TopPostsList { get; set; }
         public ListPanelViewModel RecentPostsList { get; set; }
 

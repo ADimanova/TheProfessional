@@ -10,8 +10,6 @@ namespace Professional.Web.Areas.UserArea.Models.InputModels
     public class PostInputModel
     {
         // TODO: Create tags
-
-        [DataType("TextInput")]
         [UIHint("TextInput")]
         public string Title { get; set; }
 

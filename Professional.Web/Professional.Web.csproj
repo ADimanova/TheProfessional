@@ -222,6 +222,7 @@
     <Compile Include="Areas\UserArea\Models\AllPostPageViewModels\ListCollectionViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\AllPostPageViewModels\ItemsByFieldViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\InputModels\PostInputModel.cs" />
+    <Compile Include="Areas\UserArea\Models\InputModels\UserInputModel.cs" />
     <Compile Include="Areas\UserArea\Models\PageViewModel\PrivateProfileViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\PageViewModel\PublicProfileViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\DatabaseVeiwModels\UserViewModel.cs" />
@@ -294,6 +295,7 @@
     <Content Include="Areas\UserArea\Views\Search\Index.cshtml" />
     <Content Include="Areas\UserArea\Views\AllUsers\Index.cshtml" />
     <Content Include="Areas\UserArea\Views\Private\OnRegistration.cshtml" />
+    <Content Include="Areas\UserArea\Views\Private\AddUserInfo.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -509,9 +511,9 @@
     <Content Include="Views\PostViewsDesign\CreatePostView.cshtml" />
     <Content Include="Views\Shared\Partials\_SearchBar.cshtml" />
     <Content Include="Views\Shared\Partials\_BtnNavigate.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\FormatedDate.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\Boolean.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\YesNo.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
     <Content Include="Views\Shared\Partials\_ListPanel.cshtml" />
     <Content Include="Views\Shared\Partials\_InputField.cshtml" />
@@ -537,6 +539,9 @@
     <Content Include="Views\Shared\EditorTemplates\tinymce_classic.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_basic_compressed.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_basic.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TextArea.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\BoolCheckbox.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MaleFemale.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

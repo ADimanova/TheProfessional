@@ -2,6 +2,7 @@
 using Professional.Data;
 using Professional.Models;
 using Professional.Web.Areas.UserArea.Models.InputModels;
+using Professional.Web.Helpers;
 using Professional.Web.Infrastructure.HtmlSanitise;
 using Professional.Web.Models;
 using System;
@@ -41,11 +42,12 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 var fieldId = this.data.FieldsOfExpertise.All()
                     .FirstOrDefault(f => f.Name == model.FieldName).ID;
 
-                var sanitisedContent = sanitizer.Sanitize(model.Content); 
+                var sanitisedContent = sanitizer.Sanitize(model.Content);
+                var editedTitle = StringManipulations.UppercaseFirst(model.Title);
 
                 var newPost = new Post
                 {
-                    Title = model.Title,
+                    Title = editedTitle,
                     DateCreated = DateTime.Now.ToUniversalTime(),
                     Content = sanitisedContent,
                     CreatorID = creator,

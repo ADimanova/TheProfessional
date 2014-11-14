@@ -13,6 +13,7 @@ using Professional.Common;
 using Professional.Web.Models;
 using Professional.Web.Helpers;
 using Professional.Data;
+using Professional.Web.Areas.UserArea.Models.InputModels;
 
 namespace Professional.Web.Areas.UserArea.Controllers
 {
@@ -51,9 +52,46 @@ namespace Professional.Web.Areas.UserArea.Controllers
             var userId = User.Identity.GetUserId();
             var profilePath = WebConstants.PrivateProfilePageRoute + userId;
             ViewBag.Profile = profilePath;
-            ViewBag.AddInfo = "#";
+            ViewBag.AddInfo = WebConstants.AddUserInfoPageRoute;
 
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult AddUserInfo()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddUserInfo(UserInputModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.Identity.GetUserId();
+                var user = this.data.Users.GetById(userId);
+
+                user.PersonalHistory = model.PersonalHistory;
+                user.IsMale = model.IsMale;
+                user.DateOfBirth = model.DateOfBirth;
+
+                try
+                {
+                    this.data.Users.Update(user);
+                    this.data.SaveChanges();
+                    return RedirectToAction("Index", "Home", new { Area = "" });
+                }
+                catch
+                {
+                    // Implement better error handling
+                    return View("Error");
+                }
+                
+            }
+
+            // Something failed, redisplay form
+            return View(model);
         }
 
         private IList<NavigationItem> GetNavItems()

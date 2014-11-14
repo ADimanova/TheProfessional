@@ -20,9 +20,12 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuEndorsements">
-                        @foreach (var field in Model.Fields)
+                        @foreach (var fieldName in Model.FieldsNames)
                         {
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">@field.Name</a></li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" 
+                                    href="@(Model.Url + fieldName)">@fieldName</a>
+                            </li>
                         }
                     </ul>
                 </div>
@@ -42,19 +45,19 @@
             @if (Model.PagesCount > 0)
             {
                 <ul class="pagination pagination-sm pull-left">
-                    <li><a href="@(WebConstants.PostsPageRoute + "?page=" + @Model.PreviousPage)">«</a></li>
+                    <li><a href="@(Request.Url.AbsolutePath + " ?page=" + @Model.PreviousPage )">«</a></li>
                     @for (int i = 1; i <= Model.PagesCount; i++)
                     {
                         if (i == Model.CurrentPage)
                         {
-                            <li class="active"><a href="@(WebConstants.PostsPageRoute + "?page=" + @i)">@i</a></li>
+                            <li class="active"><a href="@(Request.Url.AbsolutePath + "?page=" + @i)">@i</a></li>
                         }
                         else
                         {
-                            <li><a href="@(WebConstants.PostsPageRoute + "?page=" + @i)">@i</a></li>
+                            <li><a href="@(Request.Url.AbsolutePath + "?page=" + @i)">@i</a></li>
                         }
                     }
-                    <li><a href="@(WebConstants.PostsPageRoute + "?page=" + @Model.NextPage)">»</a></li>
+                    <li><a href="@(Request.Url.AbsolutePath + "?page=" + @Model.NextPage)">»</a></li>
                 </ul>
             }
         </div>

@@ -19,10 +19,11 @@ namespace Professional.Web
                 defaults: new { controller = "Home" }
             );
 
-            //routes.MapRoute(
-            //name: "EntityNavigation",
-            //url: "Home/{controller}/{action}/{id}"
-            //);
+            routes.MapRoute(
+            name: "EntityNavigation",
+            url: "UsersArea/Public/Posts/{id}/{fieldName}",
+            defaults: new { id = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                 name: "Default",

@@ -36,17 +36,27 @@ namespace Professional.Web.Areas.UserArea.Controllers
             var userFields = (List<FieldOfExpertise>)this.GetUserFields(id);
 
             var topPostPanel = new ListPanelViewModel();
+            topPostPanel.Title = "Top Posts";
             topPostPanel.Items = (List<Post>)this.GetTopPosts(id);
             topPostPanel.Fields = userFields;
 
             var recentPostPanel = new ListPanelViewModel();
+            recentPostPanel.Title = "Recent Posts";
             recentPostPanel.Items = (List<Post>)this.GetRecentPosts(id);
             recentPostPanel.Fields = userFields;
 
+            var btnNavigatePosts = new NavigationItem();
+            btnNavigatePosts.Content = "See post's page";
+            btnNavigatePosts.Url = WebConstants.PostsPageRoute + currentUser.Id;
+
+            var btnNavigateEndorsements = new NavigationItem();
+            btnNavigateEndorsements.Content = "See endorsements's page";
+            btnNavigateEndorsements.Url = "#";
+
             var publicProfileInfo = new PublicProfileViewModel();
             publicProfileInfo.UserInfo = userInfoForView;
-            publicProfileInfo.BtnNavigatePosts = "See post's page";
-            publicProfileInfo.BtnNavigateEndorsements = "See endorsements's page";
+            publicProfileInfo.BtnNavigatePosts = btnNavigatePosts;
+            publicProfileInfo.BtnNavigateEndorsements = btnNavigateEndorsements;
             publicProfileInfo.TopPostsList = topPostPanel;
             publicProfileInfo.RecentPostsList = recentPostPanel;
 
@@ -54,9 +64,15 @@ namespace Professional.Web.Areas.UserArea.Controllers
         }
 
         // GET: UserArea/Public/Posts/{id} - the user id here 
-        public ActionResult Posts(string id, int page = 1, int perPage = WebConstants.PostsPerPage)
+        public ActionResult Posts(string id, int page = 1, int perPage = WebConstants.PostsPerPage,
+            string fieldName = null)
         {
+            //var currentUrl = Request.Url.AbsolutePath;
             var pagesCount = (int)Math.Ceiling(this.postsData.Count() / (decimal)perPage);
+
+            var fieldsNames = this.data.FieldsOfExpertise
+                .All()
+                .Select(f => f.Name);
 
             IQueryable<Post> posts = new List<Post>().AsQueryable();
             if (id != null)
@@ -68,9 +84,20 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 posts = this.GetAllPosts(); 
             }
 
-            var postRaw = posts.OrderBy(p => p.Field.Name)
+            IQueryable<Post> postRaw = new List<Post>().AsQueryable();
+            if (fieldName != null)
+            {
+                postRaw = posts.OrderBy(p => p.Field.Name)
+                .Where(p => p.Field.Name == fieldName)
                 .Skip(perPage * (page - 1))
                 .Take(perPage);
+            }
+            else
+            {
+                postRaw = posts.OrderBy(p => p.Field.Name)
+                .Skip(perPage * (page - 1))
+                .Take(perPage);
+            }
 
             var grouped = postRaw.GroupBy(p => p.Field.Name)
                 .Select(p => new ItemsByFieldViewModel
@@ -79,13 +106,15 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     Items = p.Select(i => new NavigationItem
                     {
                         Content = i.Title,
-                        Url = "#"
+                        Url = WebConstants.PostPageRoute + i.ID
                     }).ToList()
                 });
 
             var viewModel = new ListCollectionViewModel();
+            viewModel.Url = WebConstants.PostsPageRoute;
+            viewModel.FieldsNames = fieldsNames.ToList();
             viewModel.Title = "Posts";
-            viewModel.GetBy = "first letter";
+            viewModel.GetBy = "field";
             viewModel.Fields = grouped.ToList();
             viewModel.CurrentPage = page;
             viewModel.PagesCount = pagesCount;
