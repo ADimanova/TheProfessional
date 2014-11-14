@@ -1,0 +1,35 @@
+﻿@using Professional.Web.Helpers
+
+@model UserViewModel
+
+@{
+    var isPrivate = ViewData["isPrivate"] == "true" ? true : false;
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">Personal Information</div>
+    <div class="panel-body ">
+        <div class="media holder ">
+            <a class="media-left" href="#">
+                <img src="~/Images/default-profile-pic.png" alt="News Image" style="width: 15em; height: auto;" />
+            </a>
+            <div class="media-body">
+                <h5 class="media-heading">@Model.FullName</h5>
+                <div>
+                    <b>Gender</b>@Html.DisplayFor(m => m.IsMale)
+                </div>
+                <div>
+                    <b>Date of birth </b>@Html.DisplayFor(m => m.DateOfBirth)
+                </div>
+                <div class="less-width wrapped">
+                    <b>Personal history</b>
+                    <span>@StringManipulations.GetSubstring(Model.GetPersonalHistory(), 0, 250)</span>
+                </div>
+                @if (isPrivate)
+                {
+                    <a href="#" class="btn btn-default set-bottom-right">Edit</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
