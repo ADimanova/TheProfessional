@@ -229,6 +229,7 @@
     <Compile Include="Areas\UserArea\UserAreaAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\FieldController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostDisplayController.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="Infrastructure\Mappings\IHaveCustomMappings.cs" />
     <Compile Include="Infrastructure\Mappings\IMapFrom.cs" />
     <Compile Include="Models\AccountViewModels\AccountViewModels.cs" />
+    <Compile Include="Models\DatabaseViewModels\FieldViewModel.cs" />
     <Compile Include="Models\DatabaseViewModels\UserViewModel.cs" />
     <Compile Include="Models\HorizontalNavbarViewModel.cs" />
     <Compile Include="Models\PageViewModels\IndexViewModel.cs" />
@@ -296,6 +298,7 @@
     <Content Include="Areas\UserArea\Views\AllUsers\Index.cshtml" />
     <Content Include="Areas\UserArea\Views\Private\OnRegistration.cshtml" />
     <Content Include="Areas\UserArea\Views\Private\AddUserInfo.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\_PersonalInfoView.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -542,6 +545,7 @@
     <Content Include="Views\Shared\EditorTemplates\TextArea.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BoolCheckbox.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MaleFemale.cshtml" />
+    <Content Include="Views\Field\Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

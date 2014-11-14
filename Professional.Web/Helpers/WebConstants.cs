@@ -23,8 +23,10 @@ namespace Professional.Web.Helpers
 
         public const string OnRegistrationPageRoute = "/UserArea/Private/OnRegistration/";
         public const string AddUserInfoPageRoute = "/UserArea/Private/AddUserInfo/";
-        
 
+
+        public const string FieldInfoPageRoute = "/Field/Info/";
+        
         //Visualization
         public const int PostsPerPage = 5;
 

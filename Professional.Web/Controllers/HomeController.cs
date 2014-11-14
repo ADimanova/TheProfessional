@@ -44,7 +44,7 @@ namespace Professional.Web.Controllers
                 .Select(f => new NavigationItem
                 {
                     Content = f.Name,
-                    Url = "#"
+                    Url = WebConstants.FieldInfoPageRoute + f.Name
                 });
 
                 var rawPosts = this.data.Posts.All()

@@ -6,20 +6,7 @@
 
 <div class="row">
     <div class="col-md-6 col-md-offset-1">
-        <div class="panel panel-default">
-            <div class="panel-heading">Personal Information</div>
-            <div class="panel-body">
-                <div class="media">
-                    <a class="media-left" href="#">
-                        <img src="~/Images/default-profile-pic.png" alt="News Image" style="width: 15em; height: auto;" />
-                    </a>
-                    <div class="media-body">
-                        <h5 class="media-heading">@Model.UserInfo.FullName</h5>
-                        @Model.UserInfo.GetPersonalHistory()
-                    </div>
-                </div>
-            </div>
-        </div>
+        @Html.Partial("~/Areas/UserArea/Views/Shared/_PersonalInfoView.cshtml", Model.UserInfo, new ViewDataDictionary { { "isPrivate", "false" } })
 
         <div class="panel panel-default">
             <div class="panel-heading">Professional Information</div>
