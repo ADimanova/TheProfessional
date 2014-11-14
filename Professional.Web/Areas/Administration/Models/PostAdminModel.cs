@@ -14,7 +14,6 @@ namespace Professional.Web.Areas.Administration.Models
         [HiddenInput(DisplayValue = false)]
         public int ID { get; set; }
 
-        [AllowHtml]
         public string Title { get; set; }
 
         [AllowHtml]

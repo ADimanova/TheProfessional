@@ -5,14 +5,13 @@ namespace Professional.Web.App_Start
 {
     using System;
     using System.Web;
-
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
     using Ninject;
     using Ninject.Web.Common;
     using Professional.Data;
-    using Professional.Data.Repositories;
     using Professional.Data.Contracts;
+    using Professional.Data.Repositories;
+    using Professional.Web.Infrastructure.HtmlSanitise;
 
     public static class NinjectWebCommon 
     {
@@ -67,6 +66,7 @@ namespace Professional.Web.App_Start
             kernel.Bind<IApplicationDbContext>().To<ApplicationDbContext>();
             kernel.Bind<IApplicationData>().To<ApplicationData>();
             kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
+            kernel.Bind(typeof(ISanitiser)).To(typeof(HtmlSanitizerAdapter));
         }        
     }
 }

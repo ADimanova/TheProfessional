@@ -9,18 +9,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Professional.Web.Helpers;
+using Professional.Web.Infrastructure.HtmlSanitise;
 using System.Web.Caching;
 using Professional.Data;
+using Professional.Web.Helpers;
 
 namespace Professional.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        public HomeController(IApplicationData data)
+        private ISanitiser sanitiser;
+        public HomeController(IApplicationData data, ISanitiser sanitiser)
             : base(data)
         {
-
+            this.sanitiser = sanitiser;
         }
 
         private const int FieldsCount = 9;
@@ -115,12 +117,10 @@ namespace Professional.Web.Controllers
                 var post = posts[i];
 
                 // TODO: Refactor
-                var title = StringManipulations.GetSubstring(post.Title, 0, WebConstants.TitleLength + 20);
-                title = StringManipulations.StripHtml(title);
-                title = StringManipulations.GetSubstring(title, 0, WebConstants.TitleLength);
+                // TODO: To upper case of first letter
+                var title = StringManipulations.GetSubstring(post.Title, 0, WebConstants.TitleLength);
 
-                var content = StringManipulations.GetSubstring(post.Content, 0, WebConstants.ContentLength + 20);
-                content = StringManipulations.StripHtml(content);
+                var content = StringManipulations.StripHtml(post.Content);
                 content = StringManipulations.GetSubstring(content, 0, WebConstants.TitleLength);
 
                 posts[i].Title = title;

@@ -2,6 +2,7 @@
 using Professional.Data;
 using Professional.Models;
 using Professional.Web.Areas.UserArea.Models.InputModels;
+using Professional.Web.Infrastructure.HtmlSanitise;
 using Professional.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,11 @@ namespace Professional.Web.Areas.UserArea.Controllers
 {
     public class CreateItemController : UserController
     {
-        public CreateItemController(IApplicationData data)
+        private readonly ISanitiser sanitizer;
+        public CreateItemController(IApplicationData data, ISanitiser sanitizer)
             : base(data)
         {
-
+            this.sanitizer = sanitizer;
         }
 
         // GET: UserArea/CreateItem/Post
@@ -39,11 +41,13 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 var fieldId = this.data.FieldsOfExpertise.All()
                     .FirstOrDefault(f => f.Name == model.FieldName).ID;
 
+                var sanitisedContent = sanitizer.Sanitize(model.Content); 
+
                 var newPost = new Post
                 {
                     Title = model.Title,
                     DateCreated = DateTime.Now.ToUniversalTime(),
-                    Content = model.Content,
+                    Content = sanitisedContent,
                     CreatorID = creator,
                     FieldID = fieldId
                 };
