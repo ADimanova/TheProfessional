@@ -30,5 +30,9 @@ namespace Professional.Models
         [Column(TypeName = "ntext")]
         [MaxLength]
         public string PersonalHistory { get; set; }
+
+        public int? ProfileImageId { get; set; }
+
+        public virtual Image ProfileImage { get; set; }
     }
 }

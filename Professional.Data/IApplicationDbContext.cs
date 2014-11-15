@@ -2,16 +2,18 @@
 using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity;
 namespace Professional.Data
 {
     public interface IApplicationDbContext
     {
-        System.Data.Entity.IDbSet<Company> Companies { get; set; }
-        System.Data.Entity.IDbSet<EndorsementOfPost> EndorsementsOfPosts { get; set; }
-        System.Data.Entity.IDbSet<EndorsementOfUser> EndorsementsOfUsers { get; set; }
-        System.Data.Entity.IDbSet<FieldOfExpertise> FieldsOfExpertise { get; set; }
-        System.Data.Entity.IDbSet<Occupation> Occupations { get; set; }
-        System.Data.Entity.IDbSet<Post> Posts { get; set; }
+        IDbSet<Company> Companies { get; set; }
+        IDbSet<EndorsementOfPost> EndorsementsOfPosts { get; set; }
+        IDbSet<EndorsementOfUser> EndorsementsOfUsers { get; set; }
+        IDbSet<FieldOfExpertise> FieldsOfExpertise { get; set; }
+        IDbSet<Occupation> Occupations { get; set; }
+        IDbSet<Post> Posts { get; set; }
+        IDbSet<Image> Images { get; set; }
 
         DbContext DbContext { get; }
 

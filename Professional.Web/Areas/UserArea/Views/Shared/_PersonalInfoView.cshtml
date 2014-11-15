@@ -11,7 +11,14 @@
     <div class="panel-body ">
         <div class="media holder ">
             <a class="media-left" href="#">
-                <img src="~/Images/default-profile-pic.png" alt="News Image" style="width: 15em; height: auto;" />
+                @if (Model.ProfileImageId != null)
+                {
+                    <img src="@Url.Action("Image", "Public", new { Area = WebConstants.UserArea, id = Model.ProfileImageId.Value })" alt="@Model.FullName" class="img-responsive img-rounded" />
+                }
+                else
+                {
+                    <img src="~/Images/default-profile-pic.png" alt="News Image" class="img-responsive img-rounded" style="width: 15em; height: auto;" />
+                }
             </a>
             <div class="media-body">
                 <h5 class="media-heading">@Model.FullName</h5>

@@ -18,6 +18,7 @@ namespace Professional.Data
         IDeletableEntityRepository<EndorsementOfUser> EndorsementsOfUsers { get; }
         IDeletableEntityRepository<FieldOfExpertise> FieldsOfExpertise { get; }
         IDeletableEntityRepository<Occupation> Occupations { get; }
+        IDeletableEntityRepository<Image> Images { get; }
         int SaveChanges();
     }
 }

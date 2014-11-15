@@ -156,5 +156,16 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
             return this.PartialView("~/Views/Shared/Partials/_ListItems.cshtml", posts);
         }
+
+        public ActionResult Image(int id)
+        {
+            var image = this.data.Images.GetById(id);
+            if (image == null)
+            {
+                throw new HttpException(404, "Image not found");
+            }
+
+            return File(image.Content, "image/" + image.FileExtension);
+        }
     }
 }

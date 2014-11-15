@@ -22,6 +22,8 @@ namespace Professional.Web.Areas.UserArea.Models
         [UIHint("FormatedDate")]
         public DateTime DateOfBirth { get; set; }
 
+        public int? ProfileImageId { get; set; }
+
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<User, UserViewModel>()

@@ -6,7 +6,8 @@
     ViewBag.Title = "AddUserInfo";
 }
 
-@using (Html.BeginForm("AddUserInfo", "Private", FormMethod.Post, new { @class = "form-horizontal custom", role = "form" }))
+@using (Html.BeginForm("AddUserInfo", "Private", FormMethod.Post,
+    new { @class = "form-horizontal custom", enctype = "multipart/form-data", role = "form" }))
 {
     @Html.AntiForgeryToken()
 
@@ -34,6 +35,13 @@
         @Html.LabelFor(m => m.PersonalHistory, "Add some personal history", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.EditorFor(m => m.PersonalHistory)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProfileImage, "Add profile picture", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <input type="file" name="ProfileImage" />
         </div>
     </div>
 

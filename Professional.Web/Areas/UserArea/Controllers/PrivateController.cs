@@ -14,6 +14,7 @@ using Professional.Web.Models;
 using Professional.Web.Helpers;
 using Professional.Data;
 using Professional.Web.Areas.UserArea.Models.InputModels;
+using System.IO;
 
 namespace Professional.Web.Areas.UserArea.Controllers
 {
@@ -75,6 +76,21 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 user.PersonalHistory = model.PersonalHistory;
                 user.IsMale = model.IsMale;
                 user.DateOfBirth = model.DateOfBirth;
+
+                if (model.ProfileImage != null)
+                {
+                    using (var memory = new MemoryStream())
+                    {
+                        model.ProfileImage.InputStream.CopyTo(memory);
+                        var content = memory.GetBuffer();
+
+                        user.ProfileImage = new Image
+                        {
+                            Content = content,
+                            FileExtension = model.ProfileImage.FileName.Split(new[] { '.' }).Last()
+                        };
+                    }
+                }
 
                 try
                 {

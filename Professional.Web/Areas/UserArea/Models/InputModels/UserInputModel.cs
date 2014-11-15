@@ -17,5 +17,7 @@ namespace Professional.Web.Areas.UserArea.Models.InputModels
 
         [UIHint("TextArea")]
         public string PersonalHistory { get; set; }
+
+        public HttpPostedFileBase ProfileImage { get; set; }
     }
 }
