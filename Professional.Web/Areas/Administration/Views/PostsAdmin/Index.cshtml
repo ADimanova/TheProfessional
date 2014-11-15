@@ -3,7 +3,7 @@
 @{
     var ControllerName = "PostsAdmin";
 }
-<div id="postsDb">
+<div id="grid">
     @(Html.Kendo().Grid<PostAdminModel>(Model)
             .Name("grid-posts")
             .Columns(columns =>
@@ -14,7 +14,7 @@
                 columns.Command(c => c.Destroy()).Title("Deleting");      
             })
             .ColumnMenu()
-            .Scrollable()
+            .Scrollable(g => g.Height("auto"))
             .Sortable()
             .Editable(edit => edit.Mode(GridEditMode.PopUp))
             .Pageable(pageable => pageable

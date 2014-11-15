@@ -24,6 +24,10 @@ namespace Professional.Web.Helpers
         public const string OnRegistrationPageRoute = "/UserArea/Private/OnRegistration/";
         public const string AddUserInfoPageRoute = "/UserArea/Private/AddUserInfo/";
 
+        // in Administration
+        public const string AdminPostsPageRoute = "/Administration/PostsAdmin/Index/";
+        public const string AdminUsersPageRoute = "/Administration/UsersAdmin/Index/";
+        public const string AdminFieldsPageRoute = "/Administration/FieldsAdmin/Index/";
 
         public const string FieldInfoPageRoute = "/Field/Info/";
         
@@ -45,5 +49,26 @@ namespace Professional.Web.Helpers
                 Url = PostsPageRoute
             }
         };
+
+        public static List<NavigationItem> AdminSections = new List<NavigationItem> {
+            new NavigationItem
+            {
+                Content = "Users",
+                Url = AdminUsersPageRoute
+            }, 
+            new NavigationItem
+            {
+                Content = "Posts",
+                Url = AdminPostsPageRoute
+            },
+            new NavigationItem
+            {
+                Content = "Fields of Expertise",
+                Url = AdminFieldsPageRoute
+            }
+        };
     }
 }
+
+ 
+ 

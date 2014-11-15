@@ -549,6 +549,8 @@
     <Content Include="Views\Shared\DisplayTemplates\MaleFemale.cshtml" />
     <Content Include="Views\Field\Info.cshtml" />
     <Content Include="Views\Shared\Partials\_ListItems.cshtml" />
+    <Content Include="Views\Shared\Partials\_SuccessAlert.cshtml" />
+    <Content Include="Views\Shared\Partials\_FailAlert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

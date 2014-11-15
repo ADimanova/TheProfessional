@@ -14,37 +14,40 @@ using AutoMapper;
 
 using Model = Professional.Models.User;
 using ViewModel = Professional.Web.Areas.Administration.Models.UserAdminModel;
+using Professional.Web.Helpers;
+using Professional.Common;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity;
 
 namespace Professional.Web.Areas.Administration.Controllers
 {
     public class UsersAdminController : KendoGridAdministrationController
     {
+        private UserManager<User> userManager;
+
         public UsersAdminController(IApplicationData data)
             :base(data)
         {
-
+            this.userManager = new UserManager<User>(new UserStore<User>(this.data.Context.DbContext));
         }
 
         // GET: Administration/UsersAdmin
-        public ActionResult Index([DataSourceRequest]DataSourceRequest request)
+        public ActionResult Index()
         {
             return View();
         }
 
         public JsonResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            var users = this.data.Users.All()
-                .OrderByDescending(u => u.FirstName)
-                .ThenByDescending(u => u.LastName)
-                .Project().To<UserAdminModel>()
-                .ToDataSourceResult(request);
+            var users = this.GetData();
 
-            return Json(users, JsonRequestBehavior.AllowGet);
+            return Json(users.ToDataSourceResult(request).Data, JsonRequestBehavior.AllowGet);
         }
 
         protected override System.Collections.IEnumerable GetData()
         {
-            return this.data.Users.All();
+            return this.data.Users.All()
+                .Project().To<UserAdminModel>();
         }
 
         protected override T GetById<T>(object id)
@@ -52,13 +55,42 @@ namespace Professional.Web.Areas.Administration.Controllers
             return this.data.Users.GetById(id) as T;
         }
 
-        //[HttpPost]
-        //public ActionResult Create([DataSourceRequest]DataSourceRequest request, ViewModel model)
-        //{
-        //    var dbModel = base.Create<Model>(model);
-        //    if (dbModel != null) model.Id = dbModel.Id;
-        //    return this.GridOperation(model, request);
-        //}
+        [HttpGet]
+        public ActionResult MakeAdmin(string id)
+        {
+            // Won't add user twice to role
+            try
+            {
+                this.userManager.AddToRole(id, GlobalConstants.AdministratorRoleName);
+                this.data.SaveChanges();
+
+                this.TempData["success"] = "true";
+            }
+            catch
+            {
+                throw new HttpException(500, "Something went really wrong. Sorry...");
+            }
+
+            return new RedirectResult(WebConstants.AdminUsersPageRoute);
+        }
+
+        [HttpGet]
+        public ActionResult RemoveAdmin(string id)
+        {
+            try
+            {
+                this.userManager.RemoveFromRole(id, GlobalConstants.AdministratorRoleName);
+                this.data.SaveChanges();
+
+                this.TempData["success"] = "false";
+            }
+            catch
+            {
+                throw new HttpException(500, "Something went really wrong. Sorry...");
+            }
+
+            return new RedirectResult(WebConstants.AdminUsersPageRoute);
+        }
 
         [HttpPost]
         public ActionResult Update([DataSourceRequest]DataSourceRequest request, ViewModel model)
@@ -75,7 +107,7 @@ namespace Professional.Web.Areas.Administration.Controllers
                 this.data.Users.Delete(model.Id);
                 this.data.SaveChanges();
             }
-
+            //var roles = this.data.Users.All().FirstOrDefault().Roles
             return this.GridOperation(model, request);
         }
     }

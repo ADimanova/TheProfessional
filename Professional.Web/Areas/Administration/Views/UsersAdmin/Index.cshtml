@@ -1,21 +1,37 @@
 ﻿@using Professional.Web.Areas.Administration.Models
+@using Professional.Web.Helpers
 
 @model IEnumerable<UserAdminModel>
 @{
     var ControllerName = "UsersAdmin";
 }
 
-<div id="usersDb">
-    @(Html.Kendo().Grid<UserAdminModel>(Model)
+@if (TempData["success"] == "true")
+{
+    @Html.Partial("~/Views/Shared/Partials/_SuccessAlert.cshtml", "New Admin added successfully!")    
+}
+@if (TempData["success"] == "false")
+{
+    @Html.Partial("~/Views/Shared/Partials/_FailAlert.cshtml", "New Admin added successfully!")
+}
+
+<div id="grid">
+@(Html.Kendo().Grid<UserAdminModel>(Model)
     .Name("grid-users")
     .Columns(columns =>
     {
         columns.Bound(u => u.FirstName);
         columns.Bound(u => u.LastName);
         columns.Command(c => c.Edit()).Title("Editing");
-        columns.Command(c => c.Destroy()).Title("Deleting");      
+        columns.Command(c => c.Destroy()).Title("Deleting");
+        columns.Template(@<text></text>)
+            .ClientTemplate("<a class='btn btn-sm btn-success custom-success' name='add' href='" +
+                Url.Action("MakeAdmin", "UsersAdmin", new { Area = "Administration" }) + "/#=Id#'>Make Admin</a>");
+        columns.Template(@<text></text>)
+            .ClientTemplate("<a class='btn btn-sm btn-danger custom-danger' name='remove' href='" +
+                Url.Action("RemoveAdmin", "UsersAdmin", new { Area = "Administration" }) + "/#=Id#'>Remove Admin</a>");
     })
-    .Scrollable()
+    .Scrollable(g => g.Height("auto"))
     .Sortable()
     .Editable(edit => edit.Mode(GridEditMode.PopUp))
     .Pageable(pageable => pageable
@@ -34,12 +50,12 @@
     )
 )
 </div>
-
-<style scoped>
-    #usersDb {
-        width: 952px;
-        height: 396px;
-        margin: 20px auto 0;
-        padding: 51px 4px 0 4px;
-    }
-</style>
+<script>
+    //$(document).load(function () {
+    //    $("#success-alert").hide();
+    //})
+    $("#add").on("click", function () {
+        $("#success-alert").alert();
+        console.log('here');
+    });
+</script>

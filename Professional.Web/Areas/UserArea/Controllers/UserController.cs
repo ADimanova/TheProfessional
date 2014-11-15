@@ -21,6 +21,11 @@ namespace Professional.Web.Areas.UserArea.Controllers
         }
         protected IList GetUserFields(string currentUserId)
         {
+            if (currentUserId == null)
+            {
+                //TODO:
+                return new List<FieldOfExpertise>();
+            }
             var fields = this.data.Users.All()
             .FirstOrDefault(u => u.Id == currentUserId)
             .FieldsOfExpertise.ToList();
