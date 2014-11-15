@@ -23,8 +23,8 @@
                         @foreach (var fieldName in Model.FieldsNames)
                         {
                             <li role="presentation">
-                                <a role="menuitem" tabindex="-1" 
-                                    href="@(Model.Url + fieldName)">@fieldName</a>
+                                <a role="menuitem" tabindex="-1"
+                                   href="@(Model.Url + fieldName)">@fieldName</a>
                             </li>
                         }
                     </ul>
@@ -40,7 +40,7 @@
                         var item = field.Items[j];
                         <a href="@item.Url" class="list-group-item">@item.Content</a>
                     }
-                }                
+                }
             </div>
             @if (Model.PagesCount > 0)
             {

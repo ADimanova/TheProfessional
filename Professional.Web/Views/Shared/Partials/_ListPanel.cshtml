@@ -1,40 +1,53 @@
 ﻿@model ListPanelViewModel
 
-@using (Ajax.BeginForm("TopPosts", null,
-        new AjaxOptions
+@{
+    var custom = Model.Title.Substring(0, 1);
+
+}
+
+
+<script>
+    $(".dropdown-menu li a").on("click", function () {
+        $('#' + $(this).attr('data-connected')).val($(this).text()); //+ " " + $(this).attr('id')
+        changed();
+        console.log('here');
+    });
+</script>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        @Model.Title
+
+        @using (Ajax.BeginForm("Filter", null,
+            new AjaxOptions
+            {
+                UpdateTargetId = "items",
+                HttpMethod = "POST",
+                InsertionMode = InsertionMode.Replace
+            }, new { id = "fileterForm" }))
         {
-            UpdateTargetId = "posts",
-            InsertionMode = InsertionMode.Replace,
-            HttpMethod = "POST"
-        }, new { id = "topPostsForm" }))
-{
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            @Model.Title
             <div class="dropdown pull-right">
-                <button class="btn btn-xs btn-default dropdown-toggle" type="button" id="dropdownFields" data-toggle="dropdown">
+                <button class="btn btn-xs btn-default dropdown-toggle positioned" type="button" id="dropdownFields" data-toggle="dropdown">
                     by field
-                    <span class="caret"></span>
+                    <span id="hoder" class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuTopPosts">
                     @foreach (var field in Model.Fields)
                     {
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">@field.Name</a></li>
+                        <li role="presentation"><a role="menuitem" data-connected="@custom" id="@Model.Title" tabindex="-1" href="#">@field.Name</a></li>
                     }
                 </ul>
             </div>
-        </div>
-        <div class="list-group list-group-margin">
-            @foreach (var item in Model.Items)
-            {
-                <a href="#" class="list-group-item">@item.Title</a>
+    <input type="text" id="@custom" class="non-input" name="query" />
+        }
+        <script>
+            function changed() {
+                $("#fileterForm").submit();
             }
-        </div>
+        </script>
     </div>
-}
 
-<script>
-    function changed() {
-        $("#dropdownFields").submit();
-    }
-</script>
+    <div id="items" class="list-group list-group-margin">
+        @Html.Partial("~/Views/Shared/Partials/_ListItems.cshtml", Model.Items)
+    </div>
+</div>
+

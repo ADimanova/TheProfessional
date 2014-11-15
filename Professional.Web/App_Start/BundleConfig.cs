@@ -27,14 +27,14 @@ namespace Professional.Web
                 .Include("~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*", "~/Scripts/jquery.unobtrusive-ajax.js"));
+                        "~/Scripts/jquery.validate*"));
+                
+            bundles.Add(new ScriptBundle("~/bundles/unobtrusive-jquery").Include(
+                    "~/Scripts/jquery.unobtrusive-ajax.min.js"));
 
             bundles.Add(new ScriptBundle("~/Js/kendo").Include(
                     "~/Scripts/kendo/kendo.all.min.js",
                     "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",

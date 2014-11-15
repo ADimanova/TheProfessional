@@ -10,7 +10,9 @@ namespace Professional.Web.Models
     public class ListPanelViewModel
     {
         public string Title { get; set; }
+
+        // TODO: ViewModel
         public IEnumerable<FieldOfExpertise> Fields { get; set; }
-        public IList<Post> Items { get; set; }
+        public IList<NavigationItem> Items { get; set; }
     }
 }

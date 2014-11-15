@@ -44,23 +44,21 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
             return post;
         }
-        protected IList GetRecentPosts(string currentUserId)
+        protected IQueryable<Post> GetRecentPosts(string currentUserId)
         {
             var recentPost = this.data.Posts.All()
                 .Where(p => p.CreatorID == currentUserId)
                 .OrderBy(p => p.DateCreated)
-                .Take(GlobalConstants.ListPanelCount)
-                .ToList();
+                .Take(GlobalConstants.ListPanelCount);
 
             return recentPost;
         }
-        protected IList GetTopPosts(string currentUserId)
+        protected IQueryable<Post> GetTopPosts(string currentUserId)
         {
             var recentPost = this.data.Posts.All()
                 .Where(p => p.CreatorID == currentUserId)
                 .OrderBy(p => p.Rank)
-                .Take(GlobalConstants.ListPanelCount)
-                .ToList();
+                .Take(GlobalConstants.ListPanelCount);
 
             return recentPost;
         }

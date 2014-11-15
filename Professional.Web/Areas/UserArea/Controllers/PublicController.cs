@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Professional.Common;
 using Professional.Data;
 using Professional.Models;
 using Professional.Web.Areas.UserArea.Models;
@@ -7,6 +8,7 @@ using Professional.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,9 +16,8 @@ namespace Professional.Web.Areas.UserArea.Controllers
 {
     public class PublicController : UserController
     {
-        //private readonly IQuearyable<BlogPost> blogPostsData;
         private readonly IQueryable<Post> postsData;
-        //private readonly IRepository<Page> pagesData;
+        private static User currentUser;
 
         public PublicController(IApplicationData data)
             : base(data)
@@ -27,7 +28,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
         // GET: UserArea/Public/Profile/{id}
         public ActionResult Profile(string id)
         {
-            var currentUser = this.data.Users.All()
+            currentUser = this.data.Users.All()
                 .FirstOrDefault(u => u.Id == id);
 
             Mapper.CreateMap<User, UserViewModel>();
@@ -37,12 +38,22 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
             var topPostPanel = new ListPanelViewModel();
             topPostPanel.Title = "Top Posts";
-            topPostPanel.Items = (List<Post>)this.GetTopPosts(id);
+            topPostPanel.Items = this.GetTopPosts(id)
+                .Select(p => new NavigationItem
+                {
+                    Content = p.Title, 
+                    Url = "#"
+                }).ToList<NavigationItem>();
             topPostPanel.Fields = userFields;
 
             var recentPostPanel = new ListPanelViewModel();
             recentPostPanel.Title = "Recent Posts";
-            recentPostPanel.Items = (List<Post>)this.GetRecentPosts(id);
+            recentPostPanel.Items = this.GetRecentPosts(id)
+                .Select(p => new NavigationItem
+                {
+                    Content = p.Title,
+                    Url = "#"
+                }).ToList<NavigationItem>();
             recentPostPanel.Fields = userFields;
 
             var btnNavigatePosts = new NavigationItem();
@@ -120,6 +131,30 @@ namespace Professional.Web.Areas.UserArea.Controllers
             viewModel.PagesCount = pagesCount;
 
             return View(viewModel);
+        }
+
+        public ActionResult Filter(string query)
+        {
+            if (currentUser == null)
+	        {
+		        return View("Error", "Something went wrong.");
+	        }
+
+            //Taking the top
+            var posts = postsData
+                .Where(p => p.CreatorID == currentUser.Id)
+                .Where(p => p.Field.Name == query)
+                .OrderBy(p => p.Rank)
+                .Take(GlobalConstants.ListPanelCount)
+                .Select(i => new NavigationItem
+                    {
+                        Content = i.Title,
+                        Url = WebConstants.PostPageRoute + i.ID
+                    }).ToList();
+
+            // TODO: Get Recent posts as well - bug with same id='posts' of containers
+
+            return this.PartialView("~/Views/Shared/Partials/_ListItems.cshtml", posts);
         }
     }
 }
