@@ -207,10 +207,12 @@
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Administration\Controllers\FieldsAdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\KendoGridAdministrationController.cs" />
     <Compile Include="Areas\Administration\Controllers\PostsAdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\UsersAdminController.cs" />
     <Compile Include="Areas\Administration\Models\AdministrationViewModel.cs" />
+    <Compile Include="Areas\Administration\Models\FieldViewModel.cs" />
     <Compile Include="Areas\Administration\Models\PostAdminModel.cs" />
     <Compile Include="Areas\Administration\Models\UserAdminModel.cs" />
     <Compile Include="Areas\UserArea\Controllers\AllUsersController.cs" />
@@ -233,8 +235,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostDisplayController.cs" />
-    <Compile Include="Controllers\PostViewsDesignController.cs" />
-    <Compile Include="Controllers\ProfilesDesignController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -246,6 +246,7 @@
     <Compile Include="Infrastructure\Mappings\AutoMapperConfig.cs" />
     <Compile Include="Infrastructure\Mappings\IHaveCustomMappings.cs" />
     <Compile Include="Infrastructure\Mappings\IMapFrom.cs" />
+    <Compile Include="Infrastructure\Validation\DoesNotContainAttribute.cs" />
     <Compile Include="Models\AccountViewModels\AccountViewModels.cs" />
     <Compile Include="Models\DatabaseViewModels\FieldViewModel.cs" />
     <Compile Include="Models\DatabaseViewModels\UserViewModel.cs" />
@@ -263,6 +264,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\kendo\custom-kendo.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -299,6 +301,7 @@
     <Content Include="Areas\UserArea\Views\Private\OnRegistration.cshtml" />
     <Content Include="Areas\UserArea\Views\Private\AddUserInfo.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\_PersonalInfoView.cshtml" />
+    <Content Include="Areas\Administration\Views\FieldsAdmin\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -505,10 +508,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\ProfilesDesign\UserProfile.cshtml" />
-    <Content Include="Views\ProfilesDesign\PublicUserProfile.cshtml" />
-    <Content Include="Views\ProfilesDesign\PublicCompanyProfile.cshtml" />
-    <Content Include="Views\ProfilesDesign\CompanyProfile.cshtml" />
     <Content Include="Views\PostViewsDesign\UserPosts.cshtml" />
     <Content Include="Views\PostViewsDesign\CompanyEndorsements.cshtml" />
     <Content Include="Views\PostViewsDesign\UserEndorsements.cshtml" />
@@ -517,17 +516,13 @@
     <Content Include="Views\Shared\Partials\_SearchBar.cshtml" />
     <Content Include="Views\Shared\Partials\_BtnNavigate.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\FormatedDate.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\YesNo.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
     <Content Include="Views\Shared\Partials\_ListPanel.cshtml" />
     <Content Include="Views\Shared\Partials\_InputField.cshtml" />
     <Content Include="Views\Shared\Partials\_HorizontalNavBar.cshtml" />
     <Content Include="Views\PostDisplay\Post.cshtml" />
     <Content Include="Views\Shared\Partials\_Dropdown.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\TextInput.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\RadioButtonList.cshtml" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.woff" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.json" />
@@ -538,23 +533,21 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
-    <Content Include="Views\Shared\EditorTemplates\tinymce_full_compressed.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\tinymce_full.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\tinymce_classic_compressed.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\tinymce_classic.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\tinymce_basic_compressed.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\tinymce_basic.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\TextArea.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\BoolCheckbox.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MaleFemale.cshtml" />
     <Content Include="Views\Field\Info.cshtml" />
     <Content Include="Views\Shared\Partials\_ListItems.cshtml" />
     <Content Include="Views\Shared\Partials\_SuccessAlert.cshtml" />
     <Content Include="Views\Shared\Partials\_FailAlert.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\BoolCheckbox.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\RadioButtonList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TextArea.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TextInput.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\tinymce_classic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\kendo\" />
     <Folder Include="Css\" />
     <Folder Include="Images\" />
     <Folder Include="Libraries\" />

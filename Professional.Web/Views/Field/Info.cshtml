@@ -3,22 +3,35 @@
 
 @model FieldViewModel
 
-<div class="container">
-    <div class="row clearfix">
-        <div class="col-md-12 column wrapped">
-            <div class="page-header">
-                <h1>
-                    @Model.Name
-                </h1>
-            </div>
-            <p>
-                @Model.Rank
-            </p>
-            <p>
-                @StringManipulations.GetJoinedList(Model.Holders)
-            </p>
+<div class="row clearfix">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 column grayed unedged">
+        <div class="page-header">
+            <h1 class="lessened wrapped">
+                @Model.Name
+            </h1>
         </div>
+        <p class="enlarged">
+            <b>Rank Points: </b> @Model.Rank
+        </p>
+        <p>
+            <b>Professionals in the field</b>
+            @if (Model.Holders.Count == 0)
+            {
+                <span>No one yet.</span>
+            }
+            else
+            {
+                <ul class="list-group">
+                    @foreach (var holder in Model.Holders)
+                    {
+                        <li class="list-group-item wrapped">@holder</li>
+                    }
+                </ul>
+            }
+        </p>
     </div>
+    <div class="col-md-2"></div>
 </div>
 
 

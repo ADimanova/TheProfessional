@@ -147,6 +147,11 @@ div.feature a {
     top: -2em;
 }
 
+.dropdown-menu.absoluted {
+    position: relative;
+    left: 5.6em;
+}
+
 input[type=text].non-input {
     -webkit-appearance: none !important;
     font-size: 1em;
@@ -170,3 +175,19 @@ input[type=text].non-input {
     background: #4BB655;
 }
 /*Events*/
+
+h1.lessened {
+    font-size: 3em;
+}
+
+.enlarged {
+    font-size: 120%;
+}
+
+.grayed {
+    background: #F8F8F8;
+}
+
+.unedged {
+    border-radius: 10px;
+}

@@ -29,7 +29,7 @@ namespace Professional.Web.Models
 
              configuration.CreateMap<User, UserSimpleViewModel>()
                 .ForMember(p => p.FieldList,
-                options => options.MapFrom(u => u.FieldsOfExpertise.Select(f => f.Name)));
+                options => options.MapFrom(u => u.FieldsOfExpertise.Where(f => f.IsDeleted == false).Select(f => f.Name)));
         }
     }
 }

@@ -29,12 +29,13 @@ namespace Professional.Web.Helpers
             return new string(a);
         }
 
-        public static string GetJoinedList(ICollection<string> items)
+        public static string GetJoinedList(ICollection<string> items, string emptyMessage)
         {
             if (items.Count == 0)
             {
-                throw new ArgumentException("You cannot get a joined string from empty collection");
+                return emptyMessage;
             }
+
             return string.Join(", ", items);
         }
 

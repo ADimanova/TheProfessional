@@ -35,19 +35,6 @@ namespace Professional.Web.Areas.Administration.Controllers
             return this.Json(items);
         }
 
-        //[NonAction]
-        //protected virtual T Create<T>(object model) where T : class
-        //{
-        //    if (model != null && ModelState.IsValid)
-        //    {
-        //        var dbModel = Mapper.Map<T>(model);
-        //        this.ChangeEntityStateAndSave(dbModel, EntityState.Added);
-        //        return dbModel;
-        //    }
-
-        //    return null;
-        //}
-
         [NonAction]
         protected virtual void Update<TModel, TViewModel>(TViewModel model, object id)
             where TModel : class, IAuditInfo
