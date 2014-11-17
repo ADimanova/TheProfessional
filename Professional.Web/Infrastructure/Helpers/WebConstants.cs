@@ -8,10 +8,13 @@ namespace Professional.Web.Helpers
 {
     public static class WebConstants
     {
+        public static readonly IList<string> EmptyList = new List<string> { "no values specified" };
+
         // Visualization counts
         public const int PostsPerPage = 5;
         public const int TitleLength = 20;
         public const int ContentLength = 100;
+        public const int ListPanelCount = 5;
 
         // Area names
         public const string AdminArea = "Administration";

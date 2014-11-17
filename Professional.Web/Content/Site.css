@@ -191,3 +191,26 @@ h1.lessened {
 .unedged {
     border-radius: 10px;
 }
+
+.bold {
+    font-weight: bold;
+    font-size: 110%;
+}
+
+.readable {
+    font-size: 120%;
+}
+
+.extreme {
+    font-size: 150%;
+}
+
+.updates {
+    position: absolute;
+    right: 4em;
+    top: 3.7em;
+}
+
+.glif-updates a{
+    color: #5CB3F7;
+}

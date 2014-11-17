@@ -2,6 +2,7 @@
 using Professional.Data;
 using Professional.Models;
 using Professional.Web.Controllers;
+using Professional.Web.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -54,7 +55,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             var recentPost = this.data.Posts.All()
                 .Where(p => p.CreatorID == currentUserId)
                 .OrderBy(p => p.DateCreated)
-                .Take(GlobalConstants.ListPanelCount);
+                .Take(WebConstants.ListPanelCount);
 
             return recentPost;
         }
@@ -63,7 +64,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             var recentPost = this.data.Posts.All()
                 .Where(p => p.CreatorID == currentUserId)
                 .OrderBy(p => p.Rank)
-                .Take(GlobalConstants.ListPanelCount);
+                .Take(WebConstants.ListPanelCount);
 
             return recentPost;
         }

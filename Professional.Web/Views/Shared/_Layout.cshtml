@@ -10,7 +10,8 @@
     @Styles.Render("~/Content/bootstrap.min.css")
     @Styles.Render("~/Content/Site.css")
 
-    @Scripts.Render("~/bundles/jquery") @*Position before html as Kendo needs it*@
+    @*Position before html as Kendo needs it*@
+    @Scripts.Render("~/bundles/jquery") 
 
     @RenderSection("styles", false);
 </head>
@@ -51,7 +52,7 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        @RenderSection("SideBar", false)
+        @RenderSection("updates", false)
         <div class="footer-customised">
             <hr />
             @Html.ActionLink("Home", "Index", "Home", new { Area = "" } , new { @class = "static-link" })
@@ -66,6 +67,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/unobtrusive-jquery")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

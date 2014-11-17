@@ -3,7 +3,7 @@
     using System.Data.Entity.ModelConfiguration.Configuration;
     using System.Data.Entity.ModelConfiguration.Conventions;
 
-    using EasyPTC.Data.Contracts.DataAnnotations;
+    using Professional.Data.Contracts.DataAnnotations;
 
     public class IsUnicodeAttributeConvention : PrimitivePropertyAttributeConfigurationConvention<IsUnicodeAttribute>
     {

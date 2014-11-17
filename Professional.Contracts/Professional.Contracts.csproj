@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAnnotations\IsUnicodeAttribute.cs" />
     <Compile Include="DatabaseObjects\AuditInfo.cs" />
     <Compile Include="CodeFirstConventions\UnicodeAttributeConvention.cs" />
     <Compile Include="DatabaseObjects\DeletableEntity.cs" />

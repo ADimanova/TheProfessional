@@ -1,6 +1,6 @@
 <h2>The Professional</h2>
 
-<b>Review:</b> Professionals in a field can share opinions, news, advice, etc. and get endorsed by others
+<b>Summery:</b> Professionals in a field can share opinions, news, advice, etc. and get endorsed by others
 <br />
 <b>Detailed Info:</b> Users who consider themselves professionals in a field can register and share news, opinions, professional advice, etc.
 They (or their posts) can be endorsed from other professionals in that field or their organization (or other organizations), if such are registered. 

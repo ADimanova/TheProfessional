@@ -240,8 +240,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\StringManipulations.cs" />
-    <Compile Include="Helpers\WebConstants.cs" />
+    <Compile Include="Infrastructure\Helpers\StringManipulations.cs" />
+    <Compile Include="Infrastructure\Helpers\WebConstants.cs" />
     <Compile Include="Infrastructure\Caching\ICacheService.cs" />
     <Compile Include="Infrastructure\Caching\InMemoryCache.cs" />
     <Compile Include="Infrastructure\HtmlSanitise\HtmlSanitizerAdapter.cs" />
@@ -254,11 +254,11 @@
     <Compile Include="Models\AccountViewModels\AccountViewModels.cs" />
     <Compile Include="Models\DatabaseViewModels\FieldViewModel.cs" />
     <Compile Include="Models\DatabaseViewModels\UserViewModel.cs" />
-    <Compile Include="Models\HorizontalNavbarViewModel.cs" />
+    <Compile Include="Models\GeneralViewModels\HorizontalNavbarViewModel.cs" />
     <Compile Include="Models\PageViewModels\IndexViewModel.cs" />
-    <Compile Include="Models\ListPanelViewModel.cs" />
+    <Compile Include="Models\GeneralViewModels\ListPanelViewModel.cs" />
     <Compile Include="Models\AccountViewModels\ManageViewModels.cs" />
-    <Compile Include="Models\NavigationItem.cs" />
+    <Compile Include="Models\GeneralViewModels\NavigationItem.cs" />
     <Compile Include="Models\DatabaseViewModels\PostSimpleViewModel.cs" />
     <Compile Include="Models\DatabaseViewModels\PostViewModel.cs" />
     <Compile Include="Models\DatabaseViewModels\UserSimpleViewModel.cs" />
@@ -273,6 +273,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\default-profile-pic.png" />
+    <Content Include="Images\logo.jpg" />
+    <Content Include="Images\news.png" />
+    <Content Include="Images\professionals.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Administration\Views\web.config" />
@@ -306,6 +310,7 @@
     <Content Include="Areas\UserArea\Views\Private\AddUserInfo.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\_PersonalInfoView.cshtml" />
     <Content Include="Areas\Administration\Views\FieldsAdmin\Index.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\_Layout.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -547,8 +552,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Css\" />
-    <Folder Include="Images\" />
     <Folder Include="Libraries\" />
   </ItemGroup>
   <ItemGroup>

@@ -145,7 +145,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 .Where(p => p.CreatorID == currentUser.Id)
                 .Where(p => p.Field.Name == query)
                 .OrderBy(p => p.Rank)
-                .Take(GlobalConstants.ListPanelCount)
+                .Take(WebConstants.ListPanelCount)
                 .Select(i => new NavigationItem
                     {
                         Content = i.Title,
