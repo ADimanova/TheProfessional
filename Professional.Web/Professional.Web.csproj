@@ -198,6 +198,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -246,8 +247,6 @@
     <Compile Include="Infrastructure\HtmlSanitise\HtmlSanitizerAdapter.cs" />
     <Compile Include="Infrastructure\HtmlSanitise\ISanitiser.cs" />
     <Compile Include="Infrastructure\Mappings\AutoMapperConfig.cs" />
-    <Compile Include="Infrastructure\Mappings\IHaveCustomMappings.cs" />
-    <Compile Include="Infrastructure\Mappings\IMapFrom.cs" />
     <Compile Include="Infrastructure\Services\Base\BaseServices.cs" />
     <Compile Include="Infrastructure\Services\Contracts\IHomeServices.cs" />
     <Compile Include="Infrastructure\Services\HomeServices.cs" />
@@ -513,11 +512,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\PostViewsDesign\UserPosts.cshtml" />
-    <Content Include="Views\PostViewsDesign\CompanyEndorsements.cshtml" />
-    <Content Include="Views\PostViewsDesign\UserEndorsements.cshtml" />
-    <Content Include="Views\Home\HomeDesign.cshtml" />
-    <Content Include="Views\PostViewsDesign\CreatePostView.cshtml" />
     <Content Include="Views\Shared\Partials\_SearchBar.cshtml" />
     <Content Include="Views\Shared\Partials\_BtnNavigate.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\FormatedDate.cshtml" />
