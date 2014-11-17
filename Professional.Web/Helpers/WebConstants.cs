@@ -10,7 +10,6 @@ namespace Professional.Web.Helpers
     {
         // Visualization counts
         public const int PostsPerPage = 5;
-
         public const int TitleLength = 20;
         public const int ContentLength = 100;
 

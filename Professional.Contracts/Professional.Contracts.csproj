@@ -52,18 +52,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuditInfo.cs" />
-    <Compile Include="DeletableEntity.cs" />
-    <Compile Include="IAuditInfo.cs" />
-    <Compile Include="IDeletableEntity.cs" />
-    <Compile Include="IDeletableEntityRepository.cs" />
-    <Compile Include="IOrderable.cs" />
-    <Compile Include="IRepository.cs" />
-    <Compile Include="IsUnicodeAttribute.cs" />
+    <Compile Include="DatabaseObjects\AuditInfo.cs" />
+    <Compile Include="CodeFirstConventions\UnicodeAttributeConvention.cs" />
+    <Compile Include="DatabaseObjects\DeletableEntity.cs" />
+    <Compile Include="DatabaseObjects\IAuditInfo.cs" />
+    <Compile Include="DatabaseObjects\IDeletableEntity.cs" />
+    <Compile Include="DatabaseObjects\IDeletableEntityRepository.cs" />
+    <Compile Include="DatabaseObjects\IOrderable.cs" />
+    <Compile Include="DatabaseObjects\IRepository.cs" />
     <Compile Include="Mappings\IHaveCustomMappings.cs" />
     <Compile Include="Mappings\IMapFrom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnicodeAttributeConvention.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

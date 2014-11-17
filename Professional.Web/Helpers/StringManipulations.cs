@@ -209,7 +209,6 @@ namespace Professional.Web.Helpers
                     tabs = tabs + "\t";
                 }
 
-                // That's it.
                 return result;
             }
             catch
