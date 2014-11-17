@@ -235,7 +235,7 @@
     <Compile Include="Controllers\FieldController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PostDisplayController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -519,7 +519,7 @@
     <Content Include="Views\Shared\Partials\_ListPanel.cshtml" />
     <Content Include="Views\Shared\Partials\_InputField.cshtml" />
     <Content Include="Views\Shared\Partials\_HorizontalNavBar.cshtml" />
-    <Content Include="Views\PostDisplay\Post.cshtml" />
+    <Content Include="Views\Post\Info.cshtml" />
     <Content Include="Views\Shared\Partials\_Dropdown.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.woff" />

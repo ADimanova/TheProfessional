@@ -10,15 +10,16 @@ using System.Web.Mvc;
 
 namespace Professional.Web.Controllers
 {
-    public class PostDisplayController : BaseController
+    public class PostController : BaseController
     {
-        public PostDisplayController(IApplicationData data)
+        public PostController(IApplicationData data)
             : base(data)
         {
 
         }
-        // GET: PostDisplay/Post
-        public ActionResult Post(int id)
+
+        // GET: Post/Info
+        public ActionResult Info(int id)
         {
             var post = this.data.Posts.All()
                 .Where(p => p.ID == id)

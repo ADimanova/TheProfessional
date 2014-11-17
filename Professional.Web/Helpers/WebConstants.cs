@@ -8,12 +8,17 @@ namespace Professional.Web.Helpers
 {
     public static class WebConstants
     {
+        // Visualization counts
+        public const int PostsPerPage = 5;
+
+        public const int TitleLength = 20;
+        public const int ContentLength = 100;
+
         // Area names
         public const string AdminArea = "Administration";
         public const string UserArea = "UserArea";
 
         // Routes
-        public const string PostPageRoute = "/PostDisplay/Post/";
         public const string PostsPageRoute = "/UserArea/Public/Posts/";
 
         public const string UsersPageRoute = "/UserArea/AllUsers/Index/";
@@ -24,19 +29,16 @@ namespace Professional.Web.Helpers
         public const string OnRegistrationPageRoute = "/UserArea/Private/OnRegistration/";
         public const string AddUserInfoPageRoute = "/UserArea/Private/AddUserInfo/";
 
-        // in Administration
+        // Administration
         public const string AdminPostsPageRoute = "/Administration/PostsAdmin/Index/";
         public const string AdminUsersPageRoute = "/Administration/UsersAdmin/Index/";
         public const string AdminFieldsPageRoute = "/Administration/FieldsAdmin/Index/";
 
-        public const string FieldInfoPageRoute = "/Field/Info/";
-        
-        //Visualization
-        public const int PostsPerPage = 5;
+        // Public 
+        public const string PostPageRoute = "/Post/Info/";
+        public const string FieldInfoPageRoute = "/Field/Info/";       
 
-        public const int TitleLength = 20;
-        public const int ContentLength = 100;
-
+        // Navbars and Dropdowns data
         public static List<NavigationItem> SiteSections = new List<NavigationItem> {
             new NavigationItem
             {
