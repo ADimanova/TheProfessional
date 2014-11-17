@@ -15,6 +15,7 @@ namespace Professional.Models
         public Post()
 		{
             this.postEndorsements = new HashSet<EndorsementOfPost>();
+			this.CreatedOn = DateTime.Now;
 		}
 
         [Key]

@@ -12,6 +12,9 @@ namespace Professional.Web.App_Start
     using Professional.Data.Contracts;
     using Professional.Data.Repositories;
     using Professional.Web.Infrastructure.HtmlSanitise;
+    using Professional.Web.Infrastructure.Services.Contracts;
+    using Professional.Web.Infrastructure.Services;
+    using Professional.Web.Infrastructure.Caching;
 
     public static class NinjectWebCommon 
     {
@@ -66,7 +69,11 @@ namespace Professional.Web.App_Start
             kernel.Bind<IApplicationDbContext>().To<ApplicationDbContext>();
             kernel.Bind<IApplicationData>().To<ApplicationData>();
             kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
+
             kernel.Bind(typeof(ISanitiser)).To(typeof(HtmlSanitizerAdapter));
+
+            kernel.Bind(typeof(ICacheService)).To(typeof(InMemoryCache));
+            kernel.Bind(typeof(IHomeServices)).To(typeof(HomeServices));
         }        
     }
 }
