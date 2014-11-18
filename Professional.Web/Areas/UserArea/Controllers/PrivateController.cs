@@ -28,34 +28,9 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
         }
 
-        // GET: UserArea/Private/Profile
-        //public ActionResult Profile()
-        //{
-        //    var currentUserId = User.Identity.GetUserId();
-        //    var currentUser = this.data.Users.All()
-        //        .FirstOrDefault(u => u.Id == currentUserId);
-
-        //    Mapper.CreateMap<User, UserViewModel>();
-        //    var userInfoForView = Mapper.Map<UserViewModel>(currentUser);
-
-        //    var privateProfileInfo = new PrivateProfileViewModel();
-
-        //    IList<NavigationItem> navItems = this.GetNavItems();
-        //    var navList = new HorizontalNavbarViewModel();
-        //    navList.Title = "Navigation";
-        //    navList.ListItems = navItems;
-        //    privateProfileInfo.UserInfo = userInfoForView;
-        //    privateProfileInfo.NavigationList = navList;
-
-        //    return View(privateProfileInfo);
-        //}
-
         public ActionResult OnRegistration()
         {
-            var userId = User.Identity.GetUserId();
-            var profilePath = WebConstants.PrivateProfilePageRoute + userId;
-            ViewBag.Profile = profilePath;
-            ViewBag.AddInfo = WebConstants.AddPersonalInfoPageRoute;
+            this.GetInfoNavigation(WebConstants.AddPersonalInfoPageRoute);
 
             return View();
         }
@@ -63,6 +38,8 @@ namespace Professional.Web.Areas.UserArea.Controllers
         [HttpGet]
         public ActionResult AddPersonalInfo()
         {
+            this.GetInfoNavigation(WebConstants.AddProfessionalInfoPageRoute);
+
             return View();
         }
 
@@ -101,7 +78,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 {
                     this.data.Users.Update(user);
                     this.data.SaveChanges();
-                    return RedirectToAction("Index", "Home", new { Area = "" });
+                    return RedirectToAction("AddProfessionalInfo", "Private", new { Area = WebConstants.UserArea });
                 }
                 catch
                 {
@@ -188,7 +165,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             try
             {
                 this.data.SaveChanges();
-                return RedirectToAction("Index", "Home", new { Area = "" });
+                return RedirectToAction("Private", "Profile", new { Area = WebConstants.UserArea });
             }
             catch
             {
@@ -196,7 +173,13 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 return View("Error");
             }
         }
-
+        private void GetInfoNavigation(string nextPath)
+        {
+            var userId = User.Identity.GetUserId();
+            var profilePath = WebConstants.PrivateProfilePageRoute + userId;
+            ViewBag.Profile = profilePath;
+            ViewBag.AddInfo = nextPath;
+        }
 
         private IList<NavigationItem> GetNavItems()
         {

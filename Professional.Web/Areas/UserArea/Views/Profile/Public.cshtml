@@ -7,14 +7,7 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-1">
         @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_PersonalInfoView.cshtml", Model.UserInfo, new ViewDataDictionary { { "isPrivate", "false" } })
-
-        <div class="panel panel-default">
-            <div class="panel-heading">Professional Information</div>
-            <div class="panel-body">
-                <h5 class="media-heading">Field</h5>
-                More info...
-            </div>
-        </div>
+        @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ProfessionalInfoView.cshtml", Model.UserInfo, new ViewDataDictionary { { "isPrivate", "false" } })
 
         <div class="panel panel-default">
             <div class="panel-heading">User Endorsements</div>

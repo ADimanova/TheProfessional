@@ -312,6 +312,7 @@
     <Content Include="Areas\UserArea\Views\Profile\Private.cshtml" />
     <Content Include="Areas\UserArea\Views\Private\AddProfessionalInfo.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_ProfessionalInfoView.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\Partials\_InfoNavigation.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

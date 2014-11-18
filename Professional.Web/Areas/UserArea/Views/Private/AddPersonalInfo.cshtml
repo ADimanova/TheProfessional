@@ -6,7 +6,7 @@
     ViewBag.Title = "AddUserInfo";
 }
 
-@using (Html.BeginForm("AddUserInfo", "Private", FormMethod.Post,
+@using (Html.BeginForm("AddPersonalInfo", "Private", FormMethod.Post,
     new { @class = "form-horizontal custom", enctype = "multipart/form-data", role = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -51,6 +51,8 @@
         </div>
     </div>
 }
+<br />
+@Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_InfoNavigation.cshtml")
 
 
 
