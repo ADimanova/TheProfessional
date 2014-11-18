@@ -13,7 +13,7 @@
             <a class="media-left" href="#">
                 @if (Model.ProfileImageId != null)
                 {
-                    <img src="@Url.Action("Image", "Public", new { Area = WebConstants.UserArea, id = Model.ProfileImageId.Value })" alt="@Model.FullName" class="img-responsive img-rounded" />
+                    <img src="@Url.Action("Image", "Profile", new { Area = WebConstants.UserArea, id = Model.ProfileImageId.Value })" alt="@Model.FullName" class="img-responsive img-rounded" />
                 }
                 else
                 {

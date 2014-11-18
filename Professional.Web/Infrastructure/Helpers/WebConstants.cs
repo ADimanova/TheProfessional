@@ -23,13 +23,18 @@ namespace Professional.Web.Helpers
         // Routes
         // Listings
         public const string PostsPageRoute = "/UserArea/Listing/Posts/";
+        public const string UserPostsPageRoute = "/UserArea/Listing/Posts/User/";
+        
         public const string UsersPageRoute = "/UserArea/Listing/Users/";
 
-        public const string PublicProfilePageRoute = "/UserArea/Public/Profile/";
-        public const string PrivateProfilePageRoute = "/UserArea/Private/Profile/";
+        public const string PublicProfilePageRoute = "UserArea/Profile/Public/";
+        public const string PrivateProfilePageRoute = "UserArea/Profile/Private/";
 
         public const string OnRegistrationPageRoute = "/UserArea/Private/OnRegistration/";
         public const string AddUserInfoPageRoute = "/UserArea/Private/AddUserInfo/";
+
+        // Create
+        public const string CreatePostPageRoute = "/UserArea/CreateItem/Post/";
 
         // Administration
         public const string AdminPostsPageRoute = "/Administration/PostsAdmin/Index/";

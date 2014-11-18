@@ -43,7 +43,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     }).ToList()
                 });
 
-            var pageCount = Math.Ceiling((double)this.GetUsers(null).Count() / itemsPerPage);
+            var pageCount = Math.Ceiling((double)users.Count() / itemsPerPage);
             this.SetPaging(pageNumber, pageCount);
             ViewBag.Url = WebConstants.UsersPageRoute;
 
@@ -56,11 +56,11 @@ namespace Professional.Web.Areas.UserArea.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Posts(string id, int? page)
+        public ActionResult Posts(string id, int? page, string user)
         {
             int pageNumber = page.GetValueOrDefault(1);
 
-            var posts = this.GetPosts(id)
+            var posts = this.GetPosts(id, user)
                 .OrderBy(f => f.Field.Name)
                 .Skip((pageNumber - 1) * itemsPerPage)
                 .Take(itemsPerPage);
@@ -79,10 +79,18 @@ namespace Professional.Web.Areas.UserArea.Controllers
                         Url = WebConstants.PostPageRoute + i.ID
                     }).ToList()
                 });
-
-            var pageCount = Math.Ceiling((double)this.GetPosts(null).Count() / itemsPerPage);
+            //this.GetPosts(null, null).Count()
+            var pageCount = Math.Ceiling((double)posts.Count() / itemsPerPage);
             this.SetPaging(pageNumber, pageCount);
-            ViewBag.Url = WebConstants.PostsPageRoute;
+
+            if (user == null)
+            {
+                ViewBag.Url = WebConstants.PostsPageRoute;                
+            }
+            else
+            {
+                ViewBag.Url = WebConstants.UserPostsPageRoute;
+            }
 
             var viewModel = new ListCollectionViewModel();
             viewModel.FieldsNames = fieldsNames.ToList();
@@ -132,14 +140,20 @@ namespace Professional.Web.Areas.UserArea.Controllers
         }
 
         [OutputCache(Duration = 60, VaryByParam = "none")]
-        private IQueryable<Post> GetPosts(string filter)
+        private IQueryable<Post> GetPosts(string filter, string user)
         {
             var posts = this.data.Posts.All();
             if (filter != null)
             {
                 filter = filter.ToLower();
-                posts = posts.Where(u => u.Field.Name.ToLower() == filter);
+                posts = posts.Where(p => p.Field.Name.ToLower() == filter);
             }
+
+            if (user != null)
+            {
+                posts = posts.Where(p => p.CreatorID == user);
+            }
+
             return posts;
         }
     }
