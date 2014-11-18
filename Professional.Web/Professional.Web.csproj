@@ -216,14 +216,14 @@
     <Compile Include="Areas\Administration\Models\FieldViewModel.cs" />
     <Compile Include="Areas\Administration\Models\PostAdminModel.cs" />
     <Compile Include="Areas\Administration\Models\UserAdminModel.cs" />
-    <Compile Include="Areas\UserArea\Controllers\AllUsersController.cs" />
     <Compile Include="Areas\UserArea\Controllers\CreateItemController.cs" />
+    <Compile Include="Areas\UserArea\Controllers\ListingController.cs" />
+    <Compile Include="Areas\UserArea\Controllers\ProfileController.cs" />
     <Compile Include="Areas\UserArea\Controllers\PublicController.cs" />
-    <Compile Include="Areas\UserArea\Controllers\SearchController.cs" />
     <Compile Include="Areas\UserArea\Controllers\UserController.cs" />
     <Compile Include="Areas\UserArea\Controllers\PrivateController.cs" />
-    <Compile Include="Areas\UserArea\Models\AllPostPageViewModels\ListCollectionViewModel.cs" />
-    <Compile Include="Areas\UserArea\Models\AllPostPageViewModels\ItemsByFieldViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\ListingViewModels\ListCollectionViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\ListingViewModels\ItemsByFieldViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\InputModels\PostInputModel.cs" />
     <Compile Include="Areas\UserArea\Models\InputModels\UserInputModel.cs" />
     <Compile Include="Areas\UserArea\Models\PageViewModel\PrivateProfileViewModel.cs" />
@@ -285,8 +285,7 @@
     <Content Include="Areas\UserArea\Views\Shared\View.cshtml" />
     <Content Include="Areas\UserArea\Views\Public\Profile.cshtml" />
     <Content Include="Areas\UserArea\Views\Private\Profile.cshtml" />
-    <Content Include="Areas\UserArea\Views\Shared\_ListCollection.cshtml" />
-    <Content Include="Areas\UserArea\Views\Public\Posts.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\Partials\_ListCollection.cshtml" />
     <Content Include="Areas\UserArea\Views\CreateItem\Post.cshtml" />
     <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
@@ -304,13 +303,13 @@
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Areas\Administration\Views\PostsAdmin\Index.cshtml" />
-    <Content Include="Areas\UserArea\Views\Search\Index.cshtml" />
-    <Content Include="Areas\UserArea\Views\AllUsers\Index.cshtml" />
     <Content Include="Areas\UserArea\Views\Private\OnRegistration.cshtml" />
     <Content Include="Areas\UserArea\Views\Private\AddUserInfo.cshtml" />
-    <Content Include="Areas\UserArea\Views\Shared\_PersonalInfoView.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\Partials\_PersonalInfoView.cshtml" />
     <Content Include="Areas\Administration\Views\FieldsAdmin\Index.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\UserArea\Views\Listing\Users.cshtml" />
+    <Content Include="Areas\UserArea\Views\Listing\Posts.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -552,6 +551,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\UserArea\Views\Profile\" />
     <Folder Include="Libraries\" />
   </ItemGroup>
   <ItemGroup>

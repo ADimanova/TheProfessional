@@ -74,65 +74,6 @@ namespace Professional.Web.Areas.UserArea.Controllers
             return View(publicProfileInfo);
         }
 
-        // GET: UserArea/Public/Posts/{id} - the user id here 
-        public ActionResult Posts(string id, int page = 1, int perPage = WebConstants.PostsPerPage,
-            string fieldName = null)
-        {
-            //var currentUrl = Request.Url.AbsolutePath;
-            var pagesCount = (int)Math.Ceiling(this.postsData.Count() / (decimal)perPage);
-
-            var fieldsNames = this.data.FieldsOfExpertise
-                .All()
-                .Select(f => f.Name);
-
-            IQueryable<Post> posts = new List<Post>().AsQueryable();
-            if (id != null)
-            {
-                posts = this.GetAllPostsOfUser(id);                
-            }
-            else
-            {
-                posts = this.GetAllPosts(); 
-            }
-
-            IQueryable<Post> postRaw = new List<Post>().AsQueryable();
-            if (fieldName != null)
-            {
-                postRaw = posts.OrderBy(p => p.Field.Name)
-                .Where(p => p.Field.Name == fieldName)
-                .Skip(perPage * (page - 1))
-                .Take(perPage);
-            }
-            else
-            {
-                postRaw = posts.OrderBy(p => p.Field.Name)
-                .Skip(perPage * (page - 1))
-                .Take(perPage);
-            }
-
-            var grouped = postRaw.GroupBy(p => p.Field.Name)
-                .Select(p => new ItemsByFieldViewModel
-                {
-                    Name = p.FirstOrDefault().Field.Name,
-                    Items = p.Select(i => new NavigationItem
-                    {
-                        Content = i.Title,
-                        Url = WebConstants.PostPageRoute + i.ID
-                    }).ToList()
-                });
-
-            var viewModel = new ListCollectionViewModel();
-            viewModel.Url = WebConstants.PostsPageRoute;
-            viewModel.FieldsNames = fieldsNames.ToList();
-            viewModel.Title = "Posts";
-            viewModel.GetBy = "field";
-            viewModel.Fields = grouped.ToList();
-            viewModel.CurrentPage = page;
-            viewModel.PagesCount = pagesCount;
-
-            return View(viewModel);
-        }
-
         public ActionResult Filter(string query)
         {
             if (currentUser == null)

@@ -21,9 +21,9 @@ namespace Professional.Web.Helpers
         public const string UserArea = "UserArea";
 
         // Routes
-        public const string PostsPageRoute = "/UserArea/Public/Posts/";
-
-        public const string UsersPageRoute = "/UserArea/AllUsers/Index/";
+        // Listings
+        public const string PostsPageRoute = "/UserArea/Listing/Posts/";
+        public const string UsersPageRoute = "/UserArea/Listing/Users/";
 
         public const string PublicProfilePageRoute = "/UserArea/Public/Profile/";
         public const string PrivateProfilePageRoute = "/UserArea/Private/Profile/";
