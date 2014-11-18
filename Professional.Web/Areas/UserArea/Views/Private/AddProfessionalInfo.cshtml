@@ -1,0 +1,37 @@
+﻿@using Professional.Web.Areas.UserArea.Models.InputModels
+@model UserInputModel
+
+@{
+    ViewBag.Title = "AddProfessionalInfo";
+}
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+        <h4>Add professional information</h4>
+        <hr />
+
+        <div class="row to-left">
+            @Html.LabelFor(m => m.Occupations, "Occupations", new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.ListBoxFor(x => x.Occupations, new MultiSelectList(ViewBag.Occupations, "Text", "Value"), new { size = 6, @class = "pro" })
+            </div>
+        </div>
+        <br />
+    <div class="row to-left">
+        @Html.LabelFor(m => m.Fields, "Fields", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.ListBoxFor(x => x.Fields, new MultiSelectList(ViewBag.Fields, "Text", "Value"), new { size = 6, @class = "pro" })
+        </div>
+    </div>
+
+        <div class="rowto-left">
+            <div class="col-md-offset-5 col-md-5">
+                <input type="submit" class="btn btn-custom btn-block" value="Post" />
+            </div>
+        </div>
+    }
+</div>

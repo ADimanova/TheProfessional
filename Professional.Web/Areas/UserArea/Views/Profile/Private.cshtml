@@ -9,17 +9,8 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-1">
         @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_PersonalInfoView.cshtml", Model.UserInfo, new ViewDataDictionary { { "isPrivate", "true" } })
-
-        <div class="panel panel-default">
-            <div class="panel-heading">Professional Information</div>
-            <div class="panel-body">
-                <h5 class="media-heading">Field</h5>
-                More info...
-                <a href="#" class="btn btn-default pull-right">Edit</a>
-            </div>
-        </div>
+        @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ProfessionalInfoView.cshtml", Model.UserInfo, new ViewDataDictionary { { "isPrivate", "true" } })
     </div>
-
     <div class="col-md-5">
         <div class="col-md-6">
             @Html.Partial("~/Views/Shared/Partials/_HorizontalNavBar.cshtml", Model.NavigationList)

@@ -23,12 +23,22 @@ namespace Professional.Web.Areas.UserArea.Models
         public DateTime DateOfBirth { get; set; }
 
         public int? ProfileImageId { get; set; }
+        public IEnumerable<string> Occupations { get; set; }
+        public IEnumerable<string> Fields{ get; set; }
 
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<User, UserViewModel>()
                 .ForMember(p => p.FullName,
                 options => options.MapFrom(u => u.FirstName + " " + u.LastName));
+
+            configuration.CreateMap<User, UserViewModel>()
+                .ForMember(p => p.Occupations,
+                options => options.MapFrom(u => u.Occupations.Select(o => o.Title)));
+
+            configuration.CreateMap<User, UserViewModel>()
+                .ForMember(p => p.Fields,
+                options => options.MapFrom(u => u.FieldsOfExpertise.Select(o => o.Name)));
         }
 
         public string GetPersonalHistory()

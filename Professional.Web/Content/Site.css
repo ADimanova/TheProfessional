@@ -214,3 +214,12 @@ h1.lessened {
 .glif-updates a{
     color: #5CB3F7;
 }
+
+.pro {
+    min-width: 8em;
+    min-height: 10em;
+}
+
+.list-group-item.borderless {
+    border: none;
+}

@@ -2,18 +2,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section styles {
+    @Styles.Render("~/Css/kendo")
+    @RenderSection("styles", false)
+}
+
 @section updates {
-<ul class="nav nav-pills extreme updates">
-    <li role="presentation" class="glif-updates">
-        <a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
-    </li>
-    <li role="presentation" class="glif-updates">
-        <a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-    </li>
-    <li role="presentation" class="glif-updates">
-        <a href="#"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span></a>
-    </li>
-</ul>
+    <ul class="nav nav-pills extreme updates">
+        <li role="presentation" class="glif-updates">
+            <a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
+        </li>
+        <li role="presentation" class="glif-updates">
+            <a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+        </li>
+        <li role="presentation" class="glif-updates">
+            <a href="#"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span></a>
+        </li>
+    </ul>
 }
 
 @RenderBody()
+
+@section scripts {
+    @Scripts.Render("~/Js/kendo")
+    @RenderSection("scripts", false)
+}

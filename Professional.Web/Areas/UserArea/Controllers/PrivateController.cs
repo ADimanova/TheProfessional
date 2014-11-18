@@ -15,6 +15,8 @@ using Professional.Web.Helpers;
 using Professional.Data;
 using Professional.Web.Areas.UserArea.Models.InputModels;
 using System.IO;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
 
 namespace Professional.Web.Areas.UserArea.Controllers
 {
@@ -27,46 +29,46 @@ namespace Professional.Web.Areas.UserArea.Controllers
         }
 
         // GET: UserArea/Private/Profile
-        public ActionResult Profile()
-        {
-            var currentUserId = User.Identity.GetUserId();
-            var currentUser = this.data.Users.All()
-                .FirstOrDefault(u => u.Id == currentUserId);
+        //public ActionResult Profile()
+        //{
+        //    var currentUserId = User.Identity.GetUserId();
+        //    var currentUser = this.data.Users.All()
+        //        .FirstOrDefault(u => u.Id == currentUserId);
 
-            Mapper.CreateMap<User, UserViewModel>();
-            var userInfoForView = Mapper.Map<UserViewModel>(currentUser);
+        //    Mapper.CreateMap<User, UserViewModel>();
+        //    var userInfoForView = Mapper.Map<UserViewModel>(currentUser);
 
-            var privateProfileInfo = new PrivateProfileViewModel();
+        //    var privateProfileInfo = new PrivateProfileViewModel();
 
-            IList<NavigationItem> navItems = this.GetNavItems();
-            var navList = new HorizontalNavbarViewModel();
-            navList.Title = "Navigation";
-            navList.ListItems = navItems;
-            privateProfileInfo.UserInfo = userInfoForView;
-            privateProfileInfo.NavigationList = navList;
+        //    IList<NavigationItem> navItems = this.GetNavItems();
+        //    var navList = new HorizontalNavbarViewModel();
+        //    navList.Title = "Navigation";
+        //    navList.ListItems = navItems;
+        //    privateProfileInfo.UserInfo = userInfoForView;
+        //    privateProfileInfo.NavigationList = navList;
 
-            return View(privateProfileInfo);
-        }
+        //    return View(privateProfileInfo);
+        //}
 
         public ActionResult OnRegistration()
         {
             var userId = User.Identity.GetUserId();
             var profilePath = WebConstants.PrivateProfilePageRoute + userId;
             ViewBag.Profile = profilePath;
-            ViewBag.AddInfo = WebConstants.AddUserInfoPageRoute;
+            ViewBag.AddInfo = WebConstants.AddPersonalInfoPageRoute;
 
             return View();
         }
 
         [HttpGet]
-        public ActionResult AddUserInfo()
+        public ActionResult AddPersonalInfo()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddUserInfo(UserInputModel model)
+        public ActionResult AddPersonalInfo(UserInputModel model)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +76,10 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 var user = this.data.Users.GetById(userId);
 
                 user.PersonalHistory = model.PersonalHistory;
-                user.IsMale = model.IsMale;
+                if (user.IsMale != null)
+                {
+                    user.IsMale = model.IsMale;                    
+                }
                 user.DateOfBirth = model.DateOfBirth;
 
                 if (model.ProfileImage != null)
@@ -109,6 +114,89 @@ namespace Professional.Web.Areas.UserArea.Controllers
             // Something failed, redisplay form
             return View(model);
         }
+
+        [HttpGet]
+        public ActionResult AddProfessionalInfo()
+        {      
+            var occupations = this.data.Occupations.All()
+                .Select(o => new {
+                    Text = o.Title,
+                    Value = o.Title
+                });
+
+            var fields = this.data.FieldsOfExpertise.All()
+                .Select(o => new
+                {
+                    Text = o.Name,
+                    Value = o.Name
+                });
+
+            ViewBag.Occupations = occupations.ToList();
+            ViewBag.Fields = fields.ToList();
+            var model =  new UserInputModel();
+            model.Occupations = new List<string>();
+            model.Fields = new List<string>();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddProfessionalInfo(UserInputModel model)
+        {
+            var userId = User.Identity.GetUserId();
+            var user = this.data.Users.GetById(userId);
+
+            if (model.Occupations != null)
+            {
+                var occupations = model.Occupations.ToList<string>();
+                Occupation foundOccupation;
+                for (int i = 0; i < occupations.Count; i++)
+                {
+                    var occupation = occupations[i];
+                    foundOccupation = this.data.Occupations.All().FirstOrDefault(o => o.Title == occupation);
+                    if (foundOccupation != null)
+                    {
+                        var found = user.Occupations.FirstOrDefault(o => o.Title == foundOccupation.Title);
+                        if (found == null)
+                        {
+                            user.Occupations.Add(foundOccupation);
+                        }
+                    }
+                }
+            }
+
+            if (model.Fields != null)
+            {
+                var fields = model.Fields.ToList<string>();
+                FieldOfExpertise foundField;
+                for (int i = 0; i < fields.Count; i++)
+                {
+                    var field = fields[i];
+                    foundField = this.data.FieldsOfExpertise.All().FirstOrDefault(o => o.Name == field);
+                    if (foundField != null)
+                    {
+                        var found = user.FieldsOfExpertise.FirstOrDefault(o => o.Name == foundField.Name);
+                        if (found == null)
+                        {
+                            user.FieldsOfExpertise.Add(foundField);
+                        }
+                    }
+                }
+            }
+            
+            try
+            {
+                this.data.SaveChanges();
+                return RedirectToAction("Index", "Home", new { Area = "" });
+            }
+            catch
+            {
+                // Implement better error handling
+                return View("Error");
+            }
+        }
+
 
         private IList<NavigationItem> GetNavItems()
         {

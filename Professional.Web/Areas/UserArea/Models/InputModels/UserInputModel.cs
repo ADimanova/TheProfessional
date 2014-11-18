@@ -19,5 +19,8 @@ namespace Professional.Web.Areas.UserArea.Models.InputModels
         public string PersonalHistory { get; set; }
 
         public HttpPostedFileBase ProfileImage { get; set; }
+
+        public IEnumerable<string> Occupations { get; set; }
+        public IEnumerable<string> Fields { get; set; }
     }
 }

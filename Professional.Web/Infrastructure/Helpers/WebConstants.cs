@@ -31,7 +31,8 @@ namespace Professional.Web.Helpers
         public const string PrivateProfilePageRoute = "UserArea/Profile/Private/";
 
         public const string OnRegistrationPageRoute = "/UserArea/Private/OnRegistration/";
-        public const string AddUserInfoPageRoute = "/UserArea/Private/AddUserInfo/";
+        public const string AddPersonalInfoPageRoute = "/UserArea/Private/AddPersonalInfo/";
+        public const string AddProfessionalInfoPageRoute = "/UserArea/Private/AddProfessionalInfo/";
 
         // Create
         public const string CreatePostPageRoute = "/UserArea/CreateItem/Post/";
