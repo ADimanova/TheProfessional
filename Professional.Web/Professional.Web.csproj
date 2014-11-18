@@ -213,6 +213,7 @@
     <Compile Include="Areas\Administration\Controllers\PostsAdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\UsersAdminController.cs" />
     <Compile Include="Areas\Administration\Models\AdministrationViewModel.cs" />
+    <Compile Include="Areas\Administration\Models\FieldInputModel.cs" />
     <Compile Include="Areas\Administration\Models\FieldViewModel.cs" />
     <Compile Include="Areas\Administration\Models\PostAdminModel.cs" />
     <Compile Include="Areas\Administration\Models\UserAdminModel.cs" />
@@ -300,6 +301,7 @@
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Areas\Administration\Views\PostsAdmin\Index.cshtml" />
     <Content Include="Areas\UserArea\Views\Private\OnRegistration.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\Partials\_CreateField.cshtml" />
     <None Include="Areas\UserArea\Views\Private\AddPersonalInfo.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_PersonalInfoView.cshtml" />
     <Content Include="Areas\Administration\Views\FieldsAdmin\Index.cshtml" />

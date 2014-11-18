@@ -25,8 +25,30 @@ namespace Professional.Web.Areas.Administration.Controllers
         public ActionResult Index()
         {
             var fields = this.GetFields();
+            ViewBag.FieldInput = new FieldInputModel();
 
             return View(fields);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddField(FieldInputModel model)
+        {
+            var field = new FieldOfExpertise();
+            field.Name = model.Name;
+            field.Rank = 0;
+
+            try
+            {
+                this.data.FieldsOfExpertise.Add(field);
+                this.data.SaveChanges();
+                return RedirectToAction("Index", "Home", new { Area = "" });
+            }
+            catch
+            {
+                // Implement better error handling
+                return View("Error");
+            }
         }
 
         public ActionResult Editing_Read([DataSourceRequest] DataSourceRequest request)

@@ -3,6 +3,7 @@
 @model IEnumerable<FieldViewModel>
 @{
     var ControllerName = "FieldsAdmin";
+    FieldInputModel fieldInputModel = ViewBag.FieldInput;
 }
 
 @*<script>$("#exampleWrap").css("visibility", "hidden");</script>*@
@@ -28,6 +29,7 @@
             //.Editable(editable => editable.TemplateName("editTemplate"))
         )
     </div>
+    @Html.Partial("~/Areas/Administration/Views/Shared/Partials/_CreateField.cshtml", fieldInputModel)
 </div>
 
 <script type="text/x-kendo-tmpl" id="template">

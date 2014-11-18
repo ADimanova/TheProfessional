@@ -223,3 +223,12 @@ h1.lessened {
 .list-group-item.borderless {
     border: none;
 }
+
+div.floating {
+    position: absolute;
+    top: 8.3em;
+    right: 22em;
+    padding: 2em;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 10px;
+}
