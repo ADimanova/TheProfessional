@@ -15,8 +15,8 @@ using Professional.Web.Helpers;
 using Professional.Data;
 using Professional.Web.Areas.UserArea.Models.InputModels;
 using System.IO;
-using Kendo.Mvc.UI;
-using Kendo.Mvc.Extensions;
+//using Kendo.Mvc.UI;
+//using Kendo.Mvc.Extensions;
 
 namespace Professional.Web.Areas.UserArea.Controllers
 {
