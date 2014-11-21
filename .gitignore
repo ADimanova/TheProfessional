@@ -187,5 +187,5 @@ FakesAssemblies/
 #Kendo
 Professional.Web/Libraries/*
 Professional.Web/Scripts/kendo/*
-Professional.Web/Content/kendo/*
+# Professional.Web/Content/kendo/*
 Professional.Web/Css/*
