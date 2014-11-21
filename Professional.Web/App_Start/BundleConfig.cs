@@ -32,9 +32,9 @@ namespace Professional.Web
             bundles.Add(new ScriptBundle("~/bundles/unobtrusive-jquery").Include(
                     "~/Scripts/jquery.unobtrusive-ajax.min.js"));
 
-            bundles.Add(new ScriptBundle("~/Js/kendo").Include(
-                    "~/Scripts/kendo/kendo.all.min.js",
-                    "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
+            //bundles.Add(new ScriptBundle("~/Js/kendo").Include(
+            //        "~/Scripts/kendo/kendo.all.min.js",
+            //        "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
@@ -47,12 +47,12 @@ namespace Professional.Web
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new StyleBundle("~/Css/kendo").Include(
-                        "~/Content/kendo/kendo.common.*",
-                        "~/Content/kendo/kendo.silver.*",
-                        "~/Content/kendo/images/"));
-                        //"~/Content/kendo/custom-kendo.css"));
-                        //"~/Content/kendo/kendo.culture.en-US.min.js"));
+            //bundles.Add(new StyleBundle("~/Css/kendo").Include(
+            //            "~/Content/kendo/kendo.common.*",
+            //            "~/Content/kendo/kendo.silver.*",
+            //            "~/Content/kendo/images/",
+            //            "~/Content/kendo/custom-kendo.css"));
+            //            "~/Content/kendo/kendo.culture.en-US.min.js"));
         }
     }
 }
