@@ -253,7 +253,6 @@
     <Compile Include="Models\GeneralViewModels\HorizontalNavbarViewModel.cs" />
     <Compile Include="Models\PageViewModels\IndexViewModel.cs" />
     <Compile Include="Models\GeneralViewModels\ListPanelViewModel.cs" />
-    <Compile Include="Models\AccountViewModels\ManageViewModels.cs" />
     <Compile Include="Models\GeneralViewModels\NavigationItem.cs" />
     <Compile Include="Models\DatabaseViewModels\PostSimpleViewModel.cs" />
     <Compile Include="Models\DatabaseViewModels\PostViewModel.cs" />
