@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-//using Kendo.Mvc.Extensions;
-//using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using Professional.Data;
 using Professional.Models;
 using Professional.Web.Areas.Administration.Models;
@@ -22,124 +22,124 @@ namespace Professional.Web.Areas.Administration.Controllers
 
         }
         // GET: Administration/FieldsAdmin
-        //public ActionResult Index()
-        //{
-        //    var fields = this.GetFields();
-        //    ViewBag.FieldInput = new FieldInputModel();
+        public ActionResult Index()
+        {
+            var fields = this.GetFields();
+            ViewBag.FieldInput = new FieldInputModel();
 
-        //    return View(fields);
-        //}
+            return View(fields);
+        }
 
-        //[HttpPost]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddField(FieldInputModel model)
+        {
+            var field = new FieldOfExpertise();
+            field.Name = model.Name;
+            field.Rank = 0;
+
+            try
+            {
+                this.data.FieldsOfExpertise.Add(field);
+                this.data.SaveChanges();
+                return RedirectToAction("Index", "Home", new { Area = "" });
+            }
+            catch
+            {
+                // Implement better error handling
+                return View("Error");
+            }
+        }
+
+        public ActionResult Editing_Read([DataSourceRequest] DataSourceRequest request)
+        {
+            return Json(this.GetFields().ToDataSourceResult(request));
+        }
+
+        [HttpPost]
         //[ValidateAntiForgeryToken]
-        //public ActionResult AddField(FieldInputModel model)
-        //{
-        //    var field = new FieldOfExpertise();
-        //    field.Name = model.Name;
-        //    field.Rank = 0;
+        public ActionResult Editing_Create([DataSourceRequest] DataSourceRequest request, FieldViewModel model)
+        {
+            if (model != null && ModelState.IsValid)
+            {
+                var dbField = new FieldOfExpertise();
+                dbField.Name = model.Name;
+                dbField.Rank = model.Rank;
 
-        //    try
-        //    {
-        //        this.data.FieldsOfExpertise.Add(field);
-        //        this.data.SaveChanges();
-        //        return RedirectToAction("Index", "Home", new { Area = "" });
-        //    }
-        //    catch
-        //    {
-        //        // Implement better error handling
-        //        return View("Error");
-        //    }
-        //}
+                try
+                {
+                    this.data.FieldsOfExpertise.Add(dbField);
+                    this.data.SaveChanges();
+                }
+                catch
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
 
-        //public ActionResult Editing_Read([DataSourceRequest] DataSourceRequest request)
-        //{
-        //    return Json(this.GetFields().ToDataSourceResult(request));
-        //}
+            var afterAddingFilds = this.GetFields();
+            return Json(afterAddingFilds.ToDataSourceResult(request, ModelState));
+        }
 
-        //[HttpPost]
-        ////[ValidateAntiForgeryToken]
-        //public ActionResult Editing_Create([DataSourceRequest] DataSourceRequest request, FieldViewModel model)
-        //{
-        //    if (model != null && ModelState.IsValid)
-        //    {
-        //        var dbField = new FieldOfExpertise();
-        //        dbField.Name = model.Name;
-        //        dbField.Rank = model.Rank;
+        [HttpPost]
+        public ActionResult Editing_Update([DataSourceRequest] DataSourceRequest request, FieldViewModel model)
+        {
+            if (model != null && ModelState.IsValid)
+            {
+                var dbField = this.data.FieldsOfExpertise.GetById(model.ID);
+                if (dbField == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
 
-        //        try
-        //        {
-        //            this.data.FieldsOfExpertise.Add(dbField);
-        //            this.data.SaveChanges();
-        //        }
-        //        catch
-        //        {
-        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //        }
-        //    }
+                Mapper.Map<FieldViewModel, FieldOfExpertise>(model, dbField);
 
-        //    var afterAddingFilds = this.GetFields();
-        //    return Json(afterAddingFilds.ToDataSourceResult(request, ModelState));
-        //}
+                try
+                {
+                    this.data.FieldsOfExpertise.Update(dbField);
+                    this.data.SaveChanges();
+                }
+                catch
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
 
-        //[HttpPost]
-        //public ActionResult Editing_Update([DataSourceRequest] DataSourceRequest request, FieldViewModel model)
-        //{
-        //    if (model != null && ModelState.IsValid)
-        //    {
-        //        var dbField = this.data.FieldsOfExpertise.GetById(model.ID);
-        //        if (dbField == null)
-        //        {
-        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //        }
+            return Json(ModelState.ToDataSourceResult());
+        }
 
-        //        Mapper.Map<FieldViewModel, FieldOfExpertise>(model, dbField);
+        [HttpPost]
+        public ActionResult Editing_Destroy([DataSourceRequest] DataSourceRequest request, FieldViewModel model)
+        {
+            if (model != null)
+            {
+                var dbField = this.data.FieldsOfExpertise.GetById(model.ID);
 
-        //        try
-        //        {
-        //            this.data.FieldsOfExpertise.Update(dbField);
-        //            this.data.SaveChanges();
-        //        }
-        //        catch
-        //        {
-        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //        }
-        //    }
+                if (dbField == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
 
-        //    return Json(ModelState.ToDataSourceResult());
-        //}
+                try
+                {
+                    this.data.FieldsOfExpertise.Delete(dbField.ID);
+                    this.data.SaveChanges();
+                }
+                catch
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
 
-        //[HttpPost]
-        //public ActionResult Editing_Destroy([DataSourceRequest] DataSourceRequest request, FieldViewModel model)
-        //{
-        //    if (model != null)
-        //    {
-        //        var dbField = this.data.FieldsOfExpertise.GetById(model.ID);
+            return Json(ModelState.ToDataSourceResult());
+        }
 
-        //        if (dbField == null)
-        //        {
-        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //        }
+        private IQueryable<FieldViewModel> GetFields()
+        {
+            var fields = this.data.FieldsOfExpertise.All()
+            .Project().To<FieldViewModel>();
 
-        //        try
-        //        {
-        //            this.data.FieldsOfExpertise.Delete(dbField.ID);
-        //            this.data.SaveChanges();
-        //        }
-        //        catch
-        //        {
-        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //        }
-        //    }
-
-        //    return Json(ModelState.ToDataSourceResult());
-        //}
-
-        //private IQueryable<FieldViewModel> GetFields()
-        //{
-        //    var fields = this.data.FieldsOfExpertise.All()
-        //    .Project().To<FieldViewModel>();
-
-        //    return fields;
-        //}
+            return fields;
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper.QueryableExtensions;
-//using Kendo.Mvc.Extensions;
-//using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using Professional.Data;
 using Professional.Models;
 using Professional.Web.Models;
@@ -30,41 +30,41 @@ namespace Professional.Web.Areas.Administration.Controllers
             return View();
         }
 
-        //public ActionResult Read([DataSourceRequest]DataSourceRequest request)
-        //{
-        //    var posts = this.GetData();
+        public ActionResult Read([DataSourceRequest]DataSourceRequest request)
+        {
+            var posts = this.GetData();
 
-        //    return Json(posts.ToDataSourceResult(request).Data, JsonRequestBehavior.AllowGet);
-        //}
+            return Json(posts.ToDataSourceResult(request).Data, JsonRequestBehavior.AllowGet);
+        }
 
-        //protected override IEnumerable GetData()
-        //{
-        //    return this.data.Posts.All()
-        //        .Project().To<ViewModel>();
-        //}
+        protected override IEnumerable GetData()
+        {
+            return this.data.Posts.All()
+                .Project().To<ViewModel>();
+        }
 
-        //protected override T GetById<T>(object id)
-        //{
-        //    return this.data.Posts.GetById(id) as T;
-        //}
+        protected override T GetById<T>(object id)
+        {
+            return this.data.Posts.GetById(id) as T;
+        }
 
-        //[HttpPost]
-        //public ActionResult Update([DataSourceRequest]DataSourceRequest request, ViewModel model)
-        //{
-        //    base.Update<Model, ViewModel>(model, model.ID);
-        //    return this.GridOperation(model, request);
-        //}
+        [HttpPost]
+        public ActionResult Update([DataSourceRequest]DataSourceRequest request, ViewModel model)
+        {
+            base.Update<Model, ViewModel>(model, model.ID);
+            return this.GridOperation(model, request);
+        }
 
-        //[HttpPost]
-        //public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ViewModel model)
-        //{
-        //    if (model != null && ModelState.IsValid)
-        //    {
-        //        this.data.Posts.Delete(model.ID);
-        //        this.data.SaveChanges();
-        //    }
+        [HttpPost]
+        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ViewModel model)
+        {
+            if (model != null && ModelState.IsValid)
+            {
+                this.data.Posts.Delete(model.ID);
+                this.data.SaveChanges();
+            }
 
-        //    return this.GridOperation(model, request);
-        //}
+            return this.GridOperation(model, request);
+        }
     }
 }
