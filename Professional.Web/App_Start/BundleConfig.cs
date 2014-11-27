@@ -24,7 +24,8 @@ namespace Professional.Web
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery")
                 //.Include("~/Scripts/kendo/jquery.min.js"));
-                .Include("~/Scripts/jquery-{version}.js"));
+                .Include("~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-ui-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -36,6 +37,9 @@ namespace Professional.Web
                     "~/Scripts/kendo/kendo.all.min.js",
                     "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
 
+            bundles.Add(new ScriptBundle("~/Js/custom").Include(
+                    "~/Scripts/custom.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
@@ -46,6 +50,10 @@ namespace Professional.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/jquery-css").Include(
+                      //"~/Content/jquery-ui.theme.css",
+                      "~/Content/themes/base/jquery-ui.css"));
 
             bundles.Add(new StyleBundle("~/Css/kendo").Include(
                         "~/Content/kendo/kendo.common.*",

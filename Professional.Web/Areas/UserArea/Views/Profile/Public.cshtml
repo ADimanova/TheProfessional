@@ -18,7 +18,10 @@
         </div>
     </div>
     <div class="col-md-5">
-
+        @if (ViewBag.IsEndorsed != "true")
+        {
+            @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_UserEndorsement.cshtml", Model.EndorseFunctionality)
+        }  
         @Html.Partial("~/Views/Shared/Partials/_BtnNavigate.cshtml", Model.BtnNavigatePosts)
         @Html.Partial("~/Views/Shared/Partials/_BtnNavigate.cshtml", Model.BtnNavigateEndorsements)
 

@@ -190,3 +190,6 @@ Professional.Web/Scripts/kendo/*
 Professional.Web/Content/kendo/*
 !Professional.Web/Content/kendo/custom-kendo.css
 Professional.Web/Css/*
+
+#Other
+Professional.Web/Content/themes/*

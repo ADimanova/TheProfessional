@@ -21,7 +21,6 @@ namespace Professional.Web.Helpers
         public const string UserArea = "UserArea";
 
         // Routes
-        // Listings
         public const string PostsPageRoute = "/UserArea/Listing/Posts/";
         public const string UserPostsPageRoute = "/UserArea/Listing/Posts/User/";
         
@@ -29,6 +28,7 @@ namespace Professional.Web.Helpers
 
         public const string PublicProfilePageRoute = "/UserArea/Profile/Public/";
         public const string PrivateProfilePageRoute = "/UserArea/Profile/Private/";
+        public const string EndorseUser = "/UserArea/Profile/EndorseUser/"; 
 
         public const string OnRegistrationPageRoute = "/UserArea/Private/OnRegistration/";
         public const string AddPersonalInfoPageRoute = "/UserArea/Private/AddPersonalInfo/";
@@ -44,7 +44,7 @@ namespace Professional.Web.Helpers
 
         // Public 
         public const string PostPageRoute = "/Post/Info/";
-        public const string FieldInfoPageRoute = "/Field/Info/";       
+        public const string FieldInfoPageRoute = "/Field/Info/";
 
         // Navbars and Dropdowns data
         public static List<NavigationItem> SiteSections = new List<NavigationItem> {

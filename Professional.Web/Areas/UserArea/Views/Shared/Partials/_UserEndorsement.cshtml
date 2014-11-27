@@ -1,0 +1,34 @@
+﻿@using Professional.Web.Areas.UserArea.Models.InputModels
+@model UserEndorsementInputModel
+
+<a href="#" class="btn btn-primary btn-posts" id="endorse-btn">
+    Endorse
+</a>
+<br />
+
+<div id="dialog">
+    @using (Html.BeginForm("Create", "Endorsements", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+        @Html.LabelFor(m => m.Value, "Value:", new { @class = "control-label" })
+        <output for="fader" id="value">1</output>
+
+        @Html.TextBoxFor(i => i.Value, new
+           {
+               @class = "",
+               @type = "range",
+               @min = "1",
+               @max = "10",
+               @step = "1",
+               id = "value-holder"
+           })
+
+        @Html.LabelFor(m => m.Value, "Comment", new { @class = "control-label" })
+        @Html.TextAreaFor(m => m.Comment, new { @class = "form-control bordered" })
+
+        @Html.HiddenFor(m => m.EndorsedUserID, Model.EndorsedUserID);
+    }
+</div>

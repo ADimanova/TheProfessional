@@ -11,6 +11,7 @@ using Professional.Web.Models.DatabaseViewModels;
 using Professional.Web.Areas.UserArea.Models;
 using Professional.Web.Models;
 using Professional.Web.Helpers;
+using Professional.Web.Areas.UserArea.Models.InputModels;
 
 namespace Professional.Web.Areas.UserArea.Controllers
 {
@@ -63,8 +64,23 @@ namespace Professional.Web.Areas.UserArea.Controllers
             btnNavigateEndorsements.Content = "See endorsements's page";
             btnNavigateEndorsements.Url = "#";
 
+            var userID = User.Identity.GetUserId();
+            var isEndorsed = this.data.EndorsementsOfUsers.All()
+                .Where(e => e.EndorsingUserID == userID)
+                .Any(e => e.EndorsedUserID == id);
+
             var publicProfileInfo = new PublicProfileViewModel();
             publicProfileInfo.UserInfo = userInfoForView;
+            if (!isEndorsed && userID != id)
+            {
+                var endorseInfo = new UserEndorsementInputModel();
+                endorseInfo.EndorsedUserID = id;
+                publicProfileInfo.EndorseFunctionality = endorseInfo;
+            }
+            else
+            {
+                ViewBag.IsEndorsed = "true";
+            }
             publicProfileInfo.BtnNavigatePosts = btnNavigatePosts;
             publicProfileInfo.BtnNavigateEndorsements = btnNavigateEndorsements;
             publicProfileInfo.TopPostsList = topPostPanel;
@@ -92,6 +108,12 @@ namespace Professional.Web.Areas.UserArea.Controllers
             privateProfileInfo.NavigationList = navList;
 
             return View(privateProfileInfo);
+        }
+
+        public ActionResult EndorseUser(string id)
+        {
+            var endorsee = this.data.Users.GetById(id);
+            return Content(endorsee.FirstName);
         }
 
         private IList<NavigationItem> GetNavItems()
