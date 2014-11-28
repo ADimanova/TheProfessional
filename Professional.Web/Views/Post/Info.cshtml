@@ -9,6 +9,10 @@
             </h1>
         </div>
         <div class="wrapped">
+            @if (ViewBag.IsEndorsed != "true")
+            {
+                @Html.Partial("~/Views/Shared/Partials/_Endorsement.cshtml", Model.EndorseFunctionality)
+            }            
             @Html.Raw(Model.Content)
         </div>
     </div>

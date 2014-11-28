@@ -12,6 +12,7 @@ using Professional.Web.Areas.UserArea.Models;
 using Professional.Web.Models;
 using Professional.Web.Helpers;
 using Professional.Web.Areas.UserArea.Models.InputModels;
+using Professional.Web.Models.InputViewModels;
 
 namespace Professional.Web.Areas.UserArea.Controllers
 {
@@ -73,8 +74,9 @@ namespace Professional.Web.Areas.UserArea.Controllers
             publicProfileInfo.UserInfo = userInfoForView;
             if (!isEndorsed && userID != id)
             {
-                var endorseInfo = new UserEndorsementInputModel();
-                endorseInfo.EndorsedUserID = id;
+                var endorseInfo = new EndorsementInputModel();
+                endorseInfo.EndorsedID = id;
+                endorseInfo.IsOfUser = true;
                 publicProfileInfo.EndorseFunctionality = endorseInfo;
             }
             else

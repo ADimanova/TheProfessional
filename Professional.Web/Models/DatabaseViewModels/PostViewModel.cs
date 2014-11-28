@@ -7,6 +7,8 @@ using System.Web;
 using AutoMapper;
 using Professional.Web.Helpers;
 using System.ComponentModel.DataAnnotations;
+using Professional.Web.Areas.UserArea.Models.InputModels;
+using Professional.Web.Models.InputViewModels;
 
 namespace Professional.Web.Models
 {
@@ -20,6 +22,7 @@ namespace Professional.Web.Models
         public string Content { get; set; }
         public string Creator { get; set; }
         public string CreatorID { get; set; }
+        public EndorsementInputModel EndorseFunctionality { get; set; }
 
         [Display(Name = "Field of Expertise")]
         public string FieldName { get; set; }

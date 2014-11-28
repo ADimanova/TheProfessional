@@ -1,5 +1,5 @@
-﻿@using Professional.Web.Areas.UserArea.Models.InputModels
-@model UserEndorsementInputModel
+﻿@using Professional.Web.Models.InputViewModels
+@model EndorsementInputModel
 
 <a href="#" class="btn btn-primary btn-posts" id="endorse-btn">
     Endorse
@@ -29,6 +29,6 @@
         @Html.LabelFor(m => m.Value, "Comment", new { @class = "control-label" })
         @Html.TextAreaFor(m => m.Comment, new { @class = "form-control bordered" })
 
-        @Html.HiddenFor(m => m.EndorsedUserID, Model.EndorsedUserID);
+        @Html.HiddenFor(m => m.EndorsedID, Model.EndorsedID);
     }
 </div>

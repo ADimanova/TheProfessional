@@ -224,7 +224,6 @@
     <Compile Include="Areas\UserArea\Controllers\ProfileController.cs" />
     <Compile Include="Areas\UserArea\Controllers\UserController.cs" />
     <Compile Include="Areas\UserArea\Controllers\PrivateController.cs" />
-    <Compile Include="Areas\UserArea\Models\InputModels\UserEndorsementInputModel.cs" />
     <Compile Include="Areas\UserArea\Models\ListingViewModels\ListCollectionViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\ListingViewModels\ItemsByFieldViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\InputModels\PostInputModel.cs" />
@@ -257,6 +256,7 @@
     <Compile Include="Models\AccountViewModels\AccountViewModels.cs" />
     <Compile Include="Models\DatabaseViewModels\FieldViewModel.cs" />
     <Compile Include="Models\GeneralViewModels\HorizontalNavbarViewModel.cs" />
+    <Compile Include="Models\InputViewModels\EndorsementInputModel.cs" />
     <Compile Include="Models\PageViewModels\IndexViewModel.cs" />
     <Compile Include="Models\GeneralViewModels\ListPanelViewModel.cs" />
     <Compile Include="Models\AccountViewModels\ManageViewModels.cs" />
@@ -349,7 +349,6 @@
     <Content Include="Areas\UserArea\Views\Private\AddProfessionalInfo.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_ProfessionalInfoView.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_InfoNavigation.cshtml" />
-    <Content Include="Areas\UserArea\Views\Shared\Partials\_UserEndorsement.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -591,6 +590,7 @@
     <Content Include="Views\Shared\EditorTemplates\TextArea.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\TextInput.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_classic.cshtml" />
+    <Content Include="Views\Shared\Partials\_Endorsement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

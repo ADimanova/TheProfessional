@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Professional.Web.Models.InputViewModels;
 
 namespace Professional.Web.Controllers
 {
@@ -32,6 +34,24 @@ namespace Professional.Web.Controllers
 
             Mapper.CreateMap<Post, PostViewModel>();
             var postInfoForView = Mapper.Map<PostViewModel>(post);
+
+            var userID = User.Identity.GetUserId();
+            var postID = id.ToString();
+            var isEndorsed = this.data.EndorsementsOfPosts.All()
+                .Where(e => e.EndorsingUserID == userID)
+                .Any(e => e.EndorsedPostID == postID);
+
+            if (!isEndorsed)
+            {
+                var endorseInfo = new EndorsementInputModel();
+                endorseInfo.EndorsedID = postID;
+                endorseInfo.IsOfUser = false;
+                postInfoForView.EndorseFunctionality = endorseInfo;
+            }
+            else
+            {
+                ViewBag.IsEndorsed = "true";
+            }
 
             return View(postInfoForView);
         }
