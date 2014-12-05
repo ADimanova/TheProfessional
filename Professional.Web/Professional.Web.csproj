@@ -224,6 +224,7 @@
     <Compile Include="Areas\UserArea\Controllers\ProfileController.cs" />
     <Compile Include="Areas\UserArea\Controllers\UserController.cs" />
     <Compile Include="Areas\UserArea\Controllers\PrivateController.cs" />
+    <Compile Include="Areas\UserArea\Models\ListingViewModels\EndorsementViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\ListingViewModels\ListCollectionViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\ListingViewModels\ItemsByFieldViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\InputModels\PostInputModel.cs" />
@@ -270,6 +271,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Scripts\collapse.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -520,6 +522,7 @@
     <Content Include="Scripts\tinymce\themes\modern\theme.min.js" />
     <Content Include="Scripts\tinymce\tinymce.js" />
     <Content Include="Scripts\tinymce\tinymce.min.js" />
+    <Content Include="Scripts\transition.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

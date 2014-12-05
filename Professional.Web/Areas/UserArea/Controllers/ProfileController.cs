@@ -13,6 +13,7 @@ using Professional.Web.Models;
 using Professional.Web.Helpers;
 using Professional.Web.Areas.UserArea.Models.InputModels;
 using Professional.Web.Models.InputViewModels;
+using Professional.Web.Areas.UserArea.Models.ListingViewModels;
 
 namespace Professional.Web.Areas.UserArea.Controllers
 {
@@ -72,9 +73,11 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
             var endorsements = this.data.EndorsementsOfUsers.All()
                 .Where(e => e.EndorsedUserID == id)
-                .Select(e => new NavigationItem {
+                .Select(e => new EndorsementViewModel
+                {
                     Content = e.Comment,
-                    Url = e.ID.ToString()
+                    ID = e.ID,
+                    Author = e.EndorsingUser.FirstName + " " + e.EndorsingUser.LastName
                 });
 
             var publicProfileInfo = new PublicProfileViewModel();

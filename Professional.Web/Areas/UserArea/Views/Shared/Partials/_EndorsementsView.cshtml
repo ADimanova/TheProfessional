@@ -1,18 +1,23 @@
-﻿@using Professional.Web.Models
-@model IEnumerable<NavigationItem>
+﻿@using Professional.Web.Areas.UserArea.Models.ListingViewModels
+@model IEnumerable<EndorsementViewModel>
 
-<div class="panel panel-default">
-    <div class="panel-heading">User Endorsements</div>
-    <div class="panel-body">
-        <ul class="list-group">
-            @foreach (var item in Model)
-            {                    
-                <li class="list-group-item">
-                    <a href="@item.Url">
-                        @item.Content
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    @foreach (EndorsementViewModel item in Model)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id='@("heading" + item.ID)'>
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href='#@("collapse" + item.ID)' aria-expanded="false" aria-controls='@("collapse" + item.ID)'>
+                        @item.Author
                     </a>
-                </li>
-            }
-        </ul>
-    </div>
+                </h4>
+            </div>
+            <div id='@("collapse" + item.ID)' class="panel-collapse collapse" role="tabpanel" aria-labelledby='@("heading" + item.ID)'>
+                <div class="panel-body">
+                    @item.Content
+                </div>
+            </div>
+        </div>
+    }    
 </div>
+

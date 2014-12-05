@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Professional.Models;
+using Professional.Web.Areas.UserArea.Models.ListingViewModels;
 using Professional.Web.Infrastructure.Mappings;
 using Professional.Web.Models;
 using System;
@@ -26,7 +27,7 @@ namespace Professional.Web.Areas.UserArea.Models
         public int? ProfileImageId { get; set; }
         public IEnumerable<string> Occupations { get; set; }
         public IEnumerable<string> Fields { get; set; }
-        public IEnumerable<NavigationItem> Endorsements { get; set; }
+        public IEnumerable<EndorsementViewModel> Endorsements { get; set; }
 
         public void CreateMappings(IConfiguration configuration)
         {

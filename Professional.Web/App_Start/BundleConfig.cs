@@ -42,6 +42,8 @@ namespace Professional.Web
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/transition.js",
+                      "~/Scripts/collapse.js",
                       "~/Scripts/respond.js"));
         }
 
