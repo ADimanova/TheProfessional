@@ -1,0 +1,18 @@
+﻿@using Professional.Web.Models
+@model IEnumerable<NavigationItem>
+
+<div class="panel panel-default">
+    <div class="panel-heading">User Endorsements</div>
+    <div class="panel-body">
+        <ul class="list-group">
+            @foreach (var item in Model)
+            {                    
+                <li class="list-group-item">
+                    <a href="@item.Url">
+                        @item.Content
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

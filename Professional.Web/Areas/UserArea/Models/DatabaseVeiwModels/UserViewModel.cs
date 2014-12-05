@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Professional.Models;
 using Professional.Web.Infrastructure.Mappings;
+using Professional.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,7 +25,8 @@ namespace Professional.Web.Areas.UserArea.Models
 
         public int? ProfileImageId { get; set; }
         public IEnumerable<string> Occupations { get; set; }
-        public IEnumerable<string> Fields{ get; set; }
+        public IEnumerable<string> Fields { get; set; }
+        public IEnumerable<NavigationItem> Endorsements { get; set; }
 
         public void CreateMappings(IConfiguration configuration)
         {
@@ -39,6 +41,17 @@ namespace Professional.Web.Areas.UserArea.Models
             configuration.CreateMap<User, UserViewModel>()
                 .ForMember(p => p.Fields,
                 options => options.MapFrom(u => u.FieldsOfExpertise.Select(o => o.Name)));
+
+            configuration.CreateMap<User, UserViewModel>()
+                .ForMember(p => p.Endorsements,
+                    options => options.MapFrom(u => u.UsersEndorsements.Select(e => e.Comment
+                    )));
+                //options => options.MapFrom(u => u.UsersEndorsements.Select(e => 
+                //    new NavigationItem 
+                //    { 
+                //        Content = e.EndorsingUser.FirstName + e.EndorsingUser.LastName,
+                //        Url = e.ID.ToString()
+                //    })));
         }
 
         public string GetPersonalHistory()

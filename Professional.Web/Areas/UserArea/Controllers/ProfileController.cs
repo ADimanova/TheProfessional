@@ -70,6 +70,13 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 .Where(e => e.EndorsingUserID == userID)
                 .Any(e => e.EndorsedUserID == id);
 
+            var endorsements = this.data.EndorsementsOfUsers.All()
+                .Where(e => e.EndorsedUserID == id)
+                .Select(e => new NavigationItem {
+                    Content = e.Comment,
+                    Url = e.ID.ToString()
+                });
+
             var publicProfileInfo = new PublicProfileViewModel();
             publicProfileInfo.UserInfo = userInfoForView;
             if (!isEndorsed && userID != id)
@@ -87,6 +94,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             publicProfileInfo.BtnNavigateEndorsements = btnNavigateEndorsements;
             publicProfileInfo.TopPostsList = topPostPanel;
             publicProfileInfo.RecentPostsList = recentPostPanel;
+            publicProfileInfo.UserInfo.Endorsements = endorsements;
 
             return View(publicProfileInfo);
         }

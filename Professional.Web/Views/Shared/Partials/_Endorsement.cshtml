@@ -30,5 +30,6 @@
         @Html.TextAreaFor(m => m.Comment, new { @class = "form-control bordered" })
 
         @Html.HiddenFor(m => m.EndorsedID, Model.EndorsedID);
+        @Html.HiddenFor(m => m.IsOfUser, Model.IsOfUser);
     }
 </div>

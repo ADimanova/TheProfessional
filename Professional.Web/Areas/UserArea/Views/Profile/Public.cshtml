@@ -8,14 +8,19 @@
     <div class="col-md-6 col-md-offset-1">
         @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_PersonalInfoView.cshtml", Model.UserInfo, new ViewDataDictionary { { "isPrivate", "false" } })
         @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ProfessionalInfoView.cshtml", Model.UserInfo, new ViewDataDictionary { { "isPrivate", "false" } })
+        @*@if (Model.UserInfo.Endorsements != null && Model.UserInfo.Endorsements.Count() > 0)
+        {
+            @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_EndorsementsView.cshtml", Model.UserInfo.Endorsements)
+        }*@
+        @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_EndorsementsView.cshtml", Model.UserInfo.Endorsements)        
 
-        <div class="panel panel-default">
+        @*<div class="panel panel-default">
             <div class="panel-heading">User Endorsements</div>
             <div class="panel-body">
                 <h5 class="media-heading">Field</h5>
                 More info...
             </div>
-        </div>
+        </div>*@
     </div>
     <div class="col-md-5">
         @if (ViewBag.IsEndorsed != "true")
