@@ -243,3 +243,7 @@ output {
     color: #222;
     font-weight: bold;
 }
+
+#dialog {
+    display: none;
+}

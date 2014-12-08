@@ -64,7 +64,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
             var btnNavigateEndorsements = new NavigationItem();
             btnNavigateEndorsements.Content = "See endorsements's page";
-            btnNavigateEndorsements.Url = "#";
+            btnNavigateEndorsements.Url = WebConstants.UserEndorsementsPageRoute + currentUser.Id;
 
             var userID = User.Identity.GetUserId();
             var isEndorsed = this.data.EndorsementsOfUsers.All()
@@ -77,7 +77,8 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 {
                     Content = e.Comment,
                     ID = e.ID,
-                    Author = e.EndorsingUser.FirstName + " " + e.EndorsingUser.LastName
+                    AuthorFirstName = e.EndorsingUser.FirstName,
+                    AuthorLastName = e.EndorsingUser.LastName
                 });
 
             var publicProfileInfo = new PublicProfileViewModel();
@@ -131,6 +132,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
         private IList<NavigationItem> GetNavItems()
         {
+            var currentUserId = User.Identity.GetUserId();
             return new List<NavigationItem>
             {
                 new NavigationItem { 
@@ -139,11 +141,11 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 },
                 new NavigationItem { 
                     Content = "Go to post's page",
-                    Url = WebConstants.UserPostsPageRoute + User.Identity.GetUserId()
+                    Url = WebConstants.UserPostsPageRoute + currentUserId
                 },
                 new NavigationItem { 
                     Content = "Go to endorsements's page",
-                    Url = "#"
+                    Url = WebConstants.UserEndorsementsPageRoute + currentUserId
                 },
             };
         }

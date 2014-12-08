@@ -16,6 +16,5 @@ namespace Professional.Web.Areas.UserArea.Models
         public NavigationItem BtnNavigateEndorsements { get; set; }
         public ListPanelViewModel TopPostsList { get; set; }
         public ListPanelViewModel RecentPostsList { get; set; }
-
     }
 }

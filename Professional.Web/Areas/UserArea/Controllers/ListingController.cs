@@ -1,6 +1,7 @@
 ﻿using Professional.Data;
 using Professional.Models;
 using Professional.Web.Areas.UserArea.Models;
+using Professional.Web.Areas.UserArea.Models.ListingViewModels;
 using Professional.Web.Helpers;
 using Professional.Web.Models;
 using System;
@@ -30,7 +31,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 .Take(itemsPerPage);
 
             var firstLetters = users
-                .Select(f => f.LastName.Substring(0, 1));
+                .Select(f => f.LastName.Substring(0, 1)).Distinct().OrderBy(l => l);
 
             var groupedByFirstLetter = users.GroupBy(s => s.LastName.Substring(0, 1))
                 .Select(g => new ItemsByFieldViewModel
@@ -100,6 +101,50 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
             return View(viewModel);
         }
+
+        public ActionResult UserEndorsements(string id, int? page)
+        {
+            int pageNumber = page.GetValueOrDefault(1);
+            var endorsements = this.data.EndorsementsOfUsers.All()
+                .Where(e => e.EndorsedUserID == id)
+                .Select(e => new EndorsementViewModel
+                {
+                    ID = e.ID,
+                    Content = e.Comment,
+                    AuthorFirstName = e.EndorsedUser.FirstName,
+                    AuthorLastName = e.EndorsedUser.LastName,
+                    AuthorID = e.EndorsingUserID
+                })
+                .OrderBy(e => e.AuthorLastName)
+                .Skip((pageNumber - 1) * itemsPerPage)
+                .Take(itemsPerPage);
+
+            var firstLetters = endorsements
+                .Select(f => f.AuthorLastName.Substring(0, 1)).Distinct().OrderBy(l => l);
+
+            var groupedByFirstLetter = endorsements.GroupBy(s => s.AuthorLastName.Substring(0, 1))
+                .Select(g => new ItemsByFieldViewModel
+                {
+                    Name = g.Key.ToString(),
+                    Items = g.Select(i => new NavigationItem
+                    {
+                        Content = i.AuthorLastName + ", " + i.AuthorFirstName,
+                        Url = WebConstants.PublicProfilePageRoute + i.AuthorID
+                    }).ToList()
+                });
+
+            var pageCount = Math.Ceiling((double)endorsements.Count() / itemsPerPage);
+            this.SetPaging(pageNumber, pageCount);
+            ViewBag.Url = WebConstants.UserEndorsementsPageRoute + id + "/";
+
+            var viewModel = new ListCollectionViewModel();
+            viewModel.FieldsNames = firstLetters.ToList();
+            viewModel.Title = "Endorsements of user";
+            viewModel.GetBy = "author";
+            viewModel.Fields = groupedByFirstLetter.ToList();
+
+            return View(viewModel);
+        } 
 
         private void SetPaging(int pageNumber, double pageCount)
         {

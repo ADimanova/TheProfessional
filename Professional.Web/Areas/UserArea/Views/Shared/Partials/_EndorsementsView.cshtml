@@ -8,7 +8,7 @@
             <div class="panel-heading" role="tab" id='@("heading" + item.ID)'>
                 <h4 class="panel-title">
                     <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href='#@("collapse" + item.ID)' aria-expanded="false" aria-controls='@("collapse" + item.ID)'>
-                        @item.Author
+                        @(item.AuthorLastName + ", " + item.AuthorFirstName)
                     </a>
                 </h4>
             </div>

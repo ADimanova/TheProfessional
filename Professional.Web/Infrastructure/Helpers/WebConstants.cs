@@ -26,6 +26,8 @@ namespace Professional.Web.Helpers
         
         public const string UsersPageRoute = "/UserArea/Listing/Users/";
 
+        public const string UserEndorsementsPageRoute = "/UserArea/Listing/UserEndorsements/";
+
         public const string PublicProfilePageRoute = "/UserArea/Profile/Public/";
         public const string PrivateProfilePageRoute = "/UserArea/Profile/Private/";
         public const string EndorseUser = "/UserArea/Profile/EndorseUser/"; 

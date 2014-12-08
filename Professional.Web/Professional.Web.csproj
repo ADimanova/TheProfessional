@@ -340,6 +340,7 @@
     <Content Include="Areas\Administration\Views\PostsAdmin\Index.cshtml" />
     <Content Include="Areas\UserArea\Views\Private\OnRegistration.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\Partials\_CreateField.cshtml" />
+    <Content Include="Areas\UserArea\Views\Listing\UserEndorsements.cshtml" />
     <None Include="Areas\UserArea\Views\Private\AddPersonalInfo.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_PersonalInfoView.cshtml" />
     <Content Include="Areas\Administration\Views\FieldsAdmin\Index.cshtml" />

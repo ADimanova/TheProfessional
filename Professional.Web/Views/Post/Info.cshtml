@@ -1,19 +1,20 @@
-﻿@model PostViewModel
+﻿@using Professional.Web.Helpers
+@model PostViewModel
 
 <div class="row clearfix">
     <div class="col-md-2"></div>
     <div class="col-md-8 column grayed unedged">
         <div class="page-header">
             <h1 class="lessened wrapped">
-                @Model.Title <small>created by @Model.Creator</small>
+                @Model.Title <small>created by <a href="@(WebConstants.PublicProfilePageRoute + Model.CreatorID)">@Model.Creator</a></small>
             </h1>
         </div>
         <div class="wrapped">
+            @Html.Raw(Model.Content)
             @if (ViewBag.IsEndorsed != "true")
             {
                 @Html.Partial("~/Views/Shared/Partials/_Endorsement.cshtml", Model.EndorseFunctionality)
             }            
-            @Html.Raw(Model.Content)
         </div>
     </div>
     <div class="col-md-2"></div>
