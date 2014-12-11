@@ -252,7 +252,9 @@
     <Compile Include="Infrastructure\Mappings\AutoMapperConfig.cs" />
     <Compile Include="Infrastructure\Services\Base\BaseServices.cs" />
     <Compile Include="Infrastructure\Services\Contracts\IHomeServices.cs" />
+    <Compile Include="Infrastructure\Services\Contracts\IListingServices.cs" />
     <Compile Include="Infrastructure\Services\HomeServices.cs" />
+    <Compile Include="Infrastructure\Services\ListingServices.cs" />
     <Compile Include="Infrastructure\Validation\DoesNotContainAttribute.cs" />
     <Compile Include="Models\AccountViewModels\AccountViewModels.cs" />
     <Compile Include="Models\DatabaseViewModels\FieldViewModel.cs" />

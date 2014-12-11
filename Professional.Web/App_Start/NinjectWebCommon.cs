@@ -74,6 +74,7 @@ namespace Professional.Web.App_Start
 
             kernel.Bind(typeof(ICacheService)).To(typeof(InMemoryCache));
             kernel.Bind(typeof(IHomeServices)).To(typeof(HomeServices));
+            kernel.Bind(typeof(IListingServices)).To(typeof(ListingServices));
         }        
     }
 }

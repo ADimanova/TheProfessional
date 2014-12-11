@@ -3,7 +3,6 @@ using Professional.Models;
 using Professional.Web.Areas.UserArea.Models;
 using Professional.Web.Areas.UserArea.Models.ListingViewModels;
 using Professional.Web.Helpers;
-using Professional.Web.Infrastructure.Services.Contracts;
 using Professional.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -16,11 +15,9 @@ namespace Professional.Web.Areas.UserArea.Controllers
     public class ListingController : UserController
     {
         int itemsPerPage = WebConstants.PostsPerPage;
-        private IListingServices listingServices;
-        public ListingController(IApplicationData data, IListingServices listingServices)
+        public ListingController(IApplicationData data)
             : base(data)
         {
-            this.listingServices = listingServices;
         }
 
         // GET: UserArea/Listing
@@ -28,17 +25,15 @@ namespace Professional.Web.Areas.UserArea.Controllers
         {
             int pageNumber = page.GetValueOrDefault(1);
 
-            // id is the filter value
-            var users = this.listingServices.GetUsers(id);
-            var usersCount = users.Count();
-            var usersPaged = users.OrderBy(f => f.UserName)
+            var users = this.GetUsers(id)
+                .OrderBy(f => f.UserName)
                 .Skip((pageNumber - 1) * itemsPerPage)
                 .Take(itemsPerPage);
 
             var firstLetters = users
                 .Select(f => f.LastName.Substring(0, 1)).Distinct().OrderBy(l => l);
 
-            var groupedByFirstLetter = usersPaged.GroupBy(s => s.LastName.Substring(0, 1))
+            var groupedByFirstLetter = users.GroupBy(s => s.LastName.Substring(0, 1))
                 .Select(g => new ItemsByFieldViewModel
                 {
                     Name = g.Key.ToString(),
@@ -49,7 +44,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     }).ToList()
                 });
 
-            var pageCount = Math.Ceiling((double)usersCount / itemsPerPage);
+            var pageCount = Math.Ceiling((double)users.Count() / itemsPerPage);
             this.SetPaging(pageNumber, pageCount);
             ViewBag.Url = WebConstants.UsersPageRoute;
 
@@ -66,11 +61,8 @@ namespace Professional.Web.Areas.UserArea.Controllers
         {
             int pageNumber = page.GetValueOrDefault(1);
 
-            // id is the filter value
-            var posts = this.listingServices.GetPosts(id, user);
-            var postsCount = posts.Count();
-
-            var postsPaged = posts.OrderBy(f => f.Field.Name)
+            var posts = this.GetPosts(id, user)
+                .OrderBy(f => f.Field.Name)
                 .Skip((pageNumber - 1) * itemsPerPage)
                 .Take(itemsPerPage);
 
@@ -78,7 +70,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 .All()
                 .Select(f => f.Name);
 
-            var groupedByField = postsPaged.GroupBy(p => p.Field.Name)
+            var groupedByField = posts.GroupBy(p => p.Field.Name)
                 .Select(p => new ItemsByFieldViewModel
                 {
                     Name = p.FirstOrDefault().Field.Name,
@@ -88,8 +80,8 @@ namespace Professional.Web.Areas.UserArea.Controllers
                         Url = WebConstants.PostPageRoute + i.ID
                     }).ToList()
                 });
-
-            var pageCount = Math.Ceiling((double)postsCount / itemsPerPage);
+            //this.GetPosts(null, null).Count()
+            var pageCount = Math.Ceiling((double)posts.Count() / itemsPerPage);
             this.SetPaging(pageNumber, pageCount);
 
             if (user == null)
@@ -113,15 +105,8 @@ namespace Professional.Web.Areas.UserArea.Controllers
         public ActionResult UserEndorsements(string id, int? page)
         {
             int pageNumber = page.GetValueOrDefault(1);
-
-            //id is the user's id
-            var endorsements = this.listingServices.GetEndorsements(id);
-            var endorsementsCount = endorsements.Count();
-
-            var endorsementsPaged = endorsements
-                .OrderBy(e => e.EndorsingUser.LastName)
-                .Skip((pageNumber - 1) * itemsPerPage)
-                .Take(itemsPerPage)
+            var endorsements = this.data.EndorsementsOfUsers.All()
+                .Where(e => e.EndorsedUserID == id)
                 .Select(e => new EndorsementViewModel
                 {
                     ID = e.ID,
@@ -129,12 +114,15 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     AuthorFirstName = e.EndorsedUser.FirstName,
                     AuthorLastName = e.EndorsedUser.LastName,
                     AuthorID = e.EndorsingUserID
-                });
+                })
+                .OrderBy(e => e.AuthorLastName)
+                .Skip((pageNumber - 1) * itemsPerPage)
+                .Take(itemsPerPage);
 
             var firstLetters = endorsements
-                .Select(f => f.EndorsingUser.LastName.Substring(0, 1)).Distinct().OrderBy(l => l);
+                .Select(f => f.AuthorLastName.Substring(0, 1)).Distinct().OrderBy(l => l);
 
-            var groupedByFirstLetter = endorsementsPaged.GroupBy(s => s.AuthorLastName.Substring(0, 1))
+            var groupedByFirstLetter = endorsements.GroupBy(s => s.AuthorLastName.Substring(0, 1))
                 .Select(g => new ItemsByFieldViewModel
                 {
                     Name = g.Key.ToString(),
@@ -145,17 +133,18 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     }).ToList()
                 });
 
-            var pageCount = Math.Ceiling((double)endorsementsCount / itemsPerPage);
+            var pageCount = Math.Ceiling((double)endorsements.Count() / itemsPerPage);
             this.SetPaging(pageNumber, pageCount);
             ViewBag.Url = WebConstants.UserEndorsementsPageRoute + id + "/";
 
             var viewModel = new ListCollectionViewModel();
             viewModel.FieldsNames = firstLetters.ToList();
             viewModel.Title = "Endorsements of user";
+            viewModel.GetBy = "author";
             viewModel.Fields = groupedByFirstLetter.ToList();
 
             return View(viewModel);
-        }
+        } 
 
         private void SetPaging(int pageNumber, double pageCount)
         {
@@ -182,49 +171,35 @@ namespace Professional.Web.Areas.UserArea.Controllers
             }
         }
 
-    //    [OutputCache(Duration = 60, VaryByParam = "none")]
-    //    private IQueryable<User> GetUsers(string filter)
-    //    {
-    //        var users = this.data.Users.All();
-    //        if (filter != null)
-    //        {
-    //            filter = filter.ToLower();
-    //            users = users.Where(u => u.UserName.Substring(0, 1) == filter);
-    //        }
+        [OutputCache(Duration = 60, VaryByParam = "none")]
+        private IQueryable<User> GetUsers(string filter)
+        {
+            var users = this.data.Users.All();
+            if (filter != null)
+            {
+                filter = filter.ToLower();
+                users = users.Where(u => u.UserName.Substring(0, 1) == filter);
+            }
 
-    //        return users;
-    //    }
+            return users;
+        }
 
-    //    [OutputCache(Duration = 60, VaryByParam = "none")]
-    //    private IQueryable<Post> GetPosts(string filter, string user)
-    //    {
-    //        var posts = this.data.Posts.All();
-    //        if (filter != null)
-    //        {
-    //            filter = filter.ToLower();
-    //            posts = posts.Where(p => p.Field.Name.ToLower() == filter);
-    //        }
+        [OutputCache(Duration = 60, VaryByParam = "none")]
+        private IQueryable<Post> GetPosts(string filter, string user)
+        {
+            var posts = this.data.Posts.All();
+            if (filter != null)
+            {
+                filter = filter.ToLower();
+                posts = posts.Where(p => p.Field.Name.ToLower() == filter);
+            }
 
-    //        if (user != null)
-    //        {
-    //            posts = posts.Where(p => p.CreatorID == user);
-    //        }
+            if (user != null)
+            {
+                posts = posts.Where(p => p.CreatorID == user);
+            }
 
-    //        return posts;
-    //    }
-
-    //    [OutputCache(Duration = 60, VaryByParam = "none")]
-    //    private IQueryable<EndorsementOfUser> GetEndorsements(string userID)
-    //    {
-    //        var endorsements = this.data.EndorsementsOfUsers.All();
-    //        if (userID == null)
-    //        {
-    //            throw new ArgumentNullException("You must specify the user by ID");
-    //        }
-
-    //        endorsements = endorsements.Where(p => p.EndorsedUserID == userID);
-
-    //        return endorsements;
-    //    }
+            return posts;
+        }
     }
 }
