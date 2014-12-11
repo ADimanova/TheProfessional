@@ -21,5 +21,12 @@
         $("#value-holder").change(function outputUpdate(val) {
             document.querySelector('#value').value = document.querySelector('#value-holder').value;
         });
+        $(".dropdown-menu li a").click(function () {
+            localStorage.setItem("filter", $(this).text());
+        });
+
+        if ($(".dropdown.filter").length > 0 && localStorage.getItem("filter") !== null) {
+            $(".dropdown-menu li a").parents(".dropdown.filter").find('.btn').append(": " + localStorage.getItem("filter"));
+        }
     });
 });

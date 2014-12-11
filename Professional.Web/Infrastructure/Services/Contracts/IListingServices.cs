@@ -14,5 +14,7 @@ namespace Professional.Web.Infrastructure.Services.Contracts
         IQueryable<User> GetUsers(string filter);
         IQueryable<Post> GetPosts(string filter, string user);
         IQueryable<EndorsementOfUser> GetEndorsements(string userID);
+        IQueryable<string> GetLetters();
+        IQueryable<string> GetFeilds();
     }
 }

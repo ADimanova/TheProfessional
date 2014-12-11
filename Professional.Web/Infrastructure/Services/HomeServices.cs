@@ -25,8 +25,9 @@ namespace Professional.Web.Infrastructure.Services
 
         public IQueryable<NavigationItem> GetFields()
         {
-            var fields = this.Cache.Get<IQueryable<NavigationItem>>("FieldsHome", 
+            var fields = this.Cache.Get<IQueryable<NavigationItem>>("FieldsHome",
                 () => this.Data.FieldsOfExpertise.All()
+                .Where(u => u.IsDeleted == false)
                 .OrderByDescending(f => f.Rank)
                 .Take(FieldsCount)
                 .Select(f => new NavigationItem
@@ -42,6 +43,7 @@ namespace Professional.Web.Infrastructure.Services
         {
             var posts = this.Cache.Get<IQueryable<PostSimpleViewModel>>("PostsHome", 
                 () => this.Data.Posts.All()
+                .Where(u => u.IsDeleted == false)
                 .OrderByDescending(p => p.DateCreated)
                 .Take(PostCount)
                 .Project().To<PostSimpleViewModel>());
@@ -55,6 +57,7 @@ namespace Professional.Web.Infrastructure.Services
         {
             var users = this.Cache.Get<IQueryable<UserSimpleViewModel>>("FeaturedHome",
                 () => this.Data.Users.All()
+                .Where(u => u.IsDeleted == false)
                 .Where(u => u.FieldsOfExpertise.Count > 0)
                 .OrderByDescending(u => u.UsersEndorsements.Count)
                 .Take(FeaturedCount)

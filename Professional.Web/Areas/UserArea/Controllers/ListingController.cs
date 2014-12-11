@@ -35,10 +35,9 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 .Skip((pageNumber - 1) * itemsPerPage)
                 .Take(itemsPerPage);
 
-            var firstLetters = users
-                .Select(f => f.LastName.Substring(0, 1)).Distinct().OrderBy(l => l);
+            var firstLetters = this.listingServices.GetLetters();
 
-            var groupedByFirstLetter = usersPaged.GroupBy(s => s.LastName.Substring(0, 1))
+            var groupedByFirstLetter = usersPaged.GroupBy(s => s.LastName.Substring(0, 1).ToUpper())
                 .Select(g => new ItemsByFieldViewModel
                 {
                     Name = g.Key.ToString(),
@@ -74,9 +73,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 .Skip((pageNumber - 1) * itemsPerPage)
                 .Take(itemsPerPage);
 
-            var fieldsNames = this.data.FieldsOfExpertise
-                .All()
-                .Select(f => f.Name);
+            var fieldsNames = this.listingServices.GetFeilds();
 
             var groupedByField = postsPaged.GroupBy(p => p.Field.Name)
                 .Select(p => new ItemsByFieldViewModel
@@ -131,8 +128,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     AuthorID = e.EndorsingUserID
                 });
 
-            var firstLetters = endorsements
-                .Select(f => f.EndorsingUser.LastName.Substring(0, 1)).Distinct().OrderBy(l => l);
+            var firstLetters = this.listingServices.GetLetters();
 
             var groupedByFirstLetter = endorsementsPaged.GroupBy(s => s.AuthorLastName.Substring(0, 1))
                 .Select(g => new ItemsByFieldViewModel
@@ -181,50 +177,5 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 ViewBag.PreviousPage = ViewBag.CurrentPage - 1;
             }
         }
-
-    //    [OutputCache(Duration = 60, VaryByParam = "none")]
-    //    private IQueryable<User> GetUsers(string filter)
-    //    {
-    //        var users = this.data.Users.All();
-    //        if (filter != null)
-    //        {
-    //            filter = filter.ToLower();
-    //            users = users.Where(u => u.UserName.Substring(0, 1) == filter);
-    //        }
-
-    //        return users;
-    //    }
-
-    //    [OutputCache(Duration = 60, VaryByParam = "none")]
-    //    private IQueryable<Post> GetPosts(string filter, string user)
-    //    {
-    //        var posts = this.data.Posts.All();
-    //        if (filter != null)
-    //        {
-    //            filter = filter.ToLower();
-    //            posts = posts.Where(p => p.Field.Name.ToLower() == filter);
-    //        }
-
-    //        if (user != null)
-    //        {
-    //            posts = posts.Where(p => p.CreatorID == user);
-    //        }
-
-    //        return posts;
-    //    }
-
-    //    [OutputCache(Duration = 60, VaryByParam = "none")]
-    //    private IQueryable<EndorsementOfUser> GetEndorsements(string userID)
-    //    {
-    //        var endorsements = this.data.EndorsementsOfUsers.All();
-    //        if (userID == null)
-    //        {
-    //            throw new ArgumentNullException("You must specify the user by ID");
-    //        }
-
-    //        endorsements = endorsements.Where(p => p.EndorsedUserID == userID);
-
-    //        return endorsements;
-    //    }
     }
 }
