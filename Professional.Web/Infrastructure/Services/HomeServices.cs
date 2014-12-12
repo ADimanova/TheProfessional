@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Professional.Models;
 
 namespace Professional.Web.Infrastructure.Services
 {
@@ -23,53 +24,45 @@ namespace Professional.Web.Infrastructure.Services
         private const int PostCount = 3;
         private const int FeaturedCount = 3;
 
-        public IQueryable<NavigationItem> GetFields()
+        public IQueryable<FieldOfExpertise> GetFields()
         {
-            var fields = this.Cache.Get<IQueryable<NavigationItem>>("FieldsHome",
+            var fields = this.Cache.Get<IQueryable<FieldOfExpertise>>("FieldsHome",
                 () => this.Data.FieldsOfExpertise.All()
                 .Where(u => u.IsDeleted == false)
                 .OrderByDescending(f => f.Rank)
-                .Take(FieldsCount)
-                .Select(f => new NavigationItem
-                {
-                    Content = f.Name,
-                    Url = WebConstants.FieldInfoPageRoute + f.Name
-                }));
+                .Take(FieldsCount));
 
             return fields;
         }
 
-        public IQueryable<PostSimpleViewModel> GetTopPosts()
+        public IQueryable<Post> GetTopPosts()
         {
-            var posts = this.Cache.Get<IQueryable<PostSimpleViewModel>>("PostsHome", 
+            var posts = this.Cache.Get<IQueryable<Post>>("PostsHome", 
                 () => this.Data.Posts.All()
                 .Where(u => u.IsDeleted == false)
                 .OrderByDescending(p => p.DateCreated)
-                .Take(PostCount)
-                .Project().To<PostSimpleViewModel>());
+                .Take(PostCount));
 
             var formatedPosts = this.FormatPosts(posts);
 
             return formatedPosts;
         }
 
-        public IQueryable<UserSimpleViewModel> GetFeatured()
+        public IQueryable<User> GetFeatured()
         {
-            var users = this.Cache.Get<IQueryable<UserSimpleViewModel>>("FeaturedHome",
+            var users = this.Cache.Get<IQueryable<User>>("FeaturedHome",
                 () => this.Data.Users.All()
                 .Where(u => u.IsDeleted == false)
                 .Where(u => u.FieldsOfExpertise.Count > 0)
                 .OrderByDescending(u => u.UsersEndorsements.Count)
-                .Take(FeaturedCount)
-                .Project().To<UserSimpleViewModel>());
+                .Take(FeaturedCount));
 
             return users;
         }
 
-
-        private IQueryable<PostSimpleViewModel> FormatPosts(IQueryable<PostSimpleViewModel> rawPosts)
+        private IQueryable<Post> FormatPosts(IQueryable<Post> rawPosts)
         {
-            IList<PostSimpleViewModel> posts = rawPosts.ToList();
+            IList<Post> posts = rawPosts.ToList();
             for (int i = 0; i < posts.Count; i++)
             {
                 var post = posts[i];
@@ -83,7 +76,7 @@ namespace Professional.Web.Infrastructure.Services
                 posts[i].Content = content;
             }
 
-            return posts.AsQueryable<PostSimpleViewModel>();
+            return posts.AsQueryable<Post>();
         }
     }
 }

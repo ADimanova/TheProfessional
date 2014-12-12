@@ -34,9 +34,21 @@ namespace Professional.Web.Controllers
 
         public ActionResult Index()
         {
-            var fields = this.homeServices.GetFields().ToList<NavigationItem>();
-            var posts = this.homeServices.GetTopPosts().ToList<PostSimpleViewModel>();
-            var featured = this.homeServices.GetFeatured().ToList<UserSimpleViewModel>();
+            var fields = this.homeServices.GetFields()
+                .Select(f => new NavigationItem
+                {
+                    Content = f.Name,
+                    Url = WebConstants.FieldInfoPageRoute + f.Name
+                })
+                .ToList();
+
+            var posts = this.homeServices.GetTopPosts()
+                .Project().To<PostSimpleViewModel>()
+                .ToList();
+
+            var featured = this.homeServices.GetFeatured()
+                .Project().To<UserSimpleViewModel>()
+                .ToList();
 
             var fieldsView = new HorizontalNavbarViewModel();
             fieldsView.Title = FieldsNavBarTitle;
