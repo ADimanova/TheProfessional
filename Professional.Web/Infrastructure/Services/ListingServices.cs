@@ -14,8 +14,13 @@ namespace Professional.Web.Infrastructure.Services
     public class ListingServices : BaseServices, IListingServices
     {
         private string All = "All";
-        private IQueryable<string> Letters = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", 
-            "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" }
+
+        private IQueryable<string> Letters = new List<string>
+            { 
+                "A", "B", "C", "D", "E", "F", "G", "H", "I",
+                "J", "K", "L", "M", "N", "O", "P", "Q","R",
+                "S", "T", "U", "V", "W", "X", "Y", "Z" 
+            }
             .AsQueryable<string>();
         public ListingServices(IApplicationData data, ICacheService cache)
             : base(data, cache)

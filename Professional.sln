@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Professional.Common", "Prof
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Professional.Contracts", "Professional.Contracts\Professional.Contracts.csproj", "{4CA1F0F9-414C-4866-91C8-C1C5E8CCDE3A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Professional.Tests", "Professional.Tests\Professional.Tests.csproj", "{13A48ED7-266A-4887-AF67-F0B2A9BBD422}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{4CA1F0F9-414C-4866-91C8-C1C5E8CCDE3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CA1F0F9-414C-4866-91C8-C1C5E8CCDE3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CA1F0F9-414C-4866-91C8-C1C5E8CCDE3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13A48ED7-266A-4887-AF67-F0B2A9BBD422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13A48ED7-266A-4887-AF67-F0B2A9BBD422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13A48ED7-266A-4887-AF67-F0B2A9BBD422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13A48ED7-266A-4887-AF67-F0B2A9BBD422}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
