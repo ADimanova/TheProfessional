@@ -73,7 +73,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libraries\Kendo.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.1.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.1.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
@@ -149,9 +159,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -219,11 +226,12 @@
     <Compile Include="Areas\Administration\Models\PostAdminModel.cs" />
     <Compile Include="Areas\Administration\Models\UserAdminModel.cs" />
     <Compile Include="Areas\UserArea\Controllers\CreateItemController.cs" />
-    <Compile Include="Areas\UserArea\Controllers\EndorsementsController.cs" />
     <Compile Include="Areas\UserArea\Controllers\ListingController.cs" />
     <Compile Include="Areas\UserArea\Controllers\ProfileController.cs" />
     <Compile Include="Areas\UserArea\Controllers\UserController.cs" />
-    <Compile Include="Areas\UserArea\Controllers\PrivateController.cs" />
+    <Compile Include="Areas\UserArea\Controllers\AddInfoController.cs" />
+    <Compile Include="Areas\UserArea\Models\ChatViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\ListingViewModels\MessagesViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\ListingViewModels\EndorsementViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\ListingViewModels\ListCollectionViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\ListingViewModels\ItemsByFieldViewModel.cs" />
@@ -232,6 +240,7 @@
     <Compile Include="Areas\UserArea\Models\PageViewModel\PrivateProfileViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\PageViewModel\PublicProfileViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\DatabaseVeiwModels\UserViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\UpdatesViewModel.cs" />
     <Compile Include="Areas\UserArea\UserAreaAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -243,6 +252,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Infrastructure\Helpers\StringManipulations.cs" />
     <Compile Include="Infrastructure\Helpers\WebConstants.cs" />
     <Compile Include="Infrastructure\Caching\ICacheService.cs" />
@@ -273,6 +283,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chat-styles.css" />
+    <Content Include="Scripts\chat.js" />
     <Content Include="Scripts\collapse.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -340,10 +352,10 @@
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Areas\Administration\Views\PostsAdmin\Index.cshtml" />
-    <Content Include="Areas\UserArea\Views\Private\OnRegistration.cshtml" />
+    <Content Include="Areas\UserArea\Views\AddInfo\OnRegistration.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\Partials\_CreateField.cshtml" />
     <Content Include="Areas\UserArea\Views\Listing\UserEndorsements.cshtml" />
-    <None Include="Areas\UserArea\Views\Private\AddPersonalInfo.cshtml" />
+    <None Include="Areas\UserArea\Views\AddInfo\Personal.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_PersonalInfoView.cshtml" />
     <Content Include="Areas\Administration\Views\FieldsAdmin\Index.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\_Layout.cshtml" />
@@ -351,10 +363,12 @@
     <Content Include="Areas\UserArea\Views\Listing\Posts.cshtml" />
     <Content Include="Areas\UserArea\Views\Profile\Public.cshtml" />
     <Content Include="Areas\UserArea\Views\Profile\Private.cshtml" />
-    <Content Include="Areas\UserArea\Views\Private\AddProfessionalInfo.cshtml" />
+    <Content Include="Areas\UserArea\Views\AddInfo\Professional.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_ProfessionalInfoView.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_InfoNavigation.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_EndorsementsView.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\Partials\_ChatView.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\Partials\_UpdatesView.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -362,6 +376,8 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.11.2.js" />
     <Content Include="Scripts\jquery-ui-1.11.2.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.1.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.1.2.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -601,7 +617,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\UserArea\Views\Endorsements\" />
     <Folder Include="Content\kendo\" />
     <Folder Include="Css\" />
     <Folder Include="Libraries\" />

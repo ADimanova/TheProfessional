@@ -18,7 +18,6 @@ namespace Professional.Web.Areas.UserArea.Controllers
         public UserController(IApplicationData data)
             : base(data)
         {
-
         }
         protected IList GetUserFields(string currentUserId)
         {

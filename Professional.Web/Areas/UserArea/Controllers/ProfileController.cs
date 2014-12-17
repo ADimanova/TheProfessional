@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Professional.Data;
 using Professional.Models;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Professional.Web.Models.DatabaseViewModels;
 using Professional.Web.Areas.UserArea.Models;
 using Professional.Web.Models;
@@ -81,13 +82,18 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     AuthorLastName = e.EndorsingUser.LastName
                 });
 
+            var chatModel = new ChatViewModel();
+            //chatModel.IsMessaged = true;
+            chatModel.ToUserId = id;
+
             var publicProfileInfo = new PublicProfileViewModel();
             publicProfileInfo.UserInfo = userInfoForView;
+            publicProfileInfo.ChatInfo = chatModel;
             if (!isEndorsed && userID != id)
             {
                 var endorseInfo = new EndorsementInputModel();
                 endorseInfo.EndorsedID = id;
-                endorseInfo.IsOfUser = true;
+                endorseInfo.EndorseAction = "EndorsementOfUser";
                 publicProfileInfo.EndorseFunctionality = endorseInfo;
             }
             else
@@ -112,6 +118,25 @@ namespace Professional.Web.Areas.UserArea.Controllers
             Mapper.CreateMap<User, UserViewModel>();
             var userInfoForView = Mapper.Map<UserViewModel>(currentUser);
 
+            var messagesReceived = this.data.Messages.All()
+                .Where(m => m.ToUserId == currentUserId)
+                .Where(m => m.IsRead == false)
+                .GroupBy(m => m.FromUserId)
+                .Select(g => new MessagesViewModel
+                {
+                    FromUserId = g.Key,
+                    FromUserName = g.FirstOrDefault().FromUser.FirstName + " " + g.FirstOrDefault().FromUser.LastName,
+                    Preview = g.FirstOrDefault().Content.Substring(0, 20) + "...",
+                    //Messages = g.Select(i => )
+                });
+
+            var updateModel = new UpdatesViewModel();
+            if (messagesReceived.Count() > 0)
+            {
+                updateModel.IsMessaged = true;
+                updateModel.ActiveChats = messagesReceived.ToList();
+            }
+
             var privateProfileInfo = new PrivateProfileViewModel();
 
             IList<NavigationItem> navItems = this.GetNavItems();
@@ -119,6 +144,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             navList.Title = "Navigation";
             navList.ListItems = navItems;
             privateProfileInfo.UserInfo = userInfoForView;
+            privateProfileInfo.UpdatesInfo = updateModel;
             privateProfileInfo.NavigationList = navList;
 
             return View(privateProfileInfo);

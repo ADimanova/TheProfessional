@@ -13,6 +13,7 @@ namespace Professional.Data
         IDbSet<Occupation> Occupations { get; set; }
         IDbSet<Post> Posts { get; set; }
         IDbSet<Image> Images { get; set; }
+        IDbSet<Message> Messages { get; set; }
 
         DbContext DbContext { get; }
 

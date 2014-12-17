@@ -7,7 +7,7 @@
 <br />
 
 <div id="dialog">
-    @using (Html.BeginForm("Create", "Endorsements", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm(Model.EndorseAction, "CreateItem", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
 
@@ -30,6 +30,5 @@
         @Html.TextAreaFor(m => m.Comment, new { @class = "form-control bordered" })
 
         @Html.HiddenFor(m => m.EndorsedID, Model.EndorsedID);
-        @Html.HiddenFor(m => m.IsOfUser, Model.IsOfUser);
     }
 </div>

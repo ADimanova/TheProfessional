@@ -253,3 +253,23 @@ output {
     max-height: 200px;
     overflow-x: hidden;
 }
+
+.active-updates:after {
+  content: "";
+  display: block;
+  border-radius: 50%;
+  width: 0.5em;
+  height: 0.5em; 
+  background: #e51414;
+  position: absolute;
+  right: -0.2em;
+  bottom: -0.2em;
+}
+
+.position-dropdown {
+    left: -220%;
+}
+
+.seen {
+    background-color: #eeeeee;
+}

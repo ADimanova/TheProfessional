@@ -21,6 +21,7 @@ namespace Professional.Models
             this.connections = new HashSet<User>();
             this.postsEndorsements = new HashSet<EndorsementOfPost>();
             this.usersEndorsements = new HashSet<EndorsementOfUser>();
+            this.messages = new HashSet<Message>();
 
             // This will prevent UserManager.CreateAsync from throwing an exception
             this.DateOfBirth = DateTime.Now;

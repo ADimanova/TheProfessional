@@ -29,6 +29,7 @@ namespace Professional.Data
         public virtual IDbSet<FieldOfExpertise> FieldsOfExpertise { get; set; }
         public virtual IDbSet<Occupation> Occupations { get; set; }
         public virtual IDbSet<Image> Images { get; set; }
+        public virtual IDbSet<Message> Messages { get; set; }
 
         public DbContext DbContext
         {

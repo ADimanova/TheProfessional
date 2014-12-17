@@ -4,26 +4,17 @@
 
 @section styles {
     @Styles.Render("~/Css/kendo")
+    @Styles.Render("~/Content/users-css")
     @RenderSection("styles", false)
-}
-
-@section updates {
-    <ul class="nav nav-pills extreme updates">
-        <li role="presentation" class="glif-updates">
-            <a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
-        </li>
-        <li role="presentation" class="glif-updates">
-            <a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-        </li>
-        <li role="presentation" class="glif-updates">
-            <a href="#"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span></a>
-        </li>
-    </ul>
 }
 
 @RenderBody()
 
 @section scripts {
     @Scripts.Render("~/Js/kendo")
+    @*@Scripts.Render("~/SingleR/hubs")*@
+    <script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/chat.js"></script>
     @RenderSection("scripts", false)
 }

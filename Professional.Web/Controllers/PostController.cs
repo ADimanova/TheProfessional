@@ -45,7 +45,7 @@ namespace Professional.Web.Controllers
             {
                 var endorseInfo = new EndorsementInputModel();
                 endorseInfo.EndorsedID = postID;
-                endorseInfo.IsOfUser = false;
+                endorseInfo.EndorseAction = "EndorsementOfPost";
                 postInfoForView.EndorseFunctionality = endorseInfo;
             }
             else

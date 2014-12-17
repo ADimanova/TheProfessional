@@ -81,10 +81,12 @@
     <Compile Include="EndorsementOfUser.cs" />
     <Compile Include="FieldOfExpertise.cs" />
     <Compile Include="Image.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="Occupation.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserInfo.cs" />
     <Compile Include="UserPersonalInfo.cs" />
     <Compile Include="UserProfessionalInfo.cs" />
   </ItemGroup>

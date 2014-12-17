@@ -20,9 +20,9 @@ using System.IO;
 
 namespace Professional.Web.Areas.UserArea.Controllers
 {
-    public class PrivateController : UserController
+    public class AddInfoController : UserController
     {
-        public PrivateController(IApplicationData data)
+        public AddInfoController(IApplicationData data)
             : base(data)
         {
 
@@ -36,7 +36,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddPersonalInfo()
+        public ActionResult Personal()
         {
             this.GetInfoNavigation(WebConstants.AddProfessionalInfoPageRoute);
 
@@ -45,7 +45,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddPersonalInfo(UserInputModel model)
+        public ActionResult Personal(UserInputModel model)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +93,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddProfessionalInfo()
+        public ActionResult Professional()
         {      
             var occupations = this.data.Occupations.All()
                 .Select(o => new {
@@ -119,7 +119,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddProfessionalInfo(UserInputModel model)
+        public ActionResult Professional(UserInputModel model)
         {
             var userId = User.Identity.GetUserId();
             var user = this.data.Users.GetById(userId);
@@ -179,25 +179,6 @@ namespace Professional.Web.Areas.UserArea.Controllers
             var profilePath = WebConstants.PrivateProfilePageRoute + userId;
             ViewBag.Profile = profilePath;
             ViewBag.AddInfo = nextPath;
-        }
-
-        private IList<NavigationItem> GetNavItems()
-        {
-            return new List<NavigationItem>
-            {
-                new NavigationItem { 
-                    Content = "Create Post",
-                    Url = "/UserArea/CreateItem/Post"
-                },
-                new NavigationItem { 
-                    Content = "Go to post's page",
-                    Url = ""
-                },
-                new NavigationItem { 
-                    Content = "Go to endorsements's page",
-                    Url = ""
-                },
-            };
         }
     }
 }

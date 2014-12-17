@@ -1,5 +1,4 @@
 ﻿@using Professional.Web.Helpers
-
 @model PrivateProfileViewModel
 
 @{
@@ -17,6 +16,8 @@
         </div>
     </div>
 </div>
+
+@Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_UpdatesView.cshtml", Model.UpdatesInfo)
 
 
 

@@ -40,6 +40,11 @@ namespace Professional.Web
             bundles.Add(new ScriptBundle("~/Js/custom").Include(
                     "~/Scripts/custom.js"));
 
+            bundles.Add(new ScriptBundle("~/SingleR/hubs").Include(
+                    "~/Scripts/jquery.signalR-2.1.2.min.js",
+                    "~/signalr/hubs",
+                    "~/Scripts/chat.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/transition.js",
@@ -52,6 +57,9 @@ namespace Professional.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/users-css").Include(
+                      "~/Content/chat-styles.css"));
 
             bundles.Add(new StyleBundle("~/Content/jquery-css").Include(
                       //"~/Content/jquery-ui.theme.css",

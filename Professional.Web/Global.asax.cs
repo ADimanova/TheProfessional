@@ -1,4 +1,5 @@
-﻿using Professional.Web.Infrastructure.Mappings;
+﻿using Newtonsoft.Json;
+using Professional.Web.Infrastructure.Mappings;
 using System;
 using System.Globalization;
 using System.Linq;
@@ -19,6 +20,16 @@ namespace Professional.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             ViewEnginesConfig.SetEngines(ViewEngines.Engines);
             AutoMapperConfig.Execute();
+            
+
+            var jsonSerializerSettings = new JsonSerializerSettings
+            {
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            };
+            JsonSerializer.CreateDefault(jsonSerializerSettings);
+
+            //GlobalConfiguration.Configuration.Formatters.Clear();
+            //GlobalConfiguration.Configuration.Formatters.Add(new JsonNetFormatter(jsonSerializerSettings));
         }
     }
 }

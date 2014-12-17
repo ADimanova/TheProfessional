@@ -65,6 +65,9 @@ namespace Professional.Web
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+
+            // Enable SignalR
+            app.MapSignalR();
         }
     }
 }

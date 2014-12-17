@@ -11,6 +11,7 @@ namespace Professional.Web.Areas.UserArea.Models
     public class PublicProfileViewModel
     {
         public UserViewModel UserInfo { get; set; }
+        public ChatViewModel ChatInfo { get; set; }
         public EndorsementInputModel EndorseFunctionality { get; set; }
         public NavigationItem BtnNavigatePosts { get; set; }
         public NavigationItem BtnNavigateEndorsements { get; set; }
