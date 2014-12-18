@@ -40,7 +40,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             var userFields = (List<FieldOfExpertise>)this.GetUserFields(id);
 
             var topPostPanel = new ListPanelViewModel();
-            topPostPanel.UniqueIdentificator = "top";
+            topPostPanel.UniqueIdentificator = "Top";
             topPostPanel.Title = "Top Posts";
             topPostPanel.Items = this.GetTopPosts(id)
                 .Select(p => new NavigationItem
@@ -51,7 +51,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             topPostPanel.Fields = userFields;
 
             var recentPostPanel = new ListPanelViewModel();
-            recentPostPanel.UniqueIdentificator = "recent";
+            recentPostPanel.UniqueIdentificator = "Recent";
             recentPostPanel.Title = "Recent Posts";
             recentPostPanel.Items = this.GetRecentPosts(id)
                 .Select(p => new NavigationItem
@@ -128,7 +128,6 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     FromUserId = g.Key,
                     FromUserName = g.FirstOrDefault().FromUser.FirstName + " " + g.FirstOrDefault().FromUser.LastName,
                     Preview = g.FirstOrDefault().Content.Substring(0, 20) + "...",
-                    //Messages = g.Select(i => )
                 });
 
             var updateModel = new UpdatesViewModel();
@@ -177,18 +176,34 @@ namespace Professional.Web.Areas.UserArea.Controllers
             };
         }
 
-        public ActionResult Filter(string query)
+        public ActionResult Filter(string query, string condition)
         {
             if (currentUser == null)
             {
                 return View("Error", "Something went wrong.");
             }
 
-            //Taking the top
             var posts = postsData
-                .Where(p => p.CreatorID == currentUser.Id)
-                .Where(p => p.Field.Name == query)
-                .OrderBy(p => p.Rank)
+                .Where(p => p.CreatorID == currentUser.Id);
+
+            if (query != "All")
+	        {
+                posts = posts
+                .Where(p => p.Field.Name == query);
+	        }
+
+            if (condition == "Recent")
+            {
+                posts = posts
+                .OrderBy(p => p.CreatedOn);
+            }
+            else if (condition == "Top")
+            {
+                posts = posts
+                .OrderBy(p => p.Rank);
+            }
+
+            var resultPosts = posts
                 .Take(WebConstants.ListPanelCount)
                 .Select(i => new NavigationItem
                 {
@@ -196,9 +211,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     Url = WebConstants.PostPageRoute + i.ID
                 }).ToList();
 
-            // TODO: Get Recent posts as well - bug with same id='posts' of containers
-
-            return this.PartialView("~/Views/Shared/Partials/_ListItems.cshtml", posts);
+            return this.PartialView("~/Views/Shared/Partials/_ListItems.cshtml", resultPosts);
         }
 
         public ActionResult Image(int id)

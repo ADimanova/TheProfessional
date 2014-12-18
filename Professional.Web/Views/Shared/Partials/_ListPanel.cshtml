@@ -24,6 +24,7 @@
                     <span id="holder" class="caret"></span>
                 </button>
                 <ul data-unique="@Model.UniqueIdentificator" class="dropdown-menu absoluted" role="menu" aria-labelledby="dropdownMenuTopPosts">
+                    <li role="presentation"><a role="menuitem" class="filterLink" tabindex="-1" href="#">All</a></li>
                     @foreach (var field in Model.Fields)
                     {
                         <li role="presentation"><a role="menuitem" class="filterLink" tabindex="-1" href="#">@field.Name</a></li>
@@ -31,6 +32,7 @@
                 </ul>
             </div>
             <input type="text" id="@uniqueInput" class="non-input" name="query" />
+            <input type="text" class="non-input condition" name="condition" value="@Model.UniqueIdentificator" />
         }
     </div>
     <div id="@uniqueItems" class="list-group list-group-margin">

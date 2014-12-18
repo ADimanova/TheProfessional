@@ -273,3 +273,7 @@ output {
 .seen {
     background-color: #eeeeee;
 }
+
+.condition {
+    display: none;
+}
