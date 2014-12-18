@@ -1,18 +1,5 @@
 ﻿@model ListPanelViewModel
 
-@{
-    var custom = Model.Title.Substring(0, 1);
-
-}
-
-
-<script>
-    $(".dropdown-menu li a").on("click", function () {
-        $('#' + $(this).attr('data-connected')).val($(this).text()); //+ " " + $(this).attr('id')
-        changed();
-        console.log('here');
-    });
-</script>
 <div class="panel panel-default">
     <div class="panel-heading">
         @Model.Title
@@ -23,31 +10,26 @@
                 UpdateTargetId = "items",
                 HttpMethod = "POST",
                 InsertionMode = InsertionMode.Replace
-            }, new { id = "fileterForm" }))
+            }, new { id = "filterForm" }))
         {
             <div class="dropdown pull-right">
                 <button class="btn btn-xs btn-default dropdown-toggle positioned" type="button" id="dropdownFields" data-toggle="dropdown">
                     by field
-                    <span id="hoder" class="caret"></span>
+                    <span id="holder" class="caret"></span>
                 </button>
                 <ul class="dropdown-menu absoluted" role="menu" aria-labelledby="dropdownMenuTopPosts">
                     @foreach (var field in Model.Fields)
                     {
-                        <li role="presentation"><a role="menuitem" data-connected="@custom" id="@Model.Title" tabindex="-1" href="#">@field.Name</a></li>
+                        <li role="presentation"><a role="menuitem" class="filterLink" tabindex="-1" href="#">@field.Name</a></li>
                     }
                 </ul>
             </div>
-    <input type="text" id="@custom" class="non-input" name="query" />
+            <input type="text" id="filterInput" class="non-input" name="query" />
         }
-        <script>
-            function changed() {
-                $("#fileterForm").submit();
-            }
-        </script>
     </div>
-
     <div id="items" class="list-group list-group-margin">
         @Html.Partial("~/Views/Shared/Partials/_ListItems.cshtml", Model.Items)
     </div>
 </div>
+
 

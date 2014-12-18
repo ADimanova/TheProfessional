@@ -9,7 +9,6 @@
         @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_PersonalInfoView.cshtml", Model.UserInfo, new ViewDataDictionary { { "isPrivate", "false" } })
         @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ProfessionalInfoView.cshtml", Model.UserInfo, new ViewDataDictionary { { "isPrivate", "false" } })
         @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_EndorsementsView.cshtml", Model.UserInfo.Endorsements)        
-
     </div>
     <div class="col-md-5">
         @if (ViewBag.IsEndorsed != "true")
@@ -19,12 +18,8 @@
         @Html.Partial("~/Views/Shared/Partials/_BtnNavigate.cshtml", Model.BtnNavigatePosts)
         @Html.Partial("~/Views/Shared/Partials/_BtnNavigate.cshtml", Model.BtnNavigateEndorsements)
 
-        <div id="posts">
+        <div>
             @Html.Partial("~/Views/Shared/Partials/_ListPanel.cshtml", Model.TopPostsList)
-        </div>
-
-        <div id="posts" style="display:none">
-            @Html.Partial("~/Views/Shared/Partials/_ListPanel.cshtml", Model.RecentPostsList)
         </div>
     </div>
 </div>

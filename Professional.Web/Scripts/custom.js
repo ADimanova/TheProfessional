@@ -1,5 +1,6 @@
 ﻿$(function () {
     $(document).ready(function () {
+        // Endorsement box scripts
         $("#dialog").dialog({
             autoOpen: false,
             title: "Endorse User",
@@ -28,5 +29,16 @@
         if ($(".dropdown.filter").length > 0 && localStorage.getItem("filter") !== null) {
             $(".dropdown-menu li a").parents(".dropdown.filter").find('.btn').append(": " + localStorage.getItem("filter"));
         }
+
+        // Filtered listing by field scripts (AJAX)
+        $(".filterLink").on("click", function () {
+            $('#filterInput').val($(this).text());
+            changed();
+        });
+        function changed() {
+            $("#filterForm").submit();
+        }
     });
 });
+
+

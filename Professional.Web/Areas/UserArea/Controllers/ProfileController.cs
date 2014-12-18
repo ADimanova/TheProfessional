@@ -49,15 +49,15 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 }).ToList<NavigationItem>();
             topPostPanel.Fields = userFields;
 
-            var recentPostPanel = new ListPanelViewModel();
-            recentPostPanel.Title = "Recent Posts";
-            recentPostPanel.Items = this.GetRecentPosts(id)
-                .Select(p => new NavigationItem
-                {
-                    Content = p.Title,
-                    Url = "#"
-                }).ToList<NavigationItem>();
-            recentPostPanel.Fields = userFields;
+            //var recentPostPanel = new ListPanelViewModel();
+            //recentPostPanel.Title = "Recent Posts";
+            //recentPostPanel.Items = this.GetRecentPosts(id)
+            //    .Select(p => new NavigationItem
+            //    {
+            //        Content = p.Title,
+            //        Url = "#"
+            //    }).ToList<NavigationItem>();
+            //recentPostPanel.Fields = userFields;
 
             var btnNavigatePosts = new NavigationItem();
             btnNavigatePosts.Content = "See post's page";
@@ -103,7 +103,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             publicProfileInfo.BtnNavigatePosts = btnNavigatePosts;
             publicProfileInfo.BtnNavigateEndorsements = btnNavigateEndorsements;
             publicProfileInfo.TopPostsList = topPostPanel;
-            publicProfileInfo.RecentPostsList = recentPostPanel;
+            //publicProfileInfo.RecentPostsList = recentPostPanel;
             publicProfileInfo.UserInfo.Endorsements = endorsements;
 
             return View(publicProfileInfo);
