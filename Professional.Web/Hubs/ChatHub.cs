@@ -20,27 +20,27 @@ namespace SignalRChat
 
         public void StartConversation(string toId)
         {
+            if (toId == null)
+            {
+                throw new ArgumentNullException("");
+            }
+
             var chatUser = this.Context.User.Identity.GetUserId();
             var groupName = string.Format("{0}/{1}", chatUser, toId);
 
             var messages = this.data.Messages.All()
                 .Where(m => m.IsRead == false)
                 .Where(m => m.FromUserId == toId)
-                //.Select(m => m.Content)
                 .ToList();
 
-            foreach (var message in messages)
+            var other = this.data.Users.GetById(toId);
+
+            for (int i = 0; i < messages.Count; i++)
             {
-                //Clients.Group(groupName).addNewMessageToPage("Other", message);
-                Clients.All.addNewMessageToPage("Other", message.Content);
-                Clients.All.log(message);
+                Clients.Group(groupName).addNewMessageToPage("Other", messages[i].Content);
+                //messages[i].IsRead = true;
             }
-            //for (int i = 0; i < messages.Count; i++)
-            //{
-            //    Clients.Group(groupName).addNewMessageToPage("Other", messages[i]);
-            //    messages[i].IsRead = true;
-            //}
-            //this.data.SaveChanges();
+            this.data.SaveChanges();
 
             this.Groups.Add(Context.ConnectionId, groupName);
         }

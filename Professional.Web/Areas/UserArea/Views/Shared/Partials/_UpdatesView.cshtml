@@ -13,17 +13,16 @@
                     <li role="presentation">
                         <a role="menuitem" class="chat-open small" tabindex="-1" href="#"
                             data-value="@item.FromUserId" data-discution-with="@item.FromUserName">
-                            @*data-messages="@item.Messages">*@
                             <span class="bold">@item.FromUserName: </span> @item.Preview
                         </a>
                     </li>
                 }
             </ul>
         }
-        @*else
+        else
         {
             <a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
-        }*@
+        }
     </li>
     <li role="presentation" class="glif-updates">
         <a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
