@@ -32,12 +32,10 @@
 
         // Filtered listing by field scripts (AJAX)
         $(".filterLink").on("click", function () {
-            $('#filterInput').val($(this).text());
-            changed();
+            var identificator = $(this).parent().parent().attr('data-unique')
+            $('#input' + identificator).val($(this).text());
+            $('#form' + identificator).submit();
         });
-        function changed() {
-            $("#filterForm").submit();
-        }
     });
 });
 

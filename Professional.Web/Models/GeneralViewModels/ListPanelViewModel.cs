@@ -14,5 +14,6 @@ namespace Professional.Web.Models
         // TODO: ViewModel
         public IEnumerable<FieldOfExpertise> Fields { get; set; }
         public IList<NavigationItem> Items { get; set; }
+        public string UniqueIdentificator { get; set; }
     }
 }

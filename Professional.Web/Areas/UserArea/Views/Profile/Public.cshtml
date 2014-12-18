@@ -18,9 +18,8 @@
         @Html.Partial("~/Views/Shared/Partials/_BtnNavigate.cshtml", Model.BtnNavigatePosts)
         @Html.Partial("~/Views/Shared/Partials/_BtnNavigate.cshtml", Model.BtnNavigateEndorsements)
 
-        <div>
-            @Html.Partial("~/Views/Shared/Partials/_ListPanel.cshtml", Model.TopPostsList)
-        </div>
+        @Html.Partial("~/Views/Shared/Partials/_ListPanel.cshtml", Model.TopPostsList)
+        @Html.Partial("~/Views/Shared/Partials/_ListPanel.cshtml", Model.RecentPostsList)
     </div>
 </div>
 
