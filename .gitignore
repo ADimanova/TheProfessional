@@ -186,10 +186,11 @@ FakesAssemblies/
 
 #Kendo
 Professional.Web/Libraries/*
-Professional.Web/Scripts/kendo/*
-Professional.Web/Content/kendo/*
-!Professional.Web/Content/kendo/custom-kendo.css
-Professional.Web/Css/*
+
+#Professional.Web/Scripts/kendo/*
+#Professional.Web/Content/kendo/*
+#Professional.Web/Content/kendo/custom-kendo.css
+#Professional.Web/Css/*
 
 #Other
-Professional.Web/Content/themes/*
+#Professional.Web/Content/themes/*
