@@ -2,22 +2,30 @@
 @model IEnumerable<EndorsementViewModel>
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-    @foreach (EndorsementViewModel item in Model)
-    {
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id='@("heading" + item.ID)'>
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href='#@("collapse" + item.ID)' aria-expanded="false" aria-controls='@("collapse" + item.ID)'>
-                        @(item.AuthorLastName + ", " + item.AuthorFirstName)
-                    </a>
-                </h4>
-            </div>
-            <div id='@("collapse" + item.ID)' class="panel-collapse collapse" role="tabpanel" aria-labelledby='@("heading" + item.ID)'>
-                <div class="panel-body">
-                    @item.Content
-                </div>
-            </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span>
+                Endorsements
+            </span>
         </div>
-    }    
+        <div class="panel-body">
+            @foreach (EndorsementViewModel item in Model)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id='@("heading" + item.ID)'>
+                        <h4 class="panel-title panel-title-custom">
+                            <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href='#@("collapse" + item.ID)' aria-expanded="false" aria-controls='@("collapse" + item.ID)'>
+                                @(item.AuthorLastName + ", " + item.AuthorFirstName)
+                            </a>
+                        </h4>
+                    </div>
+                    <div id='@("collapse" + item.ID)' class="panel-collapse collapse" role="tabpanel" aria-labelledby='@("heading" + item.ID)'>
+                        <div class="panel-body">
+                            @item.Content
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 </div>
-

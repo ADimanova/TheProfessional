@@ -2,10 +2,6 @@
 
 @model UserViewModel
 
-@{
-    var isPrivate = ViewData["isPrivate"] == "true" ? true : false;
-}
-
 <div class="panel panel-default">
     <div class="panel-heading">Professional Information</div>
     <div class="panel-body">
@@ -18,15 +14,10 @@
             {
                 <ul class="list-group">
                     <li class="list-group-item borderless"><b>Ocupation history</b></li>
-
                     @foreach (var occupation in Model.Occupations)
                     {
                         <li class="list-group-item">
                             @occupation
-                            <a href="@Url.Action("Delete", "Profile", new { Area = WebConstants.UserArea,
-                                    id = @occupation, type = "Occupation" })">
-                                <img src="~/Images/bin.png" class="bin" alt="Delete ocupation" />
-                            </a>
                         </li>
                     }
                 </ul>
@@ -40,19 +31,10 @@
                     {
                         <li class="list-group-item">
                             @field
-                            <a href="@Url.Action("Delete", "Profile", new { Area = WebConstants.UserArea,
-                                    id = @field, type = "Field" })">
-                                <img src="~/Images/bin.png" class="bin" alt="Delete ocupation" />
-                            </a>
                         </li>
                     }
                 </ul>
             }
-        }
-
-        @if (isPrivate)
-        {
-            <a href="@WebConstants.AddProfessionalInfoPageRoute" class="btn btn-default pull-right">Add</a>
         }
     </div>
 </div>

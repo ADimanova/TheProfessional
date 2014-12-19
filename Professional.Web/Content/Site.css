@@ -287,3 +287,7 @@ output {
     width: 1.2em;
     height: auto;
 }
+
+.panel-title-custom {
+    font-size: 1em;
+}
