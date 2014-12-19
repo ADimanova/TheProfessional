@@ -1,0 +1,15 @@
+﻿@using Professional.Web.Areas.UserArea.Models.ListingViewModels
+@model ShortListingViewModel
+
+<ul class="list-group" data-type="@Model.Type">
+    <li class="list-group-item borderless"><b>@Model.Title</b></li>
+    @foreach (var item in Model.Items)
+    {
+        <li class="list-group-item">
+            @item
+            <a href="#" class="deleteLink" data-query="@item">
+                <img src="~/Images/bin.png" class="bin" alt="Delete @Model.Type" />
+            </a>
+        </li>
+    }
+</ul>

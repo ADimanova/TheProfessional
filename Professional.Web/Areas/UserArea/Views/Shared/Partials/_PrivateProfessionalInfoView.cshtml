@@ -1,0 +1,29 @@
+﻿@using Professional.Web.Helpers
+@using Professional.Web.Areas.UserArea.Models
+@model PrivateProInfoViewModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">Professional Information</div>
+    <div class="panel-body">
+        @if (Model.OccupationsListing.Items != null ||
+                Model.OccupationsListing.Items.Count() != 0 ||
+                Model.FieldsListing.Items != null ||
+                Model.FieldsListing.Items.Count() != 0)
+        {
+            if (Model.OccupationsListing.Items != null && Model.OccupationsListing.Items.Count() != 0)
+            {
+                @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ShortListingView.cshtml", Model.OccupationsListing)
+            }
+
+            if (Model.FieldsListing.Items != null && Model.FieldsListing.Items.Count() != 0)
+            {
+                @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ShortListingView.cshtml", Model.FieldsListing)
+            }
+        }
+
+        <a href="@WebConstants.AddProfessionalInfoPageRoute" class="btn btn-default pull-right">Add</a>
+    </div>
+</div>
+
+
+

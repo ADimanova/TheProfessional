@@ -1,0 +1,32 @@
+﻿@using Professional.Web.Areas.UserArea.Models.ListingViewModels
+@model ShortListingViewModel
+
+@{
+    var uniqueItems = "items" + Model.Type;
+    var uniqueForm = "form" + Model.Type;
+    var uniqueInput = "input" + Model.Type;
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        @Model.Title
+
+        @using (Ajax.BeginForm("Delete", null,
+            new AjaxOptions
+            {
+                UpdateTargetId = @uniqueItems,
+                HttpMethod = "POST",
+                InsertionMode = InsertionMode.Replace
+            }, new { id = @uniqueForm }))
+        {
+            <input type="text" class="non-input condition" name="query" id="@uniqueInput" />
+            <input type="text" class="non-input condition" name="type" value="@Model.Type" />
+            <input type="text" class="non-input condition" name="title" value="@Model.Title" />
+        }
+    </div>
+    <div id="@uniqueItems">
+        @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ShortListPanel.cshtml", Model)
+    </div>
+</div>
+
+

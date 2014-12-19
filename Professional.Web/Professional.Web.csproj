@@ -237,9 +237,11 @@
     <Compile Include="Areas\UserArea\Models\ListingViewModels\ItemsByFieldViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\InputModels\PostInputModel.cs" />
     <Compile Include="Areas\UserArea\Models\InputModels\UserInputModel.cs" />
+    <Compile Include="Areas\UserArea\Models\ListingViewModels\ShortListingViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\PageViewModel\PrivateProfileViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\PageViewModel\PublicProfileViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\DatabaseVeiwModels\UserViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\PrivateProInfoViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\UpdatesViewModel.cs" />
     <Compile Include="Areas\UserArea\UserAreaAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -364,11 +366,14 @@
     <Content Include="Areas\UserArea\Views\Profile\Public.cshtml" />
     <Content Include="Areas\UserArea\Views\Profile\Private.cshtml" />
     <Content Include="Areas\UserArea\Views\AddInfo\Professional.cshtml" />
-    <Content Include="Areas\UserArea\Views\Shared\Partials\_ProfessionalInfoView.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\Partials\_PublicProfessionalInfoView.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_InfoNavigation.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_EndorsementsView.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_ChatView.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_UpdatesView.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\Partials\_ShortListingView.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\Partials\_ShortListPanel.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\Partials\_PrivateProfessionalInfoView.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

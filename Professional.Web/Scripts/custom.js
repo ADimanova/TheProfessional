@@ -36,6 +36,12 @@
             $('#input' + identificator).val($(this).text());
             $('#form' + identificator).submit();
         });
+
+        $(".deleteLink").on("click", function () {
+            var identificator = $(this).parent().parent().attr('data-type')
+            $('#input' + identificator).val($(this).attr('data-query'));
+            $('#form' + identificator).submit();
+        });
     });
 });
 

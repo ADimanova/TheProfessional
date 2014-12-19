@@ -119,6 +119,20 @@ namespace Professional.Web.Areas.UserArea.Controllers
             Mapper.CreateMap<User, UserViewModel>();
             var userInfoForView = Mapper.Map<UserViewModel>(currentUser);
 
+            var occupationsListing = new ShortListingViewModel();
+            occupationsListing.Title = "Occupations";
+            occupationsListing.Type = "Occupation";
+            occupationsListing.Items = userInfoForView.Occupations;
+
+            var fieldsListing = new ShortListingViewModel();
+            fieldsListing.Title = "Fields";
+            fieldsListing.Type = "Field";
+            fieldsListing.Items = userInfoForView.Fields;
+
+            var proInfo = new PrivateProInfoViewModel();
+            proInfo.OccupationsListing = occupationsListing;
+            proInfo.FieldsListing = fieldsListing;
+
             var messagesReceived = this.data.Messages.All()
                 .Where(m => m.ToUserId == currentUserId)
                 .Where(m => m.IsRead == false)
@@ -146,6 +160,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             privateProfileInfo.UserInfo = userInfoForView;
             privateProfileInfo.UpdatesInfo = updateModel;
             privateProfileInfo.NavigationList = navList;
+            privateProfileInfo.ProInfo = proInfo;
 
             return View(privateProfileInfo);
         }
@@ -229,7 +244,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             return File(image.Content, "image/" + image.FileExtension);
         }
 
-        public ActionResult Delete(string id, string type)
+        public ActionResult Delete(string query, string type, string title)
         {
             string currentUserId = User.Identity.GetUserId();
             var currentUser = this.data.Users.All()
@@ -237,24 +252,40 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
             if (type == "Occupation")
             {
-                var field = this.data.Occupations.All()
-                    .FirstOrDefault(f => f.Title == id);
-                currentUser.Occupations.Remove(field);
+                var occupation = this.data.Occupations.All()
+                    .FirstOrDefault(f => f.Title == query);
+                currentUser.Occupations.Remove(occupation);
+                this.data.SaveChanges();
+
+                var editedOccupations = currentUser.Occupations;
+
+                var model = new ShortListingViewModel();
+                model.Title = title;
+                model.Type = type;
+                model.Items = editedOccupations.Select(o => o.Title);
+
+                return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ShortListPanel.cshtml", model);
             }
             else if (type == "Field")
             {
                 var field = this.data.FieldsOfExpertise.All()
-                    .FirstOrDefault(f => f.Name == id);
+                    .FirstOrDefault(f => f.Name == query);
                 currentUser.FieldsOfExpertise.Remove(field);
+                this.data.SaveChanges();
+
+                var editedFields = currentUser.FieldsOfExpertise;
+
+                var model = new ShortListingViewModel();
+                model.Title = title;
+                model.Type = type;
+                model.Items = editedFields.Select(o => o.Name);
+
+                return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ShortListPanel.cshtml", model);
             }
             else
             {
                 return View("Error", "The type of the item is incorrect");
             }
-
-            this.data.SaveChanges();
-
-            return RedirectToAction("Index", "Home", new { Area = "" });
         }
     }
 }
