@@ -619,6 +619,7 @@
     <Content Include="Views\Shared\EditorTemplates\TextInput.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_classic.cshtml" />
     <Content Include="Views\Shared\Partials\_Endorsement.cshtml" />
+    <Content Include="Views\Field\FieldsListing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

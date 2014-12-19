@@ -48,6 +48,7 @@ namespace Professional.Web.Helpers
         // Public 
         public const string PostPageRoute = "/Post/Info/";
         public const string FieldInfoPageRoute = "/Field/Info/";
+        public const string FieldsListingPageRoute = "/Field/FieldsListing/";     
 
         // Navbars and Dropdowns data
         public static List<NavigationItem> SiteSections = new List<NavigationItem> {

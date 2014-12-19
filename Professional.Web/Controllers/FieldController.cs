@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Professional.Data;
 using Professional.Models;
+using Professional.Web.Models;
 using Professional.Web.Models.DatabaseViewModels;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,15 @@ namespace Professional.Web.Controllers
             var fieldInfoForView = Mapper.Map<FieldViewModel>(field);
 
             return View(fieldInfoForView);
+        }
+
+        public ActionResult FieldsListing()
+        {
+            var fields = this.data.FieldsOfExpertise.All()
+                .OrderByDescending(f => f.Name)
+                .Select(f => f.Name).ToList();
+
+            return View(fields);
         }
     }
 }

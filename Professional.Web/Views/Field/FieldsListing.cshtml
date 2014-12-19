@@ -1,0 +1,20 @@
+﻿@using Professional.Web.Helpers
+@model IEnumerable<string>
+@{
+    ViewBag.Title = "FieldsListing";
+}
+<h3>Fields Listing</h3>
+
+<ul class="tree">
+    <li>
+        Animals
+        <ul>
+            @foreach (var field in Model)
+            {
+                <li>
+                    <a href="@(WebConstants.FieldInfoPageRoute + @field)">@field</a>
+                </li>
+            }
+        </ul>
+    </li>
+</ul>
