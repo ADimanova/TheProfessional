@@ -220,6 +220,10 @@ h1.lessened {
     min-height: 10em;
 }
 
+.list-group-item {
+    line-height: 100%;
+}
+
 .list-group-item.borderless {
     border: none;
 }
@@ -276,4 +280,14 @@ output {
 
 .condition {
     display: none;
+}
+
+.tab {
+    line-height: 100%;
+}
+
+.bin {
+    float: right;
+    width: 1.2em;
+    height: auto;
 }

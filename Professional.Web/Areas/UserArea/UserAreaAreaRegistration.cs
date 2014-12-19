@@ -19,11 +19,7 @@ namespace Professional.Web.Areas.UserArea
                 "UserArea/Listing/Posts/User/{user}/{id}",
                 new { controller = "Listing", action = "Posts", id = UrlParameter.Optional }
             );
-            //context.MapRoute(
-            //    "UserEndorsements",
-            //    "UserArea/Listing/UserEndorsements/{user}/{id}",
-            //    new { controller = "Listing", action = "Posts", id = UrlParameter.Optional }
-            //);
+
             context.MapRoute(
                 "UserArea_default",
                 "UserArea/{controller}/{action}/{id}",

@@ -95,7 +95,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             }
             else
             {
-                ViewBag.Url = WebConstants.UserPostsPageRoute;
+                ViewBag.Url = WebConstants.UserPostsPageRoute + user + "/";
             }
 
             var viewModel = new ListCollectionViewModel();

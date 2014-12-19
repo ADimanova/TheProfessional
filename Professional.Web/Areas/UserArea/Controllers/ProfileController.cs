@@ -202,6 +202,10 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 posts = posts
                 .OrderBy(p => p.Rank);
             }
+            else
+            {
+                return View("Error", "The condition specified is incorrect");
+            }
 
             var resultPosts = posts
                 .Take(WebConstants.ListPanelCount)
@@ -223,6 +227,34 @@ namespace Professional.Web.Areas.UserArea.Controllers
             }
 
             return File(image.Content, "image/" + image.FileExtension);
+        }
+
+        public ActionResult Delete(string id, string type)
+        {
+            string currentUserId = User.Identity.GetUserId();
+            var currentUser = this.data.Users.All()
+                .FirstOrDefault(u => u.Id == currentUserId);
+
+            if (type == "Occupation")
+            {
+                var field = this.data.Occupations.All()
+                    .FirstOrDefault(f => f.Title == id);
+                currentUser.Occupations.Remove(field);
+            }
+            else if (type == "Field")
+            {
+                var field = this.data.FieldsOfExpertise.All()
+                    .FirstOrDefault(f => f.Name == id);
+                currentUser.FieldsOfExpertise.Remove(field);
+            }
+            else
+            {
+                return View("Error", "The type of the item is incorrect");
+            }
+
+            this.data.SaveChanges();
+
+            return RedirectToAction("Index", "Home", new { Area = "" });
         }
     }
 }

@@ -21,7 +21,13 @@
 
                     @foreach (var occupation in Model.Occupations)
                     {
-                        <li class="list-group-item">@occupation</li>
+                        <li class="list-group-item">
+                            @occupation
+                            <a href="@Url.Action("Delete", "Profile", new { Area = WebConstants.UserArea,
+                                    id = @occupation, type = "Occupation" })">
+                                <img src="~/Images/bin.png" class="bin" alt="Delete ocupation" />
+                            </a>
+                        </li>
                     }
                 </ul>
             }
@@ -30,9 +36,15 @@
             {
                 <ul class="list-group">
                     <li class="list-group-item borderless"><b>Fields of Expertise</b></li>
-                    @foreach (var fields in Model.Fields)
+                    @foreach (var field in Model.Fields)
                     {
-                        <li class="list-group-item">@fields</li>
+                        <li class="list-group-item">
+                            @field
+                            <a href="@Url.Action("Delete", "Profile", new { Area = WebConstants.UserArea,
+                                    id = @field, type = "Field" })">
+                                <img src="~/Images/bin.png" class="bin" alt="Delete ocupation" />
+                            </a>
+                        </li>
                     }
                 </ul>
             }
