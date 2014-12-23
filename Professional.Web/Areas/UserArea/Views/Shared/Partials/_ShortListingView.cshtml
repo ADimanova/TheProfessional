@@ -19,9 +19,9 @@
                 InsertionMode = InsertionMode.Replace
             }, new { id = @uniqueForm }))
         {
-            <input type="text" class="non-input condition" name="query" id="@uniqueInput" />
-            <input type="text" class="non-input condition" name="type" value="@Model.Type" />
-            <input type="text" class="non-input condition" name="title" value="@Model.Title" />
+            <input type="text" class="non-input hidden-item" name="query" id="@uniqueInput" />
+            <input type="text" class="non-input hidden-item" name="type" value="@Model.Type" />
+            <input type="text" class="non-input hidden-item" name="title" value="@Model.Title" />
         }
     </div>
     <div id="@uniqueItems">

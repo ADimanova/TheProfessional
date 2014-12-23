@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles {
+    <link href="~/Content/Gridmvc.css" rel="stylesheet" />
+    @RenderSection("styles", false)
+}
+
+@RenderBody()
+
+@section scripts {
+    <script src="~/Scripts/gridmvc.min.js"></script>
+    @RenderSection("scripts", false)
+}

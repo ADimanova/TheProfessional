@@ -278,7 +278,7 @@ output {
     background-color: #eeeeee;
 }
 
-.condition {
+.hidden-item {
     display: none;
 }
 
@@ -353,4 +353,24 @@ output {
   height:auto;
   top:1em; /* (line-height/2) */
   bottom:0;
+}
+
+.content-long {
+    /*Prevent overflow without with css not string methods*/
+}
+
+.admin-post {
+    position: absolute;
+    left: 30%;
+}
+
+.form-horizontal.pop-post-edit
+{
+    width: 100%;
+    overflow: hidden;
+}
+
+.pop-post-edit label {
+    position: relative;
+    left: 0;
 }

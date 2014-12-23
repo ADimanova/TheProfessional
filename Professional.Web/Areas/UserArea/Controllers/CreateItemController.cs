@@ -43,7 +43,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 var fieldId = this.data.FieldsOfExpertise.All()
                     .FirstOrDefault(f => f.Name == model.FieldName).ID;
 
-                var sanitisedContent = sanitizer.Sanitize(model.Content);
+                var sanitisedContent = this.sanitizer.Sanitize(model.Content);
                 var editedTitle = StringManipulations.UppercaseFirst(model.Title);
 
                 var newPost = new Post

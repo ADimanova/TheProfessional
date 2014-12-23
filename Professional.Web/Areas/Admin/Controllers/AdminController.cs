@@ -7,7 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Professional.Web.Areas.Administration.Controllers
+namespace Professional.Web.Areas.Admin.Controllers
 {
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public abstract class AdminController : BaseController

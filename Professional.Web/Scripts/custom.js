@@ -22,6 +22,29 @@
         $("#value-holder").change(function outputUpdate(val) {
             document.querySelector('#value').value = document.querySelector('#value-holder').value;
         });
+
+        // Admin pop-up
+        $("#admin-post").dialog({
+            autoOpen: false,
+            title: "Edit Post",
+            width: 350,
+            height: 350,
+            modal: true,
+            buttons: {
+                "Save": function () {
+                    $("#edit-post-admin").submit();
+                },
+                "Cancel": function () { $(this).dialog('close'); }
+            }
+        });
+        $('.post-edit-link').click(function () {
+            $('#ajax-id').attr('value', $(this).attr('data-id'));
+                $('#admin-post').removeClass('.hidden-item');
+                $("#admin-post").dialog("open");
+                $('#ajax-get-post').submit();
+        });
+        // Admin pop-up
+
         $(".dropdown-menu li a").click(function () {
             localStorage.setItem("filter", $(this).text());
         });
