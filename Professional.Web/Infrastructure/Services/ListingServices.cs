@@ -30,7 +30,7 @@ namespace Professional.Web.Infrastructure.Services
         public IQueryable<User> GetUsers(string filter)
         {
             var users = this.Cache.Get<IQueryable<User>>("UsersListing",
-                () => this.Data.Users.All().Where(u => u.IsDeleted == false));
+                () => this.Data.Users.All().Where(u => !u.IsDeleted));
 
             if (filter != null && filter != this.All)
             {
@@ -44,7 +44,7 @@ namespace Professional.Web.Infrastructure.Services
         public IQueryable<Post> GetPosts(string filter, string user)
         {
             var posts = this.Cache.Get<IQueryable<Post>>("PostsListing",
-                () => this.Data.Posts.All().Where(u => u.IsDeleted == false));
+                () => this.Data.Posts.All());
 
             if (filter != null && filter != this.All)
             {
@@ -63,7 +63,7 @@ namespace Professional.Web.Infrastructure.Services
         public IQueryable<EndorsementOfUser> GetEndorsements(string userID)
         {
             var endorsements = this.Cache.Get<IQueryable<EndorsementOfUser>>("PostsListing",
-                () => this.Data.EndorsementsOfUsers.All().Where(u => u.IsDeleted == false));
+                () => this.Data.EndorsementsOfUsers.All());
 
             if (userID == null)
             {
@@ -85,7 +85,7 @@ namespace Professional.Web.Infrastructure.Services
         public IQueryable<string> GetFeilds()
         {
             var fields = this.Cache.Get<IQueryable<string>>("FieldsListing",
-                () => this.Data.FieldsOfExpertise.All().Where(u => u.IsDeleted == false).Select(f => f.Name));
+                () => this.Data.FieldsOfExpertise.All().Select(f => f.Name));
 
             return fields;
         }

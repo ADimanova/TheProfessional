@@ -24,25 +24,86 @@
         });
 
         // Admin pop-up
-        $("#admin-post").dialog({
+        $('.edit-link').click(function () {
+            $('#ajax-item-id').attr('value', $(this).attr('data-id'));
+            $('#admin-item').removeClass('hidden-item');
+            $("#admin-item").dialog("open");
+            $('#ajax-get-item').submit();
+        });
+
+        $("#admin-item").dialog({
             autoOpen: false,
-            title: "Edit Post",
+            title: "Edit Item",
             width: 350,
             height: 350,
             modal: true,
             buttons: {
                 "Save": function () {
-                    $("#edit-post-admin").submit();
+                    $("#edit-admin").submit();
                 },
                 "Cancel": function () { $(this).dialog('close'); }
             }
         });
-        $('.post-edit-link').click(function () {
-            $('#ajax-id').attr('value', $(this).attr('data-id'));
-                $('#admin-post').removeClass('.hidden-item');
-                $("#admin-post").dialog("open");
-                $('#ajax-get-post').submit();
-        });
+        
+        //$("#admin-post").dialog({
+        //    autoOpen: false,
+        //    title: "Edit Post",
+        //    width: 350,
+        //    height: 350,
+        //    modal: true,
+        //    buttons: {
+        //        "Save": function () {
+        //            $("#edit-post-admin").submit();
+        //        },
+        //        "Cancel": function () { $(this).dialog('close'); }
+        //    }
+        //});
+        //$('.post-edit-link').click(function () {
+        //        $('#ajax-id').attr('value', $(this).attr('data-id'));
+        //        $('#admin-post').removeClass('hidden-item');
+        //        $("#admin-post").dialog("open");
+        //        $('#ajax-get-post').submit();
+        //});
+
+        //$("#admin-user").dialog({
+        //    autoOpen: false,
+        //    title: "Edit User",
+        //    width: 350,
+        //    height: 500,
+        //    modal: true,
+        //    buttons: {
+        //        "Save": function () {
+        //            $("#edit-user-admin").submit();
+        //        },
+        //        "Cancel": function () { $(this).dialog('close'); }
+        //    }
+        //});
+        //$('.user-edit-link').click(function () {
+        //    $('#ajax-user-id').attr('value', $(this).attr('data-id'));
+        //    $('#admin-user').removeClass('hidden-item');
+        //    $("#admin-user").dialog("open");
+        //    $('#ajax-get-user').submit();
+        //});
+
+        //$("#admin-field").dialog({
+        //    autoOpen: false,
+        //    title: "Edit Field",
+        //    width: 350,
+        //    height: 350,
+        //    modal: true,
+        //    buttons: {
+        //        "Save": function () {
+        //            $("#edit-field-admin").submit();
+        //        },
+        //        "Cancel": function () { $(this).dialog('close'); }
+        //    }
+        //});
+        //$('.field-edit-link').click(function () {
+        //    $('#ajax-field-id').attr('value', $(this).attr('data-id'));
+        //    $('#admin-field').removeClass('hidden-item');
+        //    $("#admin-field").dialog("open");
+        //    $('#ajax-get-field').submit();
+        //});
         // Admin pop-up
 
         $(".dropdown-menu li a").click(function () {

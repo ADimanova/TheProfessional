@@ -1,58 +1,56 @@
-﻿using System;
+﻿using Professional.Data;
+using Professional.Web.Infrastructure.HtmlSanitise;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper.QueryableExtensions;
 using Professional.Web.Areas.Admin.Models;
-using Professional.Data;
 using System.Net;
 using AutoMapper;
-using Professional.Web.Infrastructure.HtmlSanitise;
 
 namespace Professional.Web.Areas.Admin.Controllers
 {
-    public class PostsController : AdminController
+    public class FieldsController : AdminController
     {
         private readonly ISanitiser sanitizer;
-        public PostsController(IApplicationData data, ISanitiser sanitizer)
+        public FieldsController(IApplicationData data, ISanitiser sanitizer)
             :base(data)
         {
             this.sanitizer = sanitizer;
         }
 
-        public ActionResult PostsAdmin()
+        public ActionResult FieldsAdmin()
         {
-            var posts = this.data.Posts.All()
-                .OrderBy(p => p.DateCreated)
-               .Project().To<PostAdminModel>();
+            var fields = this.data.FieldsOfExpertise.All()
+                .OrderBy(p => p.Name)
+                .Project().To<FieldAdminModel>();
 
-            var model = new PostsAdminModel();
-            model.Posts = posts.ToList();
-            model.SelectedPost = new PostAdminModel();
+            var model = new FieldsAdminModel();
+            model.Fields = fields.ToList();
 
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ValidateInput(false)]
-        public ActionResult Edit(int? id, string title, string content)
+        public ActionResult Edit(int? id, string name, int? rank)
         {
             if (ModelState.IsValid)
             {
-                var post = this.data.Posts.GetById(id);
-                if (post == null)
+                var field = this.data.FieldsOfExpertise.GetById((int)id);
+                if (field == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                post.Title = this.sanitizer.Sanitize(title);
-                post.Content = this.sanitizer.Sanitize(content);
+                field.Name = this.sanitizer.Sanitize(name);
+                field.Rank = (int)rank;
 
                 try
                 {
-                    this.data.Posts.Update(post);
+                    this.data.FieldsOfExpertise.Update(field);
                     this.data.SaveChanges();
                 }
                 catch
@@ -60,11 +58,12 @@ namespace Professional.Web.Areas.Admin.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                return RedirectToAction("PostsAdmin", null, new { Area = "Admin" });
+                return RedirectToAction("FieldsAdmin", null, new { Area = "Admin" });
             }
 
             return View("Error", "Input is not valid");
         }
+
 
         public ActionResult Delete(int? id)
         {
@@ -72,7 +71,7 @@ namespace Professional.Web.Areas.Admin.Controllers
             {
                 try
                 {
-                    this.data.Posts.Delete(id);
+                    this.data.FieldsOfExpertise.Delete(id);
                     this.data.SaveChanges();
                 }
                 catch
@@ -80,7 +79,7 @@ namespace Professional.Web.Areas.Admin.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                return RedirectToAction("PostsAdmin", null, new { Area = "Admin" });
+                return RedirectToAction("FieldsAdmin", null, new { Area = "Admin" });
             }
 
             return View("Error", "Input is not valid");
@@ -90,15 +89,15 @@ namespace Professional.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var post = this.data.Posts.GetById(id);
-                if (post == null)
+                var field = this.data.FieldsOfExpertise.GetById(id);
+                if (field == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                var model = Mapper.Map<PostAdminModel>(post);
+                var model = Mapper.Map<FieldAdminModel>(field);
 
-                return this.PartialView("~/Areas/Admin/Views/Shared/Partials/_AdminPost.cshtml", model);
+                return this.PartialView("~/Areas/Admin/Views/Shared/Partials/_AdminField.cshtml", model);
             }
 
             return View("Error", "Input is not valid");

@@ -2,7 +2,7 @@
 @model PostAdminModel
 
 @using (Html.BeginForm("Edit", "Posts", FormMethod.Post, 
-    new { @class = "form-horizontal pop-post-edit", role = "form", id = "edit-post-admin" }))
+    new { @class = "form-horizontal pop-up-edit", role = "form", id = "edit-admin" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -11,7 +11,7 @@
     <div class="form-group">
         <label for="post-title" class="col-md-1 control-label">Title</label>
         <div class="col-md-12">
-            <input type="text" class="form-control bordered" name="title" value="@Model.Title" / >
+            <input type="text" class="form-control bordered" name="title" value="@Model.Title" />
         </div>
     </div>
     <div class="form-group">

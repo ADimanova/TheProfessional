@@ -1,0 +1,34 @@
+﻿@using Professional.Web.Helpers
+@using Professional.Web.Areas.KendoUIAdmin.Models
+@model FieldInputModel
+
+@{
+    ViewBag.Title = "CreateField";
+}
+
+<div class="floating">
+    @using (Html.BeginForm("AddField", "FieldsAdmin", new { Area = WebConstants.AdminArea }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <h4>Create a new post.</h4>
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+        <div class="form-group to-left">
+            @Html.LabelFor(m => m.Name, "Field", new { @class = "control-label" })
+            <div>
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control bordered" })
+            </div>
+        </div>
+
+        <div class="form-group to-left">
+            <div class="">
+                <input type="submit" class="btn btn-custom btn-block" value="Create" />
+            </div>
+        </div>
+    }
+</div>
+
+
+

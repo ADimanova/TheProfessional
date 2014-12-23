@@ -1,0 +1,81 @@
+﻿@using Professional.Web.Areas.KendoUIAdmin.Models
+
+@model IEnumerable<FieldViewModel>
+@{
+    var ControllerName = "FieldsAdmin";
+    FieldInputModel fieldInputModel = ViewBag.FieldInput;
+}
+
+<script>$("#exampleWrap").css("visibility", "hidden");</script>
+<div class="demo-section k-header">
+    <a class="k-button k-button-icontext k-add-button" href="#"><span class="k-icon k-add"></span>Add new record</a>
+</div>
+
+<div id="exampleWrap">
+    <div class="demo-section k-header">
+        @(Html.Kendo().ListView<FieldViewModel>(Model)
+            .Name("listView")
+            .TagName("div")    
+            .ClientTemplateId("template")    
+            .DataSource(dataSource => dataSource
+                .Model(model => model.Id("ID"))
+                .PageSize(9)
+            //    .Create(create => create.Action("Editing_Create", ControllerName))
+            //    .Read(read => read.Action("Editing_Read", ControllerName))
+            //    .Update(update => update.Action("Editing_Update", ControllerName))
+                .Destroy(destroy => destroy.Action("Editing_Destroy", ControllerName))
+            )
+            .Pageable()
+            //.Editable(editable => editable.TemplateName("editTemplate"))
+        )
+    </div>
+    @Html.Partial("~/Areas/KendoUIAdmin/Views/Shared/Partials/_CreateField.cshtml", fieldInputModel)
+</div>
+
+<script type="text/x-kendo-tmpl" id="template">
+    <div class="product-view k-widget">
+        <div class="edit-buttons">
+            <a class="k-button k-button-icontext k-edit-button" href="\\#"><span class="k-icon k-edit"></span></a>
+            <a class="k-button k-button-icontext k-delete-button" href="\\#"><span class="k-icon k-delete"></span></a>
+        </div>
+        <dl>
+            <dt>Fields Name</dt>
+            <dd>#:Name#</dd>
+            <dt>Rank</dt>
+            <dd>#:Rank#</dd>
+        </dl>
+    </div>
+</script>
+
+<script type="text/x-kendo-tmpl" id="editTemplate">
+    <div class="product-view k-widget">
+        <div class="edit-buttons">
+            <a class="k-button k-button-icontext k-update-button" href="\\#"><span class="k-icon k-update"></span></a>
+            <a class="k-button k-button-icontext k-cancel-button" href="\\#"><span class="k-icon k-cancel"></span></a>
+        </div>
+        <dl>
+            <dt>Fields Name</dt>
+            <dd>
+                <input type="text" class="k-textbox" data-bind="value:Name" name="Name" required="required" validationmessage="required" />
+                <span data-for="Name" class="k-invalid-msg"></span>
+            </dd>
+            <dt>Rank</dt>
+            <dd>
+                <input type="text" data-bind="value:Rank" data-role="numerictextbox" data-type="number" name="Rank" required="required" min="1" validationmessage="required" />
+                <span data-for="Rank" class="k-invalid-msg"></span>
+            </dd>
+        </dl>
+    </div>
+</script>
+
+<script>
+    $(function() {
+        var listView = $("#listView").data("kendoListView");
+
+        $(".k-add-button").click(function(e) {
+            listView.add();
+            e.preventDefault();
+        });
+    });
+</script>
+

@@ -1,0 +1,53 @@
+﻿@using GridMvc.Html
+@using Professional.Web.Areas.Admin.Models;
+@model UsersAdminModel
+
+<div style="width:780px;">
+    @Html.Grid(Model.Users).Columns(columns =>
+    {
+        columns.Add(c => c.Username).Titled("Username").Filterable(true).SetWidth(200);
+        columns.Add(c => c.FirstName).Titled("First Name").Filterable(true).SetWidth(200);
+        columns.Add(c => c.LastName).Titled("Last Name").Filterable(true).SetWidth(200);
+        columns.Add(o => o.CreatedOn)
+            .Titled("Registered on")
+            .Format("{0:dd/MM/yyyy}")
+            .Filterable(true)
+            .SetWidth(100);
+        columns.Add(c => c.IsAdmin).Titled("Is Admin").SetWidth(100); 
+        columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(40)
+            .RenderValueAs(d =>
+                @<b>
+                    <a href="#" class="edit-link" data-id="@d.Id">Edit</a>
+                </b>);
+        columns.Add()
+            .SetWidth(40)
+            .Encoded(false)
+            .Sanitized(false)
+            .RenderValueAs(d =>
+                @<b>
+                    <a href="@("Delete/" + d.Id)">Delete</a>
+                </b>);
+    }).WithPaging(8).Sortable(true)
+</div>
+
+@using (Ajax.BeginForm("GetForEditing", null,
+            new AjaxOptions
+            {
+                UpdateTargetId = "admin-item",
+                HttpMethod = "POST",
+                InsertionMode = InsertionMode.Replace
+            }, new { id = "ajax-get-item" }))
+{
+    <input type="text" class="non-input hidden-item" id="ajax-item-id" name="id" value="" />
+}
+
+<div id="admin-item" class="hidden-item">
+    @if (Model.SelectedUser != null)
+    {
+        @Html.Partial("~/Areas/Admin/Views/Shared/Partials/_AdminUser.cshtml", Model.SelectedUser)
+    }
+</div>
+

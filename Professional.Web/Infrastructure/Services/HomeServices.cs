@@ -28,7 +28,6 @@ namespace Professional.Web.Infrastructure.Services
         {
             var fields = this.Cache.Get<IQueryable<FieldOfExpertise>>("FieldsHome",
                 () => this.Data.FieldsOfExpertise.All()
-                .Where(u => u.IsDeleted == false)
                 .OrderByDescending(f => f.Rank)
                 .Take(FieldsCount));
 
@@ -39,7 +38,6 @@ namespace Professional.Web.Infrastructure.Services
         {
             var posts = this.Cache.Get<IQueryable<Post>>("PostsHome", 
                 () => this.Data.Posts.All()
-                .Where(u => u.IsDeleted == false)
                 .OrderByDescending(p => p.DateCreated)
                 .Take(PostCount));
 

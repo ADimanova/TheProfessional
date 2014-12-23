@@ -17,7 +17,8 @@ namespace Professional.Web.Helpers
         public const int ListPanelCount = 5;
 
         // Area names
-        public const string AdminArea = "Administration";
+        public const string AdminArea = "Admin";
+        public const string KendoAdminArea = "KendoAdmin";
         public const string UserArea = "UserArea";
 
         // Routes
@@ -41,9 +42,9 @@ namespace Professional.Web.Helpers
         public const string CreateEndorsementOfPostPageRoute = "/UserArea/CreateItem/EndorsementOfPost/";
 
         // Administration
-        public const string AdminPostsPageRoute = "/Administration/PostsAdmin/Index/";
-        public const string AdminUsersPageRoute = "/Administration/UsersAdmin/Index/";
-        public const string AdminFieldsPageRoute = "/Administration/FieldsAdmin/Index/";
+        public const string AdminPostsPageRoute = "/Admin/Posts/PostsAdmin/";
+        public const string AdminUsersPageRoute = "/Admin/Users/UsersAdmin/";
+        public const string AdminFieldsPageRoute = "/Admin/Fields/FieldsAdmin/";
 
         // Public 
         public const string PostPageRoute = "/Post/Info/";

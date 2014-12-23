@@ -364,13 +364,17 @@ output {
     left: 30%;
 }
 
-.form-horizontal.pop-post-edit
+.form-horizontal.pop-up-edit
 {
     width: 100%;
     overflow: hidden;
 }
 
-.pop-post-edit label {
+.pop-up-edit label {
     position: relative;
     left: 0;
+}
+
+.label-user-edit {
+    margin-left: 5%;
 }
