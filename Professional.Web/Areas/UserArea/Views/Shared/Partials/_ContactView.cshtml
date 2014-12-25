@@ -1,0 +1,20 @@
+﻿@model ContactViewModel
+<ul class="nav nav-pills extreme updates outwards">
+    <li role="presentation">
+        <a href="#" title="Message">
+            <span class="glyphicon glyphicon-envelope chat-open" aria-hidden="true"
+                  data-value="@Model.FromUserId" data-discution-with="@Model.FromUserName">
+            </span>
+        </a>
+    </li>
+    <li role="presentation">
+        <a href="#" title="Request connection" id="test" data-toggle="modal" data-target="#confirm-connection">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+        </a>
+    </li>
+    @*<li role="presentation" class="glif-updates">
+            <a href="#"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span></a>
+        </li>*@
+</ul>
+
+@Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ChatView.cshtml")

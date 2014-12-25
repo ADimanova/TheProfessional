@@ -46,6 +46,12 @@ namespace Professional.Web.Helpers
         public const string AdminUsersPageRoute = "/Admin/Users/UsersAdmin/";
         public const string AdminFieldsPageRoute = "/Admin/Fields/FieldsAdmin/";
 
+        // Updates
+        public const string UpdateConnectPageRoute = "/UserArea/Updates/Connect/";
+        public const string UpdateAcceptConnectionPageRoute = "/UserArea/Updates/AcceptConnection/";
+        public const string UpdateDeclineConnectionPageRoute = "/UserArea/Updates/DeclineConnection/";
+        public const string UpdateDeclineUserPageRoute = "/UserArea/Updates/DeclineUser/";
+
         // Public 
         public const string PostPageRoute = "/Post/Info/";
         public const string FieldInfoPageRoute = "/Field/Info/";

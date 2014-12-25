@@ -1,34 +1,55 @@
-﻿@model UpdatesViewModel
+﻿@using Professional.Web.Helpers
+@model UpdatesViewModel
 
 <ul class="nav nav-pills extreme updates">
     <li role="presentation" class="glif-updates chat dropdown">
-        @if (Model.IsMessaged)
-        {
-            <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" href="#">
-                <span class="glyphicon glyphicon-envelope active-updates" aria-hidden="true"></span>
+            <a class="dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-expanded="true" href="#">
+                <span class="glyphicon glyphicon-envelope" data-messaged="@Model.IsMessaged" aria-hidden="true"></span>
             </a>
-            <ul class="dropdown-menu position-dropdown" role="menu" aria-labelledby="dropdownMenu1">
+        @if (Model.ActiveChats != null && Model.ActiveChats.Count() > 0)
+        {
+            <ul class="dropdown-menu position-dropdown" role="menu" aria-labelledby="dropdownMenu">
                 @foreach (var item in Model.ActiveChats)
                 {
                     <li role="presentation">
                         <a role="menuitem" class="chat-open small" tabindex="-1" href="#"
-                            data-value="@item.FromUserId" data-discution-with="@item.FromUserName">
+                           data-value="@item.FromUserId" data-discution-with="@item.FromUserName">
                             <span class="bold">@item.FromUserName: </span> @item.Preview
                         </a>
                     </li>
                 }
             </ul>
         }
-        else
+    </li>
+    <li role="presentation" class="glif-updates">
+        <a class="dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-expanded="true" href="#">
+            <span class="glyphicon glyphicon-user" data-messaged="@Model.HasNewConnection" aria-hidden="true"></span>
+        </a>
+        @if (Model.ConnectionRequests != null && Model.ConnectionRequests.Count() > 0)
         {
-            <a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
+            <ul class="dropdown-menu position-dropdown ul-wide" role="menu" aria-labelledby="dropdownMenu">
+                <li role="presentation" class="li-wide">
+                    <span class="bold">Requested connections</span>
+                </li>
+                @foreach (var item in Model.ConnectionRequests)
+                {
+                    <li role="presentation" class="li-wide">
+                        <span>@item.ConnectionUserName</span>
+                        <div class="pull-right">
+                            <a title="Accept" href="@(WebConstants.UpdateAcceptConnectionPageRoute + item.ID)">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </a>
+                            <a title="Decline" href="@(WebConstants.UpdateDeclineConnectionPageRoute + item.ID)">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                    </li>
+                }
+            </ul>
         }
     </li>
     <li role="presentation" class="glif-updates">
-        <a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-    </li>
-    <li role="presentation" class="glif-updates">
-        <a href="#"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span></a>
+        <a href="#"><span class="glyphicon glyphicon-bullhorn" data-messaged="@Model.IsMessaged" aria-hidden="true"></span></a>
     </li>
 </ul>
 

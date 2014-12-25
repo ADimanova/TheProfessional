@@ -12,7 +12,7 @@ namespace Professional.Models
     {
         private ICollection<Occupation> occupations;
         private ICollection<FieldOfExpertise> fieldOfExpertise;
-        private ICollection<User> connections;
+        private ICollection<Connection> connections;
         private ICollection<EndorsementOfPost> postsEndorsements;
         private ICollection<EndorsementOfUser> usersEndorsements;
 
@@ -27,7 +27,9 @@ namespace Professional.Models
             get { return this.fieldOfExpertise; }
             set { this.fieldOfExpertise = value; }
         }
-        public virtual ICollection<User> Connections
+
+        [ForeignKey("FirstUserId")] 
+        public virtual ICollection<Connection> Connections
         {
             get { return this.connections; }
             set { this.connections = value; }

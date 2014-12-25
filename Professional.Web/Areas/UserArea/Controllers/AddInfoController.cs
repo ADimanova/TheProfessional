@@ -78,7 +78,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 {
                     this.data.Users.Update(user);
                     this.data.SaveChanges();
-                    return RedirectToAction("AddProfessionalInfo", "Private", new { Area = WebConstants.UserArea });
+                    return RedirectToAction("Professional", "AddInfo", new { Area = WebConstants.UserArea });
                 }
                 catch
                 {

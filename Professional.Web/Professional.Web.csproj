@@ -217,17 +217,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
-    <Compile Include="Areas\KendoAdmin\KendoAdminAreaRegistration.cs" />
-    <Compile Include="Areas\KendoAdmin\Controllers\AdminController.cs" />
-    <Compile Include="Areas\KendoAdmin\Controllers\FieldsAdminController.cs" />
-    <Compile Include="Areas\KendoAdmin\Controllers\KendoGridAdministrationController.cs" />
-    <Compile Include="Areas\KendoAdmin\Controllers\PostsAdminController.cs" />
-    <Compile Include="Areas\KendoAdmin\Controllers\UsersAdminController.cs" />
-    <Compile Include="Areas\KendoAdmin\Models\AdministrationViewModel.cs" />
-    <Compile Include="Areas\KendoAdmin\Models\FieldInputModel.cs" />
-    <Compile Include="Areas\KendoAdmin\Models\FieldViewModel.cs" />
-    <Compile Include="Areas\KendoAdmin\Models\PostAdminModel.cs" />
-    <Compile Include="Areas\KendoAdmin\Models\UserAdminModel.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\FieldsController.cs" />
@@ -255,9 +244,12 @@
     <Compile Include="Areas\UserArea\Controllers\CreateItemController.cs" />
     <Compile Include="Areas\UserArea\Controllers\ListingController.cs" />
     <Compile Include="Areas\UserArea\Controllers\ProfileController.cs" />
+    <Compile Include="Areas\UserArea\Controllers\UpdatesController.cs" />
     <Compile Include="Areas\UserArea\Controllers\UserController.cs" />
     <Compile Include="Areas\UserArea\Controllers\AddInfoController.cs" />
     <Compile Include="Areas\UserArea\Models\ChatViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\ContactViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\DatabaseVeiwModels\ConnectionViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\ListingViewModels\MessagesViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\ListingViewModels\EndorsementViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\ListingViewModels\ListCollectionViewModel.cs" />
@@ -360,30 +352,12 @@
     <Content Include="Images\professionals.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Areas\KendoAdmin\Views\web.config" />
     <Content Include="Areas\UserArea\Views\web.config" />
     <Content Include="Areas\UserArea\Views\_ViewStart.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\View.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_ListCollection.cshtml" />
     <Content Include="Areas\UserArea\Views\CreateItem\Post.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\UsersAdmin\Index.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\Shared\EditorTemplates\Currency.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\Shared\EditorTemplates\Date.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\Shared\EditorTemplates\DateTime.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\Shared\EditorTemplates\Email.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\Shared\EditorTemplates\EmailAddress.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\Shared\EditorTemplates\GridForeignKey.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\Shared\EditorTemplates\Integer.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\Shared\EditorTemplates\Number.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\Shared\EditorTemplates\Password.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\Shared\EditorTemplates\String.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\Shared\EditorTemplates\Time.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\Shared\EditorTemplates\Url.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\PostsAdmin\Index.cshtml" />
     <Content Include="Areas\UserArea\Views\AddInfo\OnRegistration.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\Shared\Partials\_CreateField.cshtml" />
     <Content Include="Areas\UserArea\Views\Listing\UserEndorsements.cshtml" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
@@ -418,7 +392,6 @@
     <Content Include="Areas\KendoUIAdmin\Views\_ViewStart.cshtml" />
     <None Include="Areas\UserArea\Views\AddInfo\Personal.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_PersonalInfoView.cshtml" />
-    <Content Include="Areas\KendoAdmin\Views\FieldsAdmin\Index.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\UserArea\Views\Listing\Users.cshtml" />
     <Content Include="Areas\UserArea\Views\Listing\Posts.cshtml" />
@@ -434,6 +407,7 @@
     <Content Include="Areas\UserArea\Views\Shared\Partials\_ShortListPanel.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_PrivateProfessionalInfoView.cshtml" />
     <Content Include="Grid.mvc.readme" />
+    <Content Include="Areas\UserArea\Views\Shared\Partials\_ContactView.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\gridmvc.js" />
@@ -688,6 +662,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\UserArea\Views\Updates\" />
     <Folder Include="Content\kendo\" />
     <Folder Include="Css\" />
     <Folder Include="Libraries\" />

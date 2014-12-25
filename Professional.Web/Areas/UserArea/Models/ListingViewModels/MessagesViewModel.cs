@@ -11,6 +11,5 @@ namespace Professional.Web.Areas.UserArea.Models.ListingViewModels
         public string FromUserId { get; set; }
         public string FromUserName { get; set; }
         public string Preview { get; set; }
-        //public IEnumerable<string> Messages { get; set; }
     }
 }

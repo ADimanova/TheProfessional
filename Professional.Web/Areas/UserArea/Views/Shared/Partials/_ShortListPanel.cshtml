@@ -2,7 +2,6 @@
 @model ShortListingViewModel
 
 <ul class="list-group" data-type="@Model.Type">
-    <li class="list-group-item borderless"><b>@Model.Title</b></li>
     @foreach (var item in Model.Items)
     {
         <li class="list-group-item">

@@ -63,6 +63,12 @@ namespace Professional.Data
             { return this.GetDeletableEntityRepository<Occupation>(); }
         }
 
+        public IDeletableEntityRepository<Connection> Connections
+        {
+            get
+            { return this.GetDeletableEntityRepository<Connection>(); }
+        }
+
         public IDeletableEntityRepository<Image> Images
         {
             get

@@ -378,3 +378,43 @@ output {
 .label-user-edit {
     margin-left: 5%;
 }
+
+.outwards {
+    top: 0%;
+}
+
+.outwards>li>a {
+    color: #666666;
+    font-size: 0.9em;
+    padding: 5px 10px;
+}
+
+.modal-dialog {
+    width: 0;
+    min-width: 40%;
+}
+
+.ul-wide {
+    width: 260px;
+    left: -280%;
+}
+
+.li-wide {
+    padding: 10px 5px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.dropdown-menu>li>div>a {
+    display: inline-block;
+    padding: 3px 10px;
+    font-weight: normal;
+    line-height: 1.846;
+    color: #666666;
+    white-space: nowrap;
+}
+
+.dropdown-menu>li>div>a:hover {
+    text-decoration: none;
+    color: #141414;
+    background-color: #eeeeee;
+}

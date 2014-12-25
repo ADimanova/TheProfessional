@@ -18,7 +18,7 @@ namespace Professional.Models
         {
             this.occupations = new HashSet<Occupation>();
             this.fieldOfExpertise = new HashSet<FieldOfExpertise>();
-            this.connections = new HashSet<User>();
+            this.connections = new HashSet<Connection>();
             this.postsEndorsements = new HashSet<EndorsementOfPost>();
             this.usersEndorsements = new HashSet<EndorsementOfUser>();
             this.messages = new HashSet<Message>();

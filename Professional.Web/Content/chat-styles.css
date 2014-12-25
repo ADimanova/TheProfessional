@@ -91,3 +91,13 @@
 .hide {
     display: none;
 }
+
+/*.chat {
+    position: absolute;
+}*/
+
+.chat-close-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+}

@@ -38,7 +38,8 @@ namespace SignalRChat
             for (int i = 0; i < messages.Count; i++)
             {
                 Clients.Group(groupName).addNewMessageToPage("Other", messages[i].Content);
-                messages[i].IsRead = true;
+                // TODO: Open on Release
+                //messages[i].IsRead = true;
             }
             this.data.SaveChanges();
 

@@ -15,6 +15,7 @@ using Professional.Web.Helpers;
 using Professional.Web.Areas.UserArea.Models.InputModels;
 using Professional.Web.Models.InputViewModels;
 using Professional.Web.Areas.UserArea.Models.ListingViewModels;
+using Professional.Web.Areas.UserArea.Models.DatabaseVeiwModels;
 
 namespace Professional.Web.Areas.UserArea.Controllers
 {
@@ -33,6 +34,11 @@ namespace Professional.Web.Areas.UserArea.Controllers
         {
             currentUser = this.data.Users.All()
                 .FirstOrDefault(u => u.Id == id);
+
+            if (currentUser == null)
+            {
+                return this.RedirectToAction("Index", "Home", new { Area = "" });   
+            }
 
             Mapper.CreateMap<User, UserViewModel>();
             var userInfoForView = Mapper.Map<UserViewModel>(currentUser);
@@ -84,12 +90,18 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     AuthorLastName = e.EndorsingUser.LastName
                 });
 
-            var chatModel = new ChatViewModel();
-            chatModel.ToUserId = id;
+            var chatModel = new ContactViewModel();
+            chatModel.FromUserId = id;
+            chatModel.FromUserName = currentUser.FullName;
+            var loggedUser = this.User.Identity.GetUserId();
+            chatModel.IsConnected = this.data.Connections.All()
+                .Any(c => ((c.FirstUserId == id || c.SecondUserId == id) &&
+                (c.FirstUserId == loggedUser || c.SecondUserId == loggedUser) &&
+                id != loggedUser));
 
             var publicProfileInfo = new PublicProfileViewModel();
             publicProfileInfo.UserInfo = userInfoForView;
-            publicProfileInfo.ChatInfo = chatModel;
+            publicProfileInfo.ContactInfo = chatModel;
             if (!isEndorsed && userID != id)
             {
                 var endorseInfo = new EndorsementInputModel();
@@ -115,6 +127,11 @@ namespace Professional.Web.Areas.UserArea.Controllers
             string currentUserId = User.Identity.GetUserId();
             var currentUser = this.data.Users.All()
                 .FirstOrDefault(u => u.Id == currentUserId);
+
+            if (currentUser == null)
+            {
+                return this.RedirectToAction("Index", "Home", new { Area = "" });   
+            }
 
             Mapper.CreateMap<User, UserViewModel>();
             var userInfoForView = Mapper.Map<UserViewModel>(currentUser);
@@ -144,11 +161,22 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     Preview = g.FirstOrDefault().Content.Substring(0, 20) + "...",
                 });
 
+            var connectionRequests = this.data.Connections.All()
+                .Where(c => c.SecondUserId == currentUserId)
+                .Where(c => !c.IsAccepted)
+                .Project().To<ConnectionViewModel>();
+
             var updateModel = new UpdatesViewModel();
             if (messagesReceived.Count() > 0)
             {
                 updateModel.IsMessaged = true;
                 updateModel.ActiveChats = messagesReceived.ToList();
+            }
+
+            if (connectionRequests.Count() > 0)
+            {
+                updateModel.HasNewConnection = true;
+                updateModel.ConnectionRequests = connectionRequests.ToList();
             }
 
             var privateProfileInfo = new PrivateProfileViewModel();
@@ -195,7 +223,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
         {
             if (currentUser == null)
             {
-                return View("Error", "Something went wrong.");
+                return View("Error");
             }
 
             var posts = postsData
@@ -219,7 +247,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             }
             else
             {
-                return View("Error", "The condition specified is incorrect");
+                return View("Error");
             }
 
             var resultPosts = posts
@@ -284,7 +312,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             }
             else
             {
-                return View("Error", "The type of the item is incorrect");
+                return View("Error");
             }
         }
     }
