@@ -53,6 +53,7 @@ namespace Professional.Web.Controllers
             var fieldsView = new HorizontalNavbarViewModel();
             fieldsView.Title = FieldsNavBarTitle;
             fieldsView.ListItems = fields;
+            fieldsView.MoreInfoUrl = WebConstants.FieldsListingPageRoute;
 
             var vielModel = new IndexViewModel();
 

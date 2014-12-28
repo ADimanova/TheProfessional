@@ -270,6 +270,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FieldController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
@@ -677,6 +678,7 @@
     <Folder Include="Content\kendo\" />
     <Folder Include="Css\" />
     <Folder Include="Libraries\" />
+    <Folder Include="Views\Image\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

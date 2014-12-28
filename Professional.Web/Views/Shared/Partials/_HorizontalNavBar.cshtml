@@ -8,7 +8,10 @@
         {
             <li role="presentation"><a href="@item.Url">@item.Content</a></li>
         }
-        <li role="presentation"><a href="@WebConstants.FieldsListingPageRoute">More...</a></li>
+        @if (Model.MoreInfoUrl != null)
+        {
+            <li role="presentation"><a href="@Model.MoreInfoUrl">More...</a></li>
+        }
     </ul>
 </div>
 

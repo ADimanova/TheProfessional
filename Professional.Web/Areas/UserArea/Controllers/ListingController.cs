@@ -43,8 +43,9 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     Name = g.Key.ToString(),
                     Items = g.Select(i => new NavigationItem
                     {
-                        Content = i.LastName,
-                        Url = WebConstants.PublicProfilePageRoute + i.Id
+                        Content = i.LastName + ", " + i.FirstName,
+                        Url = WebConstants.PublicProfilePageRoute + i.Id,
+                        ImageId = i.ProfileImageId
                     }).ToList()
                 });
 
@@ -53,6 +54,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             ViewBag.Url = WebConstants.UsersPageRoute;
 
             var viewModel = new ListCollectionViewModel();
+            viewModel.WithImage = true;
             viewModel.FieldsNames = firstLetters.ToList();
             viewModel.Title = "Professionals";
             viewModel.GetBy = "first letter";

@@ -8,5 +8,7 @@ namespace Professional.Web.Models
     {
         public string Title { get; set; }
         public IEnumerable<NavigationItem> ListItems { get; set; }
+
+        public string MoreInfoUrl { get; set; }
     }
 }
