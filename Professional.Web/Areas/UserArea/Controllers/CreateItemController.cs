@@ -49,7 +49,6 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 var newPost = new Post
                 {
                     Title = editedTitle,
-                    DateCreated = DateTime.Now.ToUniversalTime(),
                     Content = sanitisedContent,
                     CreatorID = creator,
                     FieldID = fieldId

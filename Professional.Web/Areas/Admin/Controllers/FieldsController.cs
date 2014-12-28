@@ -9,6 +9,7 @@ using AutoMapper.QueryableExtensions;
 using Professional.Web.Areas.Admin.Models;
 using System.Net;
 using AutoMapper;
+using Professional.Models;
 
 namespace Professional.Web.Areas.Admin.Controllers
 {
@@ -32,6 +33,32 @@ namespace Professional.Web.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(FieldAdminModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Error");
+            }
+
+            var field = new FieldOfExpertise();
+            field.Name = this.sanitizer.Sanitize(model.Name);
+            field.Rank = model.Rank;
+
+            try
+            {
+                this.data.FieldsOfExpertise.Add(field);
+                this.data.SaveChanges();
+                return RedirectToAction("FieldsAdmin", null, new { Area = "Admin" });
+            }
+            catch
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

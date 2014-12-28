@@ -83,6 +83,8 @@
     <Compile Include="FieldOfExpertise.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="Notification.cs" />
+    <Compile Include="NotificationType.cs" />
     <Compile Include="Occupation.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Post.cs" />

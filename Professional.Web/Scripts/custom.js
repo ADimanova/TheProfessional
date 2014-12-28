@@ -44,6 +44,25 @@
                 "Cancel": function () { $(this).dialog('close'); }
             }
         });
+
+        $('.create-link').click(function () {
+            $('#create-item').removeClass('hidden-item');
+            $("#create-item").dialog("open");
+        });
+
+        $("#create-item").dialog({
+            autoOpen: false,
+            title: "Create Item",
+            width: 350,
+            height: 350,
+            modal: true,
+            buttons: {
+                "Save": function () {
+                    $("#create-admin").submit();
+                },
+                "Cancel": function () { $(this).dialog('close'); }
+            }
+        });
         // Admin pop-up
 
         // Filtered listing by field scripts (AJAX)

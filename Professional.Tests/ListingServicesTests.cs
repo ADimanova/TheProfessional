@@ -157,14 +157,14 @@ namespace Professional.Tests
                     Content = "A",
                     CreatorID = "Any",
                     FieldID = 1,
-                    DateCreated = DateTime.Now
+                    CreatedOn = DateTime.Now
                 },
                 new Post { 
                     Title = "B",
                     Content = "B",
                     CreatorID = "Any",
                     FieldID = 2,
-                    DateCreated = DateTime.Now
+                    CreatedOn = DateTime.Now
                 },
             }.AsQueryable();
 
@@ -194,14 +194,14 @@ namespace Professional.Tests
                     Content = "A",
                     CreatorID = "Selected",
                     FieldID = 1,
-                    DateCreated = DateTime.Now
+                    CreatedOn = DateTime.Now
                 },
                 new Post { 
                     Title = "B",
                     Content = "B",
                     CreatorID = "Any",
                     FieldID = 2,
-                    DateCreated = DateTime.Now
+                    CreatedOn = DateTime.Now
                 },
             }.AsQueryable();
 
@@ -234,14 +234,14 @@ namespace Professional.Tests
                     Content = "A",
                     CreatorID = "Any",
                     Field = fieldA,
-                    DateCreated = DateTime.Now
+                    CreatedOn = DateTime.Now
                 },
                 new Post { 
                     Title = "B",
                     Content = "B",
                     CreatorID = "Any",
                     Field = fieldB,
-                    DateCreated = DateTime.Now
+                    CreatedOn = DateTime.Now
                 },
             }.AsQueryable();
 

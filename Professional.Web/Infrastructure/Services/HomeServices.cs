@@ -38,7 +38,7 @@ namespace Professional.Web.Infrastructure.Services
         {
             var posts = this.Cache.Get<IQueryable<Post>>("PostsHome", 
                 () => this.Data.Posts.All()
-                .OrderByDescending(p => p.DateCreated)
+                .OrderByDescending(p => p.CreatedOn)
                 .Take(PostCount));
 
             var formatedPosts = this.FormatPosts(posts);

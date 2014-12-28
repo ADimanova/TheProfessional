@@ -25,9 +25,6 @@ namespace Professional.Models
         public string Title { get; set; }
 
         [Required]
-        public DateTime DateCreated { get; set; }
-
-        [Required]
         public string Content { get; set; }
 
         [Required]

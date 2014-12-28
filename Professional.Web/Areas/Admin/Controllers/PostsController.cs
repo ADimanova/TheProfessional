@@ -24,7 +24,7 @@ namespace Professional.Web.Areas.Admin.Controllers
         public ActionResult PostsAdmin()
         {
             var posts = this.data.Posts.All()
-                .OrderBy(p => p.DateCreated)
+                .OrderBy(p => p.CreatedOn)
                .Project().To<PostAdminModel>();
 
             var model = new PostsAdminModel();

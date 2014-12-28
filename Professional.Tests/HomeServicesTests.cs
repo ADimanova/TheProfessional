@@ -131,7 +131,7 @@ namespace Professional.Tests
                     Content = "TestContent",
                     CreatorID = "Selected",
                     FieldID = 1,
-                    DateCreated = DateTime.Now.AddDays(i)
+                    CreatedOn = DateTime.Now.AddDays(i)
                 });
             }
 
@@ -147,7 +147,7 @@ namespace Professional.Tests
             cache.Setup(c => c.Get<IQueryable<Post>>(It.IsAny<string>(), It.IsAny<Func<IQueryable<Post>>>()))
                 .Returns(() => fakePostsQueryable
                     .Where(i => i.IsDeleted == false)
-                    .OrderByDescending(i => i.DateCreated)
+                    .OrderByDescending(i => i.CreatedOn)
                     .Take(3)
                     .AsQueryable());
 
@@ -174,7 +174,7 @@ namespace Professional.Tests
                     Content = "TestContent",
                     CreatorID = "Selected",
                     FieldID = 1,
-                    DateCreated = DateTime.Now.AddDays(i)
+                    CreatedOn = DateTime.Now.AddDays(i)
                 });
             }
 
@@ -190,7 +190,7 @@ namespace Professional.Tests
             cache.Setup(c => c.Get<IQueryable<Post>>(It.IsAny<string>(), It.IsAny<Func<IQueryable<Post>>>()))
                 .Returns(() => fakePostsQueryable
                     .Where(i => i.IsDeleted == false)
-                    .OrderByDescending(i => i.DateCreated)
+                    .OrderByDescending(i => i.CreatedOn)
                     .Take(3)
                     .AsQueryable());
 
@@ -220,7 +220,7 @@ namespace Professional.Tests
             cache.Setup(c => c.Get<IQueryable<Post>>(It.IsAny<string>(), It.IsAny<Func<IQueryable<Post>>>()))
                 .Returns(() => fakePosts
                     .Where(i => i.IsDeleted == false)
-                    .OrderByDescending(i => i.DateCreated)
+                    .OrderByDescending(i => i.CreatedOn)
                     .Take(3)
                     .AsQueryable());
 

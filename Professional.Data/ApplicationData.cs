@@ -69,6 +69,12 @@ namespace Professional.Data
             { return this.GetDeletableEntityRepository<Connection>(); }
         }
 
+        public IDeletableEntityRepository<Notification> Notifications
+        {
+            get
+            { return this.GetDeletableEntityRepository<Notification>(); }
+        }
+
         public IDeletableEntityRepository<Image> Images
         {
             get

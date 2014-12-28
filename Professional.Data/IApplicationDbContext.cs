@@ -12,6 +12,7 @@ namespace Professional.Data
         IDbSet<FieldOfExpertise> FieldsOfExpertise { get; set; }
         IDbSet<Occupation> Occupations { get; set; }
         IDbSet<Connection> Connections { get; set; }
+        IDbSet<Notification> Notifications { get; set; }
         IDbSet<Post> Posts { get; set; }
         IDbSet<Image> Images { get; set; }
         IDbSet<Message> Messages { get; set; }

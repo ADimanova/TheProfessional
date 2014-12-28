@@ -1,16 +1,24 @@
 ﻿@using GridMvc.Html
 @using Professional.Web.Areas.Admin.Models;
-@model FieldsAdminModel
+@model NotificationsAdminModel
 
-<a class="btn btn-default btn-create create-link" href="#">Create Field</a>
+<a class="btn btn-default btn-create create-link" href="#">Create Notification</a>
 
 <div style="width:780px;">
-    @Html.Grid(Model.Fields).Columns(columns =>
+    @Html.Grid(Model.Notifications).Columns(columns =>
     {
-        columns.Add(c => c.Name).Titled("Name").Filterable(true).SetWidth(200);
-        columns.Add(c => c.Rank).Titled("Rank").Filterable(true).SetWidth(200);
+        columns.Add(c => c.Title).Titled("Title").Filterable(true).SetWidth(200);
+        columns.Add(c => c.Content).Titled("Content")
+            .SetWidth(300)
+            .Css("content-long")
+            .RenderValueAs(c => c.Content.Substring(0, (int)Math.Min(200, c.Content.Length)));
         columns.Add(o => o.CreatedOn)
             .Titled("Created on")
+            .Format("{0:dd/MM/yyyy}")
+            .Filterable(true)
+            .SetWidth(100);
+        columns.Add(o => o.ModifiedOn)
+            .Titled("Last modified on")
             .Format("{0:dd/MM/yyyy}")
             .Filterable(true)
             .SetWidth(100);
@@ -30,7 +38,7 @@
                 @<b>
                     <a href="@("Delete/" + d.ID)">Delete</a>
                 </b>);
-    }).WithPaging(8).Sortable(true)
+    }).WithPaging(6).Sortable(true)
 </div>
 
 @using (Ajax.BeginForm("GetForEditing", null,
@@ -45,12 +53,12 @@
 }
 
 <div id="admin-item" class="hidden-item">
-    @if (Model.SelectedField != null)
+    @if (Model.SelectedNotification != null)
     {
-        @Html.Partial("~/Areas/Admin/Views/Shared/Partials/_AdminField.cshtml", Model.SelectedField)
+        @Html.Partial("~/Areas/Admin/Views/Shared/Partials/_AdminNotification.cshtml", Model.SelectedNotification)
     }
 </div>
 
 <div id="create-item" class="hidden-item">
-    @Html.Partial("~/Areas/Admin/Views/Shared/Partials/_CreateField.cshtml", new FieldAdminModel())
+    @Html.Partial("~/Areas/Admin/Views/Shared/Partials/_CreateNotification.cshtml", new NotificationAdminModel())
 </div>

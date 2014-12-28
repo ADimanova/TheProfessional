@@ -19,6 +19,7 @@ namespace Professional.Data
         IDeletableEntityRepository<FieldOfExpertise> FieldsOfExpertise { get; }
         IDeletableEntityRepository<Occupation> Occupations { get; }
         IDeletableEntityRepository<Connection> Connections { get; }
+        IDeletableEntityRepository<Notification> Notifications { get; }
         IDeletableEntityRepository<Image> Images { get; }
         IDeletableEntityRepository<Message> Messages { get; }
         int SaveChanges();

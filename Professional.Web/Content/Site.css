@@ -418,3 +418,14 @@ output {
     color: #141414;
     background-color: #eeeeee;
 }
+
+.btn-create {
+    margin-bottom: 2%;
+    color: #fff;
+    background: #6AAEE2;
+    background-image: -webkit-linear-gradient(top, #6AAEE2, #d1e4f0);
+    background-image: -moz-linear-gradient(top, #6AAEE2, #d1e4f0);
+    background-image: -ms-linear-gradient(top, #6AAEE2, #d1e4f0);
+    background-image: -o-linear-gradient(top, #6AAEE2, #d1e4f0);
+    background-image: linear-gradient(to bottom, #75b5e6, #6AAEE2, #d1e4f0);
+}

@@ -220,11 +220,14 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\FieldsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NotificationsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PostsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Admin\Models\AdministrationViewModel.cs" />
     <Compile Include="Areas\Admin\Models\FieldAdminModel.cs" />
     <Compile Include="Areas\Admin\Models\FieldsAdminModel.cs" />
+    <Compile Include="Areas\Admin\Models\NotificationAdminModel.cs" />
+    <Compile Include="Areas\Admin\Models\NotificationsAdminModel.cs" />
     <Compile Include="Areas\Admin\Models\PostAdminModel.cs" />
     <Compile Include="Areas\Admin\Models\PostsAdminModel.cs" />
     <Compile Include="Areas\Admin\Models\UserAdminModel.cs" />
@@ -359,7 +362,9 @@
     <Content Include="Areas\UserArea\Views\CreateItem\Post.cshtml" />
     <Content Include="Areas\UserArea\Views\AddInfo\OnRegistration.cshtml" />
     <Content Include="Areas\UserArea\Views\Listing\UserEndorsements.cshtml" />
-    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Posts\PostsAdmin.cshtml" />
@@ -390,6 +395,10 @@
     <Content Include="Areas\KendoUIAdmin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\KendoUIAdmin\Views\UsersAdmin\Index.cshtml" />
     <Content Include="Areas\KendoUIAdmin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Notifications\NotificationsAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\_AdminNotification.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\_CreateNotification.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\_CreateField.cshtml" />
     <None Include="Areas\UserArea\Views\AddInfo\Personal.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_PersonalInfoView.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\_Layout.cshtml" />
@@ -585,7 +594,9 @@
     <Content Include="Scripts\tinymce\tinymce.min.js" />
     <Content Include="Scripts\transition.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

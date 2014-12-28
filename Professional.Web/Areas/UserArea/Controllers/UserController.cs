@@ -53,7 +53,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
         {
             var recentPost = this.data.Posts.All()
                 .Where(p => p.CreatorID == currentUserId)
-                .OrderBy(p => p.DateCreated)
+                .OrderBy(p => p.CreatedOn)
                 .Take(WebConstants.ListPanelCount);
 
             return recentPost;

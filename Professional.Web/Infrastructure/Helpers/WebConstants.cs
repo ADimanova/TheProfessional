@@ -45,6 +45,7 @@ namespace Professional.Web.Helpers
         public const string AdminPostsPageRoute = "/Admin/Posts/PostsAdmin/";
         public const string AdminUsersPageRoute = "/Admin/Users/UsersAdmin/";
         public const string AdminFieldsPageRoute = "/Admin/Fields/FieldsAdmin/";
+        public const string AdminNotificationsPageRoute = "/Admin/Notifications/NotificationsAdmin/";
 
         // Updates
         public const string UpdateConnectPageRoute = "/UserArea/Updates/Connect/";
@@ -86,6 +87,11 @@ namespace Professional.Web.Helpers
             {
                 Content = "Fields of Expertise",
                 Url = AdminFieldsPageRoute
+            },
+            new NavigationItem
+            {
+                Content = "Notifications",
+                Url = AdminNotificationsPageRoute
             }
         };
     }
