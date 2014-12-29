@@ -1,0 +1,45 @@
+﻿@using Professional.Web.Helpers
+@using Professional.Web.Areas.UserArea.Models
+@model ContactViewModel
+
+<div class="modal fade" id="confirm-connection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @if (Model.IsConnected && Model.IsAccepted)
+            {
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">
+                        You are already connected to @Model.FromUserName. Do you want to remove this connection?
+                    </h4>
+                </div>
+                <div class="modal-footer text-center">
+                    <a href="@(WebConstants.UpdateDeclineUserPageRoute + Model.FromUserId)"
+                       class="btn btn-default">Yes</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            }
+            else if (Model.IsConnected && !Model.IsAccepted)
+            {
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">
+                        Connection request to @Model.FromUserName<br />is pending. Do you want to decline it?
+                    </h4>
+                </div>
+                <div class="modal-footer text-center">
+                    <a href="@(WebConstants.UpdateDeclineUserPageRoute + @Model.FromUserId)" class="btn btn-default">Yes</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            }
+            else
+            {
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">You want to connect to @Model.FromUserName?</h4>
+                </div>
+                <div class="modal-footer text-center">
+                    <a href="@(WebConstants.UpdateConnectPageRoute + Model.FromUserId)" class="btn btn-default">Yes</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

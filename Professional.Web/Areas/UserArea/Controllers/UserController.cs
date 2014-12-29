@@ -19,54 +19,13 @@ namespace Professional.Web.Areas.UserArea.Controllers
             : base(data)
         {
         }
-        protected IList GetUserFields(string currentUserId)
+
+        public User GetUser(string currentUserId)
         {
-            if (currentUserId == null)
-            {
-                //TODO:
-                return new List<FieldOfExpertise>();
-            }
-            var fields = this.data.Users.All()
-            .FirstOrDefault(u => u.Id == currentUserId)
-            .FieldsOfExpertise.ToList();
+            var user = this.data.Users.All()
+                 .FirstOrDefault(u => u.Id == currentUserId);
 
-            return fields;
+            return user;
         }
-
-        protected IQueryable<Post> GetAllPosts()
-        {
-            var post = this.data.Posts.All()
-                .OrderBy(p => p.Title);
-
-            return post;
-        }
-
-        protected IQueryable<Post> GetAllPostsOfUser(string currentUserId)
-        {
-            var post = this.data.Posts.All()
-                .Where(p => p.CreatorID == currentUserId)
-                .OrderBy(p => p.Title);
-
-            return post;
-        }
-        protected IQueryable<Post> GetRecentPosts(string currentUserId)
-        {
-            var recentPost = this.data.Posts.All()
-                .Where(p => p.CreatorID == currentUserId)
-                .OrderBy(p => p.CreatedOn)
-                .Take(WebConstants.ListPanelCount);
-
-            return recentPost;
-        }
-        protected IQueryable<Post> GetTopPosts(string currentUserId)
-        {
-            var recentPost = this.data.Posts.All()
-                .Where(p => p.CreatorID == currentUserId)
-                .OrderBy(p => p.Rank)
-                .Take(WebConstants.ListPanelCount);
-
-            return recentPost;
-        }
-
     }
 }

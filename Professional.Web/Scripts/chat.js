@@ -11,6 +11,10 @@ $(function () {
                 '</strong>: ' + encodedMessage + '</li>');
         }
     };
+
+    $('.chat-close-btn').click(function () {
+        $('#chat').addClass('hide');
+    });
  
     $('#message').focus();
 

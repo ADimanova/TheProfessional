@@ -98,6 +98,11 @@
 
 .chat-close-btn {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 0.3em;
+    top: 0.1em;
+    color: #666666;
+}
+
+.chat-close-btn:hover {
+    color: #1a1a1a;
 }

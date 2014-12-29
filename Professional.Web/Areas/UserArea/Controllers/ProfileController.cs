@@ -16,6 +16,7 @@ using Professional.Web.Areas.UserArea.Models.InputModels;
 using Professional.Web.Models.InputViewModels;
 using Professional.Web.Areas.UserArea.Models.ListingViewModels;
 using Professional.Web.Areas.UserArea.Models.DatabaseVeiwModels;
+using Professional.Web.Infrastructure.Services.Contracts;
 
 namespace Professional.Web.Areas.UserArea.Controllers
 {
@@ -23,32 +24,33 @@ namespace Professional.Web.Areas.UserArea.Controllers
     {
         private static User currentUser;
         private readonly IQueryable<Post> postsData;
-        public ProfileController(IApplicationData data)
+        private IProfileServices profileServices;
+        public ProfileController(IApplicationData data, IProfileServices profileServices)
             : base(data)
         {
-            this.postsData = this.data.Posts.All().OrderBy(p => p.Title);
+            this.postsData = profileServices.GetAllPosts();
+            this.profileServices = profileServices;
         }
 
         // GET: UserArea/Profile
         public ActionResult Public(string id)
         {
-            currentUser = this.data.Users.All()
-                .FirstOrDefault(u => u.Id == id);
+            currentUser = this.GetUser(id);
 
             if (currentUser == null)
             {
                 return this.RedirectToAction("Index", "Home", new { Area = "" });   
             }
 
-            Mapper.CreateMap<User, UserViewModel>();
-            var userInfoForView = Mapper.Map<UserViewModel>(currentUser);
+            var userInfo = Mapper.Map<UserViewModel>(currentUser);
 
-            var userFields = (List<FieldOfExpertise>)this.GetUserFields(id);
+            var userFields = profileServices.GetUserFields(id)
+                .Select(f => f.Name).ToList();
 
             var topPostPanel = new ListPanelViewModel();
             topPostPanel.UniqueIdentificator = "Top";
             topPostPanel.Title = "Top Posts";
-            topPostPanel.Items = this.GetTopPosts(id)
+            topPostPanel.Items = profileServices.GetTopPosts(id)
                 .Select(p => new NavigationItem
                 {
                     Content = p.Title,
@@ -59,7 +61,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             var recentPostPanel = new ListPanelViewModel();
             recentPostPanel.UniqueIdentificator = "Recent";
             recentPostPanel.Title = "Recent Posts";
-            recentPostPanel.Items = this.GetRecentPosts(id)
+            recentPostPanel.Items = profileServices.GetRecentPosts(id)
                 .Select(p => new NavigationItem
                 {
                     Content = p.Title,
@@ -69,50 +71,40 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
             var btnNavigatePosts = new NavigationItem();
             btnNavigatePosts.Content = "See post's page";
-            btnNavigatePosts.Url = WebConstants.UserPostsPageRoute + currentUser.Id;
+            btnNavigatePosts.Url = WebConstants.UserPostsPageRoute + id;
 
             var btnNavigateEndorsements = new NavigationItem();
             btnNavigateEndorsements.Content = "See endorsements's page";
-            btnNavigateEndorsements.Url = WebConstants.UserEndorsementsPageRoute + currentUser.Id;
+            btnNavigateEndorsements.Url = WebConstants.UserEndorsementsPageRoute + id;
 
-            var userID = User.Identity.GetUserId();
-            var isEndorsed = this.data.EndorsementsOfUsers.All()
-                .Where(e => e.EndorsingUserID == userID)
-                .Any(e => e.EndorsedUserID == id);
+            var loggedUserId = User.Identity.GetUserId();
+            var isEndorsed = profileServices.IsEndorsed(id, loggedUserId);
 
-            var endorsements = this.data.EndorsementsOfUsers.All()
-                .Where(e => e.EndorsedUserID == id)
+            var endorsements = profileServices.GetUserEndorsements(id)
                 .Select(e => new EndorsementViewModel
                 {
-                    Content = e.Comment,
                     ID = e.ID,
+                    Content = e.Comment,
                     AuthorFirstName = e.EndorsingUser.FirstName,
                     AuthorLastName = e.EndorsingUser.LastName
                 });
 
-            var chatModel = new ContactViewModel();
-            chatModel.FromUserId = id;
-            chatModel.FromUserName = currentUser.FullName;
-            var loggedUser = this.User.Identity.GetUserId();
-            chatModel.IsConnected = this.data.Connections.All()
-                .Any(c => ((c.FirstUserId == id || c.SecondUserId == id) &&
-                (c.FirstUserId == loggedUser || c.SecondUserId == loggedUser) &&
-                id != loggedUser));
+            var contactModel = new ContactViewModel();
+            contactModel.FromUserId = id;
+            contactModel.FromUserName = currentUser.FullName;
+            contactModel.IsConnected = profileServices.IsConnected(id, loggedUserId);
 
             var publicProfileInfo = new PublicProfileViewModel();
-            publicProfileInfo.UserInfo = userInfoForView;
-            publicProfileInfo.ContactInfo = chatModel;
-            if (!isEndorsed && userID != id)
+            publicProfileInfo.UserInfo = userInfo;
+            publicProfileInfo.ContactInfo = contactModel;
+            if (!isEndorsed && loggedUserId != id)
             {
                 var endorseInfo = new EndorsementInputModel();
                 endorseInfo.EndorsedID = id;
                 endorseInfo.EndorseAction = "EndorsementOfUser";
                 publicProfileInfo.EndorseFunctionality = endorseInfo;
             }
-            else
-            {
-                ViewBag.IsEndorsed = "true";
-            }
+
             publicProfileInfo.BtnNavigatePosts = btnNavigatePosts;
             publicProfileInfo.BtnNavigateEndorsements = btnNavigateEndorsements;
             publicProfileInfo.TopPostsList = topPostPanel;
@@ -125,34 +117,30 @@ namespace Professional.Web.Areas.UserArea.Controllers
         public ActionResult Private()
         {
             string currentUserId = User.Identity.GetUserId();
-            var currentUser = this.data.Users.All()
-                .FirstOrDefault(u => u.Id == currentUserId);
+            var currentUser = this.GetUser(currentUserId);
 
             if (currentUser == null)
             {
                 return this.RedirectToAction("Index", "Home", new { Area = "" });   
             }
 
-            Mapper.CreateMap<User, UserViewModel>();
-            var userInfoForView = Mapper.Map<UserViewModel>(currentUser);
+            var userInfo = Mapper.Map<UserViewModel>(currentUser);
 
             var occupationsListing = new ShortListingViewModel();
             occupationsListing.Title = "Occupations";
             occupationsListing.Type = "Occupation";
-            occupationsListing.Items = userInfoForView.Occupations;
+            occupationsListing.Items = userInfo.Occupations;
 
             var fieldsListing = new ShortListingViewModel();
             fieldsListing.Title = "Fields";
             fieldsListing.Type = "Field";
-            fieldsListing.Items = userInfoForView.Fields;
+            fieldsListing.Items = userInfo.Fields;
 
             var proInfo = new PrivateProInfoViewModel();
             proInfo.OccupationsListing = occupationsListing;
             proInfo.FieldsListing = fieldsListing;
 
-            var messagesReceived = this.data.Messages.All()
-                .Where(m => m.ToUserId == currentUserId)
-                .OrderByDescending(n => n.CreatedOn)
+            var messagesReceived = profileServices.GetUserMessages(currentUserId)
                 .GroupBy(m => m.FromUserId)
                 .Select(g => new MessageViewModel
                 {
@@ -162,14 +150,10 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     IsRead = g.FirstOrDefault().IsRead
                 });
 
-            var connectionRequests = this.data.Connections.All()
-                .Where(c => c.SecondUserId == currentUserId)
-                .Where(c => !c.IsAccepted)
-                .OrderByDescending(n => n.CreatedOn)
+            var connectionRequests = profileServices.GetUserConnectionRequests(currentUserId)
                 .Project().To<ConnectionViewModel>();
 
-            var notifications = this.data.Notifications.All()
-                .OrderByDescending(n => n.CreatedOn)
+            var notifications = profileServices.GetUserNotifications(currentUserId)
                 .Project().To<NotificationShortViewModel>();
 
             var updateModel = new UpdatesViewModel();
@@ -197,11 +181,11 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
             var privateProfileInfo = new PrivateProfileViewModel();
 
-            IList<NavigationItem> navItems = this.GetNavItems();
+            IList<NavigationItem> navItems = this.GetNavItems(currentUser.Id);
             var navList = new HorizontalNavbarViewModel();
             navList.Title = "Navigation";
             navList.ListItems = navItems;
-            privateProfileInfo.UserInfo = userInfoForView;
+            privateProfileInfo.UserInfo = userInfo;
             privateProfileInfo.UpdatesInfo = updateModel;
             privateProfileInfo.NavigationList = navList;
             privateProfileInfo.ProInfo = proInfo;
@@ -215,9 +199,8 @@ namespace Professional.Web.Areas.UserArea.Controllers
             return Content(endorsee.FirstName);
         }
 
-        private IList<NavigationItem> GetNavItems()
+        private IList<NavigationItem> GetNavItems(string currentUserId)
         {
-            var currentUserId = User.Identity.GetUserId();
             return new List<NavigationItem>
             {
                 new NavigationItem { 

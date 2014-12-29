@@ -13,7 +13,7 @@
         @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_EndorsementsView.cshtml", Model.UserInfo.Endorsements)        
     </div>
     <div class="col-md-5">
-        @if (ViewBag.IsEndorsed != "true")
+        @if (Model.EndorseFunctionality != null)
         {
             @Html.Partial("~/Views/Shared/Partials/_Endorsement.cshtml", Model.EndorseFunctionality)
         }  
@@ -26,49 +26,9 @@
 </div>
 
 @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ChatView.cshtml")
+@Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ConnectionView.cshtml", Model.ContactInfo)
 
 
-<div class="modal fade" id="confirm-connection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            @if (Model.ContactInfo.IsConnected && Model.ContactInfo.IsAccepted)
-            {
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">
-                        You are already connected to @Model.UserInfo.FullName. Do you want to remove this connection?
-                    </h4>
-                </div>
-                <div class="modal-footer text-center">
-                    <a href="@(WebConstants.UpdateAcceptConnectionPageRoute + Model.ContactInfo)" class="btn btn-default">Yes</a>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                </div>
-            }
-            else if (Model.ContactInfo.IsConnected && !Model.ContactInfo.IsAccepted)
-            {
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">
-                        Connection request to @Model.UserInfo.FullName<br />is pending. Do you want to decline it?
-                    </h4>
-                </div>
-                <div class="modal-footer text-center">
-                    <a href="@(WebConstants.UpdateDeclineUserPageRoute + @Model.UserInfo.ID)" class="btn btn-default">Yes</a>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                </div>
-            }
-            else
-            {
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">You want to connect to @Model.UserInfo.FullName?</h4>
-                </div>
-                <div class="modal-footer text-center">
-                    <a href="@(WebConstants.UpdateConnectPageRoute + @Model.UserInfo.ID)" class="btn btn-default">Yes</a>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                </div>
-            }
-
-        </div>
-    </div>
-</div>
 
 
 
