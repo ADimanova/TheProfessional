@@ -4,7 +4,7 @@
 <ul class="nav nav-pills extreme updates">
     <li role="presentation" class="glif-updates chat dropdown">
             <a class="dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-expanded="true" href="#">
-                <span class="glyphicon glyphicon-envelope" data-messaged="@Model.IsMessaged" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-envelope" data-messaged="@Model.HasNewMessages" aria-hidden="true"></span>
             </a>
         @if (Model.ActiveChats != null && Model.ActiveChats.Count() > 0)
         {
@@ -14,7 +14,8 @@
                     <li role="presentation">
                         <a role="menuitem" class="chat-open small" tabindex="-1" href="#"
                            data-value="@item.FromUserId" data-discution-with="@item.FromUserName">
-                            <span class="bold">@item.FromUserName: </span> @item.Preview
+                            <span class="bold">@item.FromUserName: </span> 
+                            @item.Preview
                         </a>
                     </li>
                 }
@@ -49,7 +50,25 @@
         }
     </li>
     <li role="presentation" class="glif-updates">
-        <a href="#"><span class="glyphicon glyphicon-bullhorn" data-messaged="@Model.IsMessaged" aria-hidden="true"></span></a>
+        <a class="dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-expanded="true" href="#">
+            <span class="glyphicon glyphicon-user" data-messaged="@Model.HasNewNotifications" aria-hidden="true"></span>
+        </a>
+        @if (Model.Notifications != null && Model.Notifications.Count() > 0)
+        {
+            <ul class="dropdown-menu position-dropdown" role="menu" aria-labelledby="dropdownMenu">
+                @foreach (var item in Model.Notifications)
+                {
+                    <li role="presentation" class="li-wide">
+                        <a role="menuitem" class="small" tabindex="-1" href="#">
+                            @*@item.ID*@
+                            <span class="bold">@item.Title</span>
+                            <br />
+                            @item.Preview
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
     </li>
 </ul>
 

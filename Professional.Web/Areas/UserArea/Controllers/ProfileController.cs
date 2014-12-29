@@ -152,24 +152,34 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
             var messagesReceived = this.data.Messages.All()
                 .Where(m => m.ToUserId == currentUserId)
-                .Where(m => m.IsRead == false)
+                .OrderByDescending(n => n.CreatedOn)
                 .GroupBy(m => m.FromUserId)
-                .Select(g => new MessagesViewModel
+                .Select(g => new MessageViewModel
                 {
                     FromUserId = g.Key,
                     FromUserName = g.FirstOrDefault().FromUser.FirstName + " " + g.FirstOrDefault().FromUser.LastName,
                     Preview = g.FirstOrDefault().Content.Substring(0, 20) + "...",
+                    IsRead = g.FirstOrDefault().IsRead
                 });
 
             var connectionRequests = this.data.Connections.All()
                 .Where(c => c.SecondUserId == currentUserId)
                 .Where(c => !c.IsAccepted)
+                .OrderByDescending(n => n.CreatedOn)
                 .Project().To<ConnectionViewModel>();
 
+            var notifications = this.data.Notifications.All()
+                .OrderByDescending(n => n.CreatedOn)
+                .Project().To<NotificationShortViewModel>();
+
             var updateModel = new UpdatesViewModel();
+            if (messagesReceived.Any(m => !m.IsRead))
+            {
+                updateModel.HasNewMessages = true;
+            }
+
             if (messagesReceived.Count() > 0)
             {
-                updateModel.IsMessaged = true;
                 updateModel.ActiveChats = messagesReceived.ToList();
             }
 
@@ -177,6 +187,12 @@ namespace Professional.Web.Areas.UserArea.Controllers
             {
                 updateModel.HasNewConnection = true;
                 updateModel.ConnectionRequests = connectionRequests.ToList();
+            }
+
+            if (notifications.Count() > 0)
+            {
+                updateModel.HasNewNotifications = true;
+                updateModel.Notifications = notifications.ToList();
             }
 
             var privateProfileInfo = new PrivateProfileViewModel();

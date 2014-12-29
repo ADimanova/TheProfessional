@@ -253,7 +253,9 @@
     <Compile Include="Areas\UserArea\Models\ChatViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\ContactViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\DatabaseVeiwModels\ConnectionViewModel.cs" />
-    <Compile Include="Areas\UserArea\Models\ListingViewModels\MessagesViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\DatabaseVeiwModels\MessageViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\DatabaseVeiwModels\NotificationShortViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\DatabaseVeiwModels\NotificationViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\ListingViewModels\EndorsementViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\ListingViewModels\ListCollectionViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\ListingViewModels\ItemsByFieldViewModel.cs" />

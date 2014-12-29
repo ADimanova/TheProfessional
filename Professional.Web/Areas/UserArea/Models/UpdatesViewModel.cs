@@ -10,10 +10,11 @@ namespace Professional.Web.Areas.UserArea.Models
 {
     public class UpdatesViewModel
     {
-        public bool IsMessaged { get; set; }
+        public bool HasNewMessages { get; set; }
         public bool HasNewConnection { get; set; }
-        public bool IsUpdated { get; set; }
-        public IEnumerable<MessagesViewModel> ActiveChats { get; set; }
+        public bool HasNewNotifications { get; set; }
+        public IEnumerable<MessageViewModel> ActiveChats { get; set; }
         public IEnumerable<ConnectionViewModel> ConnectionRequests { get; set; }
+        public IEnumerable<NotificationShortViewModel> Notifications { get; set; }
     }
 }
