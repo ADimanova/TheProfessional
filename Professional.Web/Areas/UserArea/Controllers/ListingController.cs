@@ -24,12 +24,12 @@ namespace Professional.Web.Areas.UserArea.Controllers
         }
 
         // GET: UserArea/Listing
-        public ActionResult Users(string id, int? page)
+        public ActionResult Users(string id, int? page, string user)
         {
             int pageNumber = page.GetValueOrDefault(1);
 
             // id is the filter value
-            var users = this.listingServices.GetUsers(id);
+            var users = this.listingServices.GetUsers(id, user);
             var usersCount = users.Count();
             var usersPaged = users.OrderBy(f => f.UserName)
                 .Skip((pageNumber - 1) * itemsPerPage)
@@ -51,7 +51,15 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
             var pageCount = Math.Ceiling((double)usersCount / itemsPerPage);
             this.SetPaging(pageNumber, pageCount);
-            ViewBag.Url = WebConstants.UsersPageRoute;
+
+            if (user == null)
+            {
+                ViewBag.Url = WebConstants.UsersPageRoute;
+            }
+            else
+            {
+                ViewBag.Url = WebConstants.UserConnectionsPageRoute + user + "/";
+            }
 
             var viewModel = new ListCollectionViewModel();
             viewModel.WithImage = true;

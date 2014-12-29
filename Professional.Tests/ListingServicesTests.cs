@@ -111,7 +111,7 @@ namespace Professional.Tests
 
             var listingServices = new ListingServices(data.Object, cache.Object);
 
-            var fieldsResult = listingServices.GetUsers(null);
+            var fieldsResult = listingServices.GetUsers(null, null);
 
             Assert.AreEqual(2, fieldsResult.Count());
         }
@@ -142,7 +142,7 @@ namespace Professional.Tests
 
             var listingServices = new ListingServices(data.Object, cache.Object);
 
-            var fieldsResult = listingServices.GetUsers("A");
+            var fieldsResult = listingServices.GetUsers("A", null);
 
             Assert.AreEqual(1, fieldsResult.Count());
         }

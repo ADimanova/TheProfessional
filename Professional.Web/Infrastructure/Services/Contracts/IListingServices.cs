@@ -11,7 +11,7 @@ namespace Professional.Web.Infrastructure.Services.Contracts
 {
     public interface IListingServices
     {
-        IQueryable<User> GetUsers(string filter);
+        IQueryable<User> GetUsers(string filter, string user);
         IQueryable<Post> GetPosts(string filter, string user);
         IQueryable<EndorsementOfUser> GetEndorsements(string userID);
         IQueryable<string> GetLetters();

@@ -208,12 +208,16 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     Url = WebConstants.CreatePostPageRoute
                 },
                 new NavigationItem { 
-                    Content = "Go to post's page",
+                    Content = "Posts",
                     Url = WebConstants.UserPostsPageRoute + currentUserId
                 },
                 new NavigationItem { 
-                    Content = "Go to endorsements's page",
+                    Content = "Endorsements",
                     Url = WebConstants.UserEndorsementsPageRoute + currentUserId
+                },
+                new NavigationItem { 
+                    Content = "Connections",
+                    Url = WebConstants.UserConnectionsPageRoute + currentUserId
                 },
             };
         }
@@ -263,8 +267,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
         public ActionResult Delete(string query, string type, string title)
         {
             string currentUserId = User.Identity.GetUserId();
-            var currentUser = this.data.Users.All()
-                .FirstOrDefault(u => u.Id == currentUserId);
+            var currentUser = this.GetUser(currentUserId);
 
             if (type == "Occupation")
             {

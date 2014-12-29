@@ -27,7 +27,7 @@ namespace Professional.Web.Infrastructure.Services
         {
         }
 
-        public IQueryable<User> GetUsers(string filter)
+        public IQueryable<User> GetUsers(string filter, string user)
         {
             var users = this.Cache.Get<IQueryable<User>>("UsersListing",
                 () => this.Data.Users.All().Where(u => !u.IsDeleted));
@@ -36,6 +36,12 @@ namespace Professional.Web.Infrastructure.Services
             {
                 filter = filter.ToLower();
                 users = users.Where(u => u.LastName.Substring(0, 1).ToLower() == filter);
+            }
+
+            if (user != null)
+            {
+                users = users.Where(u => u.Connections
+                    .Any(c => (c.FirstUserId == user || c.SecondUserId == user) && c.IsAccepted));
             }
 
             return users;

@@ -15,9 +15,15 @@ namespace Professional.Web.Areas.UserArea
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "UserListings",
+                "PostsOfUserListings",
                 "UserArea/Listing/Posts/User/{user}/{id}",
                 new { controller = "Listing", action = "Posts", id = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "ConnectionsOfUserListings",
+                "UserArea/Listing/Connections/User/{user}/{id}",
+                new { controller = "Listing", action = "Users", id = UrlParameter.Optional }
             );
 
             context.MapRoute(
