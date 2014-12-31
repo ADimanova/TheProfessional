@@ -3,9 +3,9 @@
 
 <ul class="nav nav-pills extreme updates">
     <li role="presentation" class="glif-updates chat dropdown">
-            <a class="dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-expanded="true" href="#">
-                <span class="glyphicon glyphicon-envelope" data-messaged="@Model.HasNewMessages" aria-hidden="true"></span>
-            </a>
+        <a class="dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-expanded="true" href="#">
+            <span class="glyphicon glyphicon-envelope" data-messaged="@Model.HasNewMessages" aria-hidden="true"></span>
+        </a>
         @if (Model.ActiveChats != null && Model.ActiveChats.Count() > 0)
         {
             <ul class="dropdown-menu position-dropdown" role="menu" aria-labelledby="dropdownMenu">
@@ -72,4 +72,3 @@
     </li>
 </ul>
 
-@Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ChatView.cshtml")

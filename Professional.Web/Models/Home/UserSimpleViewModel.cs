@@ -10,6 +10,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Professional.Web.Models
 {
+    // Used to display featured users on the home page
     public class UserSimpleViewModel : IMapFrom<User>, IHaveCustomMappings
     {
         public string ID { get; set; }
@@ -22,14 +23,16 @@ namespace Professional.Web.Models
 
         public void CreateMappings(IConfiguration configuration)
         {
-            // TODO: Try to get around using string concatenation - use model GetFullName method
             configuration.CreateMap<User, UserSimpleViewModel>()
                .ForMember(p => p.FullName,
                options => options.MapFrom(u => u.FirstName + " " + u.LastName));
 
              configuration.CreateMap<User, UserSimpleViewModel>()
                 .ForMember(p => p.FieldList,
-                options => options.MapFrom(u => u.FieldsOfExpertise.Where(f => f.IsDeleted == false).Select(f => f.Name)));
+                options => options
+                    .MapFrom(u => u.FieldsOfExpertise
+                        .Where(f => f.IsDeleted == false)
+                        .Select(f => f.Name)));
         }
     }
 }

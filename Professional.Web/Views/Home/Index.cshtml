@@ -1,7 +1,5 @@
 ﻿@using Professional.Web.Helpers;
-
 @model IndexViewModel
-
 @{
     ViewBag.Title = "Home Page";
 }
@@ -52,7 +50,7 @@
                     </a>
                         <div class="media-body feature">
                             <h5 class="media-heading">@pro.FullName</h5>
-                             pro at @StringManipulations.GetJoinedList(pro.FieldList, "nothing.")
+                            pro at @StringManipulations.GetJoinedList(pro.FieldList, "nothing.")
                         </div>
                 </div>
             }

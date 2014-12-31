@@ -11,14 +11,7 @@
     <div class="panel-body ">
         <div class="media holder ">
             <a class="media-left" href="#">
-                @if (Model.ProfileImageId != null)
-                {
-                    <img src="@Url.Action("ImageById", "Image", new { Area = "", id = Model.ProfileImageId.Value })" alt="@Model.FullName" class="img-responsive img-rounded" />
-                }
-                else
-                {
-                    <img src="~/Images/default-profile-pic.png" alt="News Image" class="img-responsive img-rounded" style="width: 15em; height: auto;" />
-                }
+                <img src="@Model.ProfileImageUrl" alt="@Model.FullName" class="img-responsive img-rounded" style="width: 15em; height: auto;" />
             </a>
             <div class="media-body">
                 <h5 class="media-heading">@Model.FullName</h5>
@@ -31,7 +24,7 @@
                 <div class="less-width wrapped">
                     <b>Personal history</b>
                     <br />
-                    <span>@StringManipulations.GetSubstring(Model.GetPersonalHistory(), 0, 250)</span>
+                    <span>@Model.PersonalHistory</span>
                 </div>
                 @if (isPrivate)
                 {

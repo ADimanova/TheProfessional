@@ -2,7 +2,7 @@
 @model PublicProfileViewModel
 
 @{
-    ViewBag.Title = "Public";
+    ViewBag.Title = "Public Profile";
 }
 
 <div class="row">
@@ -15,7 +15,7 @@
     <div class="col-md-5">
         @if (Model.EndorseFunctionality != null)
         {
-            @Html.Partial("~/Views/Shared/Partials/_Endorsement.cshtml", Model.EndorseFunctionality)
+            @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_Endorsement.cshtml", Model.EndorseFunctionality)
         }  
         @Html.Partial("~/Views/Shared/Partials/_BtnNavigate.cshtml", Model.BtnNavigatePosts)
         @Html.Partial("~/Views/Shared/Partials/_BtnNavigate.cshtml", Model.BtnNavigateEndorsements)

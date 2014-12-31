@@ -43,6 +43,16 @@ namespace Professional.Web.Areas.UserArea.Controllers
             }
 
             var userInfo = Mapper.Map<UserViewModel>(currentUser);
+            userInfo.PersonalHistory = this.GetModifiedHistory(userInfo.PersonalHistory);
+
+                if (userInfo.ProfileImageId != null)
+                {
+                    userInfo.ProfileImageUrl = Url.Action("ImageById", "Image", new { Area = "", id = userInfo.ProfileImageId.Value });
+                }
+                else
+                {
+                    userInfo.ProfileImageUrl = "~/Images/default-profile-pic.png";
+                }
 
             var userFields = profileServices.GetUserFields(id)
                 .Select(f => f.Name).ToList();
@@ -125,6 +135,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             }
 
             var userInfo = Mapper.Map<UserViewModel>(currentUser);
+            userInfo.PersonalHistory = this.GetModifiedHistory(userInfo.PersonalHistory);
 
             var occupationsListing = new ShortListingViewModel();
             occupationsListing.Title = "Occupations";
@@ -199,27 +210,42 @@ namespace Professional.Web.Areas.UserArea.Controllers
             return Content(endorsee.FirstName);
         }
 
-        private IList<NavigationItem> GetNavItems(string currentUserId)
+        public ActionResult Delete(string query, string type, string title)
         {
-            return new List<NavigationItem>
+            string currentUserId = User.Identity.GetUserId();
+            var currentUser = this.GetUser(currentUserId);
+
+            IEnumerable<string> editedResult;
+
+            if (type == "Occupation")
             {
-                new NavigationItem { 
-                    Content = "Create Post",
-                    Url = WebConstants.CreatePostPageRoute
-                },
-                new NavigationItem { 
-                    Content = "Posts",
-                    Url = WebConstants.UserPostsPageRoute + currentUserId
-                },
-                new NavigationItem { 
-                    Content = "Endorsements",
-                    Url = WebConstants.UserEndorsementsPageRoute + currentUserId
-                },
-                new NavigationItem { 
-                    Content = "Connections",
-                    Url = WebConstants.UserConnectionsPageRoute + currentUserId
-                },
-            };
+                var occupation = this.data.Occupations.All()
+                    .FirstOrDefault(f => f.Title == query);
+                currentUser.Occupations.Remove(occupation);
+                this.data.SaveChanges();
+
+                editedResult = currentUser.Occupations.Select(o => o.Title);
+            }
+            else if (type == "Field")
+            {
+                var field = this.data.FieldsOfExpertise.All()
+                    .FirstOrDefault(f => f.Name == query);
+                currentUser.FieldsOfExpertise.Remove(field);
+                this.data.SaveChanges();
+
+                editedResult = currentUser.FieldsOfExpertise.Select(o => o.Name);
+            }
+            else
+            {
+                return View("Error");
+            }
+
+            var listModel = new ShortListingViewModel();
+            listModel.Title = title;
+            listModel.Type = type;
+            listModel.Items = editedResult;
+
+            return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ShortListPanel.cshtml", listModel);
         }
 
         public ActionResult Filter(string query, string condition)
@@ -233,10 +259,10 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 .Where(p => p.CreatorID == currentUser.Id);
 
             if (query != "All")
-	        {
+            {
                 posts = posts
                 .Where(p => p.Field.Name == query);
-	        }
+            }
 
             if (condition == "Recent")
             {
@@ -264,47 +290,39 @@ namespace Professional.Web.Areas.UserArea.Controllers
             return this.PartialView("~/Views/Shared/Partials/_ListItems.cshtml", resultPosts);
         }
 
-        public ActionResult Delete(string query, string type, string title)
+        private string GetModifiedHistory(string history)
         {
-            string currentUserId = User.Identity.GetUserId();
-            var currentUser = this.GetUser(currentUserId);
-
-            if (type == "Occupation")
+            if (history == null)
             {
-                var occupation = this.data.Occupations.All()
-                    .FirstOrDefault(f => f.Title == query);
-                currentUser.Occupations.Remove(occupation);
-                this.data.SaveChanges();
-
-                var editedOccupations = currentUser.Occupations;
-
-                var model = new ShortListingViewModel();
-                model.Title = title;
-                model.Type = type;
-                model.Items = editedOccupations.Select(o => o.Title);
-
-                return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ShortListPanel.cshtml", model);
-            }
-            else if (type == "Field")
-            {
-                var field = this.data.FieldsOfExpertise.All()
-                    .FirstOrDefault(f => f.Name == query);
-                currentUser.FieldsOfExpertise.Remove(field);
-                this.data.SaveChanges();
-
-                var editedFields = currentUser.FieldsOfExpertise;
-
-                var model = new ShortListingViewModel();
-                model.Title = title;
-                model.Type = type;
-                model.Items = editedFields.Select(o => o.Name);
-
-                return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ShortListPanel.cshtml", model);
+                return WebConstants.DefaultHistory;
             }
             else
             {
-                return View("Error");
+                return history;
             }
+        }
+
+        private IList<NavigationItem> GetNavItems(string currentUserId)
+        {
+            return new List<NavigationItem>
+            {
+                new NavigationItem { 
+                    Content = "Create Post",
+                    Url = WebConstants.CreatePostPageRoute
+                },
+                new NavigationItem { 
+                    Content = "Posts",
+                    Url = WebConstants.UserPostsPageRoute + currentUserId
+                },
+                new NavigationItem { 
+                    Content = "Endorsements",
+                    Url = WebConstants.UserEndorsementsPageRoute + currentUserId
+                },
+                new NavigationItem { 
+                    Content = "Connections",
+                    Url = WebConstants.UserConnectionsPageRoute + currentUserId
+                },
+            };
         }
     }
 }

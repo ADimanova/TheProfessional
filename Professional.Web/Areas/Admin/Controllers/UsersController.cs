@@ -9,16 +9,21 @@ using AutoMapper.QueryableExtensions;
 using Professional.Web.Areas.Admin.Models;
 using System.Net;
 using AutoMapper;
+using Professional.Web.Helpers;
+using Professional.Common;
 
 namespace Professional.Web.Areas.Admin.Controllers
 {
     public class UsersController : AdminController
     {
         private readonly ISanitiser sanitizer;
+        private readonly string adminRoleId;
         public UsersController(IApplicationData data, ISanitiser sanitizer)
             :base(data)
         {
             this.sanitizer = sanitizer;
+            this.adminRoleId = this.data.Roles.All()
+                .FirstOrDefault(r => r.Name == GlobalConstants.AdministratorRoleName).Id;
         }
 
         public ActionResult UsersAdmin()
@@ -26,7 +31,16 @@ namespace Professional.Web.Areas.Admin.Controllers
             var users = this.data.Users.All()
                 .Where(u => !u.IsDeleted)
                 .OrderBy(p => p.LastName)
-                .Project().To<UserAdminModel>();
+                .Select(u => new UserAdminModel
+                {
+                    Id = u.Id,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Username = u.UserName,
+                    CreatedOn = u.CreatedOn,
+                    ModifiedOn = u.ModifiedOn,
+                    IsAdmin = u.Roles.Any(r => r.RoleId == this.adminRoleId)
+                });
 
             var model = new UsersAdminModel();
             model.Users = users.ToList();

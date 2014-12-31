@@ -5,6 +5,7 @@ using Professional.Web.Areas.UserArea.Models.ListingViewModels;
 using Professional.Web.Helpers;
 using Professional.Web.Infrastructure.Services.Contracts;
 using Professional.Web.Models;
+using Professional.Web.Models.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 .Select(g => new ItemsByFieldViewModel
                 {
                     Name = g.Key.ToString(),
-                    Items = g.Select(i => new NavigationItem
+                    Items = g.Select(i => new NavigationItemWithImage
                     {
                         Content = i.LastName + ", " + i.FirstName,
                         Url = WebConstants.PublicProfilePageRoute + i.Id,
@@ -89,7 +90,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 .Select(p => new ItemsByFieldViewModel
                 {
                     Name = p.FirstOrDefault().Field.Name,
-                    Items = p.Select(i => new NavigationItem
+                    Items = p.Select(i => new NavigationItemWithImage
                     {
                         Content = i.Title,
                         Url = WebConstants.PostPageRoute + i.ID
@@ -144,7 +145,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 .Select(g => new ItemsByFieldViewModel
                 {
                     Name = g.Key.ToString(),
-                    Items = g.Select(i => new NavigationItem
+                    Items = g.Select(i => new NavigationItemWithImage
                     {
                         Content = i.AuthorLastName + ", " + i.AuthorFirstName,
                         Url = WebConstants.PublicProfilePageRoute + i.AuthorID

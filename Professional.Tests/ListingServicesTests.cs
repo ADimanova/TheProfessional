@@ -75,7 +75,7 @@ namespace Professional.Tests
 
             var cache = new Mock<ICacheService>();
             cache.Setup(c => c.Get<IQueryable<string>>(It.IsAny<string>(), It.IsAny<Func<IQueryable<string>>>()))
-                .Returns(() => fakeFields.Where(i => i.IsDeleted == false).Select(i => i.Name).AsQueryable<string>());
+                .Returns(() => fakeFields.Where(f => !f.IsDeleted).Select(i => i.Name).AsQueryable<string>());
 
             var listingServices = new ListingServices(data.Object, cache.Object);
 
@@ -147,6 +147,89 @@ namespace Professional.Tests
             Assert.AreEqual(1, fieldsResult.Count());
         }
 
+        [TestMethod]
+        public void GetUsersReturnsCorrectResultWithUser()
+        {
+
+            var userConnections = new List<Connection> {
+                new Connection {
+                    FirstUserId = "abc",
+                    SecondUserId = "def",
+                    IsAccepted = true
+                }
+            };
+
+            var fakeUsers = new List<User> {
+                new User { 
+                    FirstName = "A",
+                    LastName = "A",
+                    Connections = userConnections
+                },
+                new User { 
+                    FirstName = "B",
+                    LastName = "B"
+                }
+            }.AsQueryable();
+
+            var fieldsRepo = new Mock<IDeletableEntityRepository<User>>();
+            fieldsRepo.Setup(f => f.All()).Returns(fakeUsers);
+
+            var data = new Mock<IApplicationData>();
+            data.Setup(f => f.Users).Returns(fieldsRepo.Object);
+
+            var cache = new Mock<ICacheService>();
+            cache.Setup(c => c.Get<IQueryable<User>>(It.IsAny<string>(), It.IsAny<Func<IQueryable<User>>>()))
+                .Returns(() => fakeUsers.AsQueryable());
+
+            var listingServices = new ListingServices(data.Object, cache.Object);
+
+            var fieldsResult = listingServices.GetUsers(null, "abc");
+
+            Assert.AreEqual(1, fieldsResult.Count());
+        }
+
+        [TestMethod]
+        public void GetUsersReturnsCorrectResultWithUserAndFilter()
+        {
+
+            var userConnections = new List<Connection> {
+                new Connection {
+                    FirstUserId = "abc",
+                    SecondUserId = "def",
+                    IsAccepted = true
+                }
+            };
+
+            var fakeUsers = new List<User> {
+                new User { 
+                    FirstName = "A",
+                    LastName = "A",
+                    Connections = userConnections
+                },
+                new User { 
+                    FirstName = "B",
+                    LastName = "B",
+                    Connections = userConnections
+                }
+            }.AsQueryable();
+
+            var fieldsRepo = new Mock<IDeletableEntityRepository<User>>();
+            fieldsRepo.Setup(f => f.All()).Returns(fakeUsers);
+
+            var data = new Mock<IApplicationData>();
+            data.Setup(f => f.Users).Returns(fieldsRepo.Object);
+
+            var cache = new Mock<ICacheService>();
+            cache.Setup(c => c.Get<IQueryable<User>>(It.IsAny<string>(), It.IsAny<Func<IQueryable<User>>>()))
+                .Returns(() => fakeUsers.AsQueryable());
+
+            var listingServices = new ListingServices(data.Object, cache.Object);
+
+            var fieldsResult = listingServices.GetUsers("A", "abc");
+
+            Assert.AreEqual(1, fieldsResult.Count());
+        }
+
         // GetPosts Tests
         [TestMethod]
         public void GetPostsReturnsCorrectResultNoFilterNoUserTest()
@@ -176,7 +259,7 @@ namespace Professional.Tests
 
             var cache = new Mock<ICacheService>();
             cache.Setup(c => c.Get<IQueryable<Post>>(It.IsAny<string>(), It.IsAny<Func<IQueryable<Post>>>()))
-                .Returns(() => fakePosts.Where(i => i.IsDeleted == false).AsQueryable());
+                .Returns(() => fakePosts.AsQueryable());
 
             var listingServices = new ListingServices(data.Object, cache.Object);
 
@@ -253,7 +336,7 @@ namespace Professional.Tests
 
             var cache = new Mock<ICacheService>();
             cache.Setup(c => c.Get<IQueryable<Post>>(It.IsAny<string>(), It.IsAny<Func<IQueryable<Post>>>()))
-                .Returns(() => fakePosts.Where(i => i.IsDeleted == false).AsQueryable());
+                .Returns(() => fakePosts.AsQueryable());
 
             var listingServices = new ListingServices(data.Object, cache.Object);
 
@@ -290,7 +373,7 @@ namespace Professional.Tests
 
             var cache = new Mock<ICacheService>();
             cache.Setup(c => c.Get<IQueryable<EndorsementOfUser>>(It.IsAny<string>(), It.IsAny<Func<IQueryable<EndorsementOfUser>>>()))
-                .Returns(() => fakeEndorsements.Where(i => i.IsDeleted == false).AsQueryable());
+                .Returns(() => fakeEndorsements.AsQueryable());
 
             var listingServices = new ListingServices(data.Object, cache.Object);
 

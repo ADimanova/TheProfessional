@@ -1,4 +1,5 @@
-﻿using Professional.Data.Contracts;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Professional.Data.Contracts;
 using Professional.Data.Repositories;
 using Professional.Data.Repositories.Base;
 using Professional.Models;
@@ -21,7 +22,7 @@ namespace Professional.Data
         {
             this.context = context;
         }
-
+       
         public IApplicationDbContext Context
         {
             get
@@ -33,6 +34,10 @@ namespace Professional.Data
         public IRepository<User> Users
         {
             get { return this.GetRepository<User>(); }
+        }
+        public IRepository<IdentityRole> Roles
+        {
+            get { return this.GetRepository<IdentityRole>(); }
         }
 
         public IDeletableEntityRepository<Post> Posts

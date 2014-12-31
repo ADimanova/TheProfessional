@@ -1,4 +1,5 @@
-﻿using Professional.Data;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Professional.Data;
 using Professional.Data.Contracts;
 using Professional.Models;
 using System;
@@ -13,6 +14,7 @@ namespace Professional.Data
     {
         IApplicationDbContext Context { get; }
         IRepository<User> Users { get; }
+        IRepository<IdentityRole> Roles { get; }
         IDeletableEntityRepository<Post> Posts { get; }
         IDeletableEntityRepository<EndorsementOfPost> EndorsementsOfPosts { get; }
         IDeletableEntityRepository<EndorsementOfUser> EndorsementsOfUsers { get; }

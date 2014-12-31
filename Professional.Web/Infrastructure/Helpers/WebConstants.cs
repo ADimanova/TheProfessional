@@ -9,6 +9,7 @@ namespace Professional.Web.Helpers
     public static class WebConstants
     {
         public static readonly IList<string> EmptyList = new List<string> { "no values specified" };
+        public static readonly string DefaultHistory = "No personal history has been added.";
 
         // Visualization counts
         public const int PostsPerPage = 5;

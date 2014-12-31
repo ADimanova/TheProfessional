@@ -13,7 +13,6 @@ namespace Professional.Web.Areas.UserArea.Models
 {
     public class UserViewModel : IMapFrom<User>, IHaveCustomMappings
     {
-        private const string DefaultHistory = "No personal history has been added.";
         public string ID { get; set; }
         public string FullName { get; set; }
 
@@ -25,6 +24,7 @@ namespace Professional.Web.Areas.UserArea.Models
         public DateTime DateOfBirth { get; set; }
 
         public int? ProfileImageId { get; set; }
+        public string ProfileImageUrl { get; set; }
         public IEnumerable<string> Occupations { get; set; }
         public IEnumerable<string> Fields { get; set; }
         public IEnumerable<EndorsementViewModel> Endorsements { get; set; }
@@ -47,24 +47,6 @@ namespace Professional.Web.Areas.UserArea.Models
                 .ForMember(p => p.Endorsements,
                     options => options.MapFrom(u => u.UsersEndorsements.Select(e => e.Comment
                     )));
-                //options => options.MapFrom(u => u.UsersEndorsements.Select(e => 
-                //    new NavigationItem 
-                //    { 
-                //        Content = e.EndorsingUser.FirstName + e.EndorsingUser.LastName,
-                //        Url = e.ID.ToString()
-                //    })));
-        }
-
-        public string GetPersonalHistory()
-        {
-            if (this.PersonalHistory == null)
-            {
-                return DefaultHistory;
-            }
-            else
-            {
-                return this.PersonalHistory;
-            }
         }
     }
 }

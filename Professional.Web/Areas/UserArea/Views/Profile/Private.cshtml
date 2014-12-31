@@ -2,7 +2,7 @@
 @model PrivateProfileViewModel
 
 @{
-    ViewBag.Title = "Private";
+    ViewBag.Title = "Private Profile";
 }
 
 <div class="row">
@@ -18,6 +18,8 @@
 </div>
 
 @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_UpdatesView.cshtml", Model.UpdatesInfo)
+@Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ChatView.cshtml")
+
 
 
 

@@ -31,7 +31,7 @@ namespace Professional.Web.Models
         {
             configuration.CreateMap<Post, PostViewModel>()
                 .ForMember(p => p.Creator, 
-                options => options.MapFrom(c => c.Creator.FirstName + " " +  c.Creator.LastName));
+                options => options.MapFrom(c => c.Creator.FullName));
         }
     }
 }
