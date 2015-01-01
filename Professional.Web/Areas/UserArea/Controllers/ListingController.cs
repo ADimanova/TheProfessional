@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Professional.Common.Extensions;
 
 namespace Professional.Web.Areas.UserArea.Controllers
 {
@@ -46,8 +47,11 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     {
                         Content = i.LastName + ", " + i.FirstName,
                         Url = WebConstants.PublicProfilePageRoute + i.Id,
-                        ImageId = i.ProfileImageId
-                    }).ToList()
+                        ImageUrl = i.ProfileImageId == null ?
+                            WebConstants.DefaultImage : 
+                            WebConstants.GetImagePageRoute + i.ProfileImageId
+                    })
+                    .ToList()
                 });
 
             var pageCount = Math.Ceiling((double)usersCount / itemsPerPage);

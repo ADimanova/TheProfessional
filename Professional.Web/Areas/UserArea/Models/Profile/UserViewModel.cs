@@ -14,6 +14,7 @@ namespace Professional.Web.Areas.UserArea.Models
     public class UserViewModel : IMapFrom<User>, IHaveCustomMappings
     {
         public string ID { get; set; }
+        public bool IsPrivate { get; set; }
         public string FullName { get; set; }
 
         [UIHint("MaleFemale")]

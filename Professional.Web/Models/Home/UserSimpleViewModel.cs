@@ -25,6 +25,7 @@ namespace Professional.Web.Models
         {
             configuration.CreateMap<User, UserSimpleViewModel>()
                .ForMember(p => p.FullName,
+               //options => options.MapFrom(u => u.FullName));
                options => options.MapFrom(u => u.FirstName + " " + u.LastName));
 
              configuration.CreateMap<User, UserSimpleViewModel>()

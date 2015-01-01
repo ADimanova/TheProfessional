@@ -10,6 +10,7 @@ namespace Professional.Web.Helpers
     {
         public static readonly IList<string> EmptyList = new List<string> { "no values specified" };
         public static readonly string DefaultHistory = "No personal history has been added.";
+        public static readonly string DefaultImage = "/Images/default-profile-pic.png";
 
         // Visualization counts
         public const int PostsPerPage = 5;
@@ -33,6 +34,8 @@ namespace Professional.Web.Helpers
 
         public const string PublicProfilePageRoute = "/UserArea/Profile/Public/";
         public const string PrivateProfilePageRoute = "/UserArea/Profile/Private/";
+
+        public const string GetImagePageRoute = "/Image/ImageById/";
 
         public const string OnRegistrationPageRoute = "/UserArea/AddInfo/OnRegistration/";
         public const string AddPersonalInfoPageRoute = "/UserArea/AddInfo/Personal/";

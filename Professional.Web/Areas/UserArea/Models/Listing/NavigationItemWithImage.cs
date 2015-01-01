@@ -7,6 +7,6 @@ namespace Professional.Web.Models.Shared
 {
     public class NavigationItemWithImage: NavigationItem
     {
-        public int? ImageId { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

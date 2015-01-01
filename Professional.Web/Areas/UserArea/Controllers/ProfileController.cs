@@ -44,15 +44,16 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
             var userInfo = Mapper.Map<UserViewModel>(currentUser);
             userInfo.PersonalHistory = this.GetModifiedHistory(userInfo.PersonalHistory);
+            userInfo.IsPrivate = false;
 
-                if (userInfo.ProfileImageId != null)
-                {
-                    userInfo.ProfileImageUrl = Url.Action("ImageById", "Image", new { Area = "", id = userInfo.ProfileImageId.Value });
-                }
-                else
-                {
-                    userInfo.ProfileImageUrl = "~/Images/default-profile-pic.png";
-                }
+            if (userInfo.ProfileImageId != null)
+            {
+                userInfo.ProfileImageUrl = Url.Action("ImageById", "Image", new { Area = "", id = userInfo.ProfileImageId.Value });
+            }
+            else
+            {
+                userInfo.ProfileImageUrl = WebConstants.DefaultImage;
+            }
 
             var userFields = profileServices.GetUserFields(id)
                 .Select(f => f.Name).ToList();
@@ -136,6 +137,16 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
             var userInfo = Mapper.Map<UserViewModel>(currentUser);
             userInfo.PersonalHistory = this.GetModifiedHistory(userInfo.PersonalHistory);
+            userInfo.IsPrivate = true;
+
+            if (userInfo.ProfileImageId != null)
+            {
+                userInfo.ProfileImageUrl = Url.Action("ImageById", "Image", new { Area = "", id = userInfo.ProfileImageId.Value });
+            }
+            else
+            {
+                userInfo.ProfileImageUrl = "~/Images/default-profile-pic.png";
+            }
 
             var occupationsListing = new ShortListingViewModel();
             occupationsListing.Title = "Occupations";

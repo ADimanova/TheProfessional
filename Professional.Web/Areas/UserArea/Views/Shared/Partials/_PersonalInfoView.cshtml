@@ -2,10 +2,6 @@
 
 @model UserViewModel
 
-@{
-    var isPrivate = ViewData["isPrivate"] == "true" ? true : false;
-}
-
 <div class="panel panel-default">
     <div class="panel-heading">Personal Information</div>
     <div class="panel-body ">
@@ -26,7 +22,7 @@
                     <br />
                     <span>@Model.PersonalHistory</span>
                 </div>
-                @if (isPrivate)
+                @if (@Model.IsPrivate)
                 {
                     <a href="@WebConstants.AddPersonalInfoPageRoute" class="btn btn-default set-bottom-right">Edit</a>
                 }

@@ -5,36 +5,30 @@
 <div class="panel panel-default">
     <div class="panel-heading">Professional Information</div>
     <div class="panel-body">
-        @if (Model.Occupations != null ||
-                Model.Occupations.Count() != 0 ||
-                Model.Fields != null ||
-                Model.Fields.Count() != 0)
+        @if (Model.Occupations != null && Model.Occupations.Count() != 0)
         {
-            if (Model.Occupations != null && Model.Occupations.Count() != 0)
-            {
-                <ul class="list-group">
-                    <li class="list-group-item borderless"><b>Ocupation history</b></li>
-                    @foreach (var occupation in Model.Occupations)
-                    {
-                        <li class="list-group-item">
-                            @occupation
-                        </li>
-                    }
-                </ul>
-            }
+            <ul class="list-group">
+                <li class="list-group-item borderless"><b>Ocupation history</b></li>
+                @foreach (var occupation in Model.Occupations)
+                {
+                    <li class="list-group-item">
+                        @occupation
+                    </li>
+                }
+            </ul>
+        }
 
-            if (Model.Fields != null && Model.Fields.Count() != 0)
-            {
-                <ul class="list-group">
-                    <li class="list-group-item borderless"><b>Fields of Expertise</b></li>
-                    @foreach (var field in Model.Fields)
-                    {
-                        <li class="list-group-item">
-                            @field
-                        </li>
-                    }
-                </ul>
-            }
+        @if (Model.Fields != null && Model.Fields.Count() != 0)
+        {
+            <ul class="list-group">
+                <li class="list-group-item borderless"><b>Fields of Expertise</b></li>
+                @foreach (var field in Model.Fields)
+                {
+                    <li class="list-group-item">
+                        @field
+                    </li>
+                }
+            </ul>
         }
     </div>
 </div>

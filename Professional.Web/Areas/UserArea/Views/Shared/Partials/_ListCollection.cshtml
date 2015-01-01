@@ -36,16 +36,8 @@
                             <a href="@item.Url" class="list-group-item">
                                 @if (Model.WithImage)
                                 {
-                                    if (item.ImageId != null)
-                                    {
-                                        <img src="@Url.Action("ImageById", "Image", new { Area = "", id = item.ImageId })" alt="Image" class="img-circle logo-custom" height="45" width="45" />
-                                    }
-                                    else
-                                    {
-                                        <img src="~/Images/default-profile-pic.png" alt="Image" class="img-circle logo-custom" height="45" width="45" />
-                                    }
+                                    <img src="@item.ImageUrl" alt="Image" class="img-circle logo-custom" height="45" width="45" />
                                 }
-
                                 <span class="enlarged-text">@item.Content</span>
                             </a>
                         }
