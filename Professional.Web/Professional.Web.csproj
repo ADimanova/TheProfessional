@@ -250,13 +250,16 @@
     <Compile Include="Areas\UserArea\Controllers\UpdatesController.cs" />
     <Compile Include="Areas\UserArea\Controllers\UserController.cs" />
     <Compile Include="Areas\UserArea\Controllers\AddInfoController.cs" />
+    <Compile Include="Areas\UserArea\Models\CreateItem\PostEndorsementInputModel.cs" />
+    <Compile Include="Areas\UserArea\Models\CreateItem\UserEndorsementInputModel.cs" />
     <Compile Include="Areas\UserArea\Models\Profile\ChatViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\Profile\Public\ContactViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\Profile\Private\ConnectionViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\Profile\MessageViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\Profile\Private\NotificationShortViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\Profile\Private\NotificationViewModel.cs" />
-    <Compile Include="Areas\UserArea\Models\Profile\Public\EndorsementViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\Shared\UserEndorsementViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\Shared\EndorsementViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\Listing\ListCollectionViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\Listing\ItemsByFieldViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\CreateItem\PostInputModel.cs" />
@@ -679,7 +682,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\UserArea\Models\Shared\" />
     <Folder Include="Areas\UserArea\Views\Updates\" />
     <Folder Include="Content\kendo\" />
     <Folder Include="Css\" />

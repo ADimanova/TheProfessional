@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper.QueryableExtensions;
-using Professional.Web.Areas.Admin.Models;
-using Professional.Data;
-using System.Net;
-using AutoMapper;
-using Professional.Web.Infrastructure.HtmlSanitise;
-using Professional.Models;
-using Microsoft.AspNet.Identity;
-
-namespace Professional.Web.Areas.Admin.Controllers
+﻿namespace Professional.Web.Areas.Admin.Controllers
 {
+    using System.Linq;
+    using System.Net;
+    using System.Web.Mvc;
+
+    using Microsoft.AspNet.Identity;
+
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+
+    using Professional.Data;
+    using Professional.Models;
+    using Professional.Web.Areas.Admin.Models;
+    using Professional.Web.Infrastructure.HtmlSanitise;
+
     public class NotificationsController : AdminController
     {
         private readonly ISanitiser sanitizer;

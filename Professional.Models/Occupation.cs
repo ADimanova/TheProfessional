@@ -1,14 +1,12 @@
-﻿using Professional.Data.Contracts;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Professional.Models
+﻿namespace Professional.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    using Professional.Data.Contracts;
+
     public class Occupation : AuditInfo, IDeletableEntity
     {
         private ICollection<User> holders;

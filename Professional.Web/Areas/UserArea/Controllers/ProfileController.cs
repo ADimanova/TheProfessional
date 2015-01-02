@@ -17,6 +17,7 @@ using Professional.Web.Models.InputViewModels;
 using Professional.Web.Areas.UserArea.Models.ListingViewModels;
 using Professional.Web.Areas.UserArea.Models.DatabaseVeiwModels;
 using Professional.Web.Infrastructure.Services.Contracts;
+using Professional.Web.Areas.UserArea.Models.Profile.Public;
 
 namespace Professional.Web.Areas.UserArea.Controllers
 {
@@ -45,15 +46,9 @@ namespace Professional.Web.Areas.UserArea.Controllers
             var userInfo = Mapper.Map<UserViewModel>(currentUser);
             userInfo.PersonalHistory = this.GetModifiedHistory(userInfo.PersonalHistory);
             userInfo.IsPrivate = false;
-
-            if (userInfo.ProfileImageId != null)
-            {
-                userInfo.ProfileImageUrl = Url.Action("ImageById", "Image", new { Area = "", id = userInfo.ProfileImageId.Value });
-            }
-            else
-            {
-                userInfo.ProfileImageUrl = WebConstants.DefaultImage;
-            }
+            userInfo.ProfileImageUrl = userInfo.ProfileImageId == null ?
+                WebConstants.DefaultImage :
+                WebConstants.GetImagePageRoute + userInfo.ProfileImageId;
 
             var userFields = profileServices.GetUserFields(id)
                 .Select(f => f.Name).ToList();
@@ -92,13 +87,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             var isEndorsed = profileServices.IsEndorsed(id, loggedUserId);
 
             var endorsements = profileServices.GetUserEndorsements(id)
-                .Select(e => new EndorsementViewModel
-                {
-                    ID = e.ID,
-                    Content = e.Comment,
-                    AuthorFirstName = e.EndorsingUser.FirstName,
-                    AuthorLastName = e.EndorsingUser.LastName
-                });
+                .Project().To<UserEndorsementViewModel>();
 
             var contactModel = new ContactViewModel();
             contactModel.FromUserId = id;
@@ -120,7 +109,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             publicProfileInfo.BtnNavigateEndorsements = btnNavigateEndorsements;
             publicProfileInfo.TopPostsList = topPostPanel;
             publicProfileInfo.RecentPostsList = recentPostPanel;
-            publicProfileInfo.UserInfo.Endorsements = endorsements;
+            publicProfileInfo.UserInfo.Endorsements = endorsements.ToList(); ;
 
             return View(publicProfileInfo);
         }

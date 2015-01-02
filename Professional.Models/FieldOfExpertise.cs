@@ -1,21 +1,21 @@
-﻿using Professional.Data.Contracts;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Professional.Models
+﻿namespace Professional.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    using Professional.Data.Contracts;
+
     public class FieldOfExpertise : AuditInfo, IDeletableEntity
     {
         private ICollection<User> holders;
+
         public FieldOfExpertise()
-		{
+        {
             this.holders = new HashSet<User>();
-		}
+        }
+
         [Key]
         public int ID { get; set; }
 

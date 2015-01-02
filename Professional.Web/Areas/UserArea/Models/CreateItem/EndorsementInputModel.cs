@@ -18,28 +18,5 @@ namespace Professional.Web.Models.InputViewModels
         public string EndorsedID { get; set; }
         public string EndorsingUserID { get; set; }
         public string EndorseAction { get; set; }
-
-        public EndorsementOfUser ToEndorsementOfUser()
-        {
-            return new EndorsementOfUser
-            {
-                Value = this.Value,
-                Comment = this.Comment,
-                EndorsedUserID = this.EndorsedID,
-                EndorsingUserID = this.EndorsingUserID,
-            };
-        }
-
-        public EndorsementOfPost ToEndorsementOfPost()
-        {
-            return new EndorsementOfPost
-            {
-                Value = this.Value,
-                Comment = this.Comment,
-                EndorsedPostID = this.EndorsedID,
-                EndorsingUserID = this.EndorsingUserID,
-            };
-        }
-
     }
 }

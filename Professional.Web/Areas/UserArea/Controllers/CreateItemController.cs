@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Professional.Data;
 using Professional.Models;
+using Professional.Web.Areas.UserArea.Models.CreateItem;
 using Professional.Web.Areas.UserArea.Models.InputModels;
 using Professional.Web.Helpers;
 using Professional.Web.Infrastructure.HtmlSanitise;
@@ -71,23 +73,15 @@ namespace Professional.Web.Areas.UserArea.Controllers
             return View(model);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // POST: UserArea/CreateItem/EndorsementOfUser
-        public ActionResult EndorsementOfUser(EndorsementInputModel model)
+        // POST: UserArea/CreateItem/EndorsementOfPost
+        public ActionResult EndorsementOfPost(PostEndorsementInputModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            model.EndorsingUserID = User.Identity.GetUserId();
-            var newUserEndorsement = model.ToEndorsementOfUser();
-
             try
             {
-                this.data.EndorsementsOfUsers.Add(newUserEndorsement);
-                this.data.SaveChanges();
+                this.Endorse<EndorsementOfPost, PostEndorsementInputModel>(model);
                 return RedirectToAction("Index", "Home", new { Area = "" });
             }
             catch
@@ -99,27 +93,35 @@ namespace Professional.Web.Areas.UserArea.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // POST: UserArea/CreateItem/EndorsementOfPost
-        public ActionResult EndorsementOfPost(EndorsementInputModel model)
+        public ActionResult EndorsementOfUser(UserEndorsementInputModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            model.EndorsingUserID = User.Identity.GetUserId();
-            var newPostEndorsement = model.ToEndorsementOfPost();
-
             try
             {
-                this.data.EndorsementsOfPosts.Add(newPostEndorsement);
-                this.data.SaveChanges();
+                this.Endorse<EndorsementOfUser, UserEndorsementInputModel>(model);
                 return RedirectToAction("Index", "Home", new { Area = "" });
             }
             catch
             {
-                // Implement better error handling
                 return View("Error");
             }
         }
+
+        public void Endorse<T, V>(V model)
+            where T : class
+            where V : EndorsementInputModel
+        {
+            if (!ModelState.IsValid)
+            {
+                throw new ArgumentException("The model is not valid");
+            }
+
+            model.EndorsingUserID = User.Identity.GetUserId();
+            var newEndorsement = Mapper.Map<V, T>(model);
+
+            var set = this.data.Context.Set<T>();
+            set.Add(newEndorsement);
+            this.data.SaveChanges();
+        }
+
     }
 }

@@ -1,31 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Professional.Web.Controllers;
-using AutoMapper;
-using Professional.Models;
-using Professional.Web.Areas.UserArea.Models;
-using System.Collections;
-using Professional.Common;
-using Professional.Web.Models;
-using Professional.Web.Helpers;
-using Professional.Data;
-using Professional.Web.Areas.UserArea.Models.InputModels;
-using System.IO;
-//using Kendo.Mvc.UI;
-//using Kendo.Mvc.Extensions;
-
-namespace Professional.Web.Areas.UserArea.Controllers
+﻿namespace Professional.Web.Areas.UserArea.Controllers
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Web.Mvc;
+
+    using Microsoft.AspNet.Identity;
+
+    using Professional.Data;
+    using Professional.Models;
+    using Professional.Web.Areas.UserArea.Models.InputModels;
+    using Professional.Web.Helpers;
+
     public class AddInfoController : UserController
     {
         public AddInfoController(IApplicationData data)
             : base(data)
         {
-
         }
 
         public ActionResult OnRegistration()
@@ -57,6 +48,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 {
                     user.IsMale = model.IsMale;                    
                 }
+
                 user.DateOfBirth = model.DateOfBirth;
 
                 if (model.ProfileImage != null)
@@ -85,7 +77,6 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     // Implement better error handling
                     return View("Error");
                 }
-                
             }
 
             // Something failed, redisplay form
@@ -96,7 +87,8 @@ namespace Professional.Web.Areas.UserArea.Controllers
         public ActionResult Professional()
         {      
             var occupations = this.data.Occupations.All()
-                .Select(o => new {
+                .Select(o => new
+                {
                     Text = o.Title,
                     Value = o.Title
                 });
@@ -165,14 +157,16 @@ namespace Professional.Web.Areas.UserArea.Controllers
             try
             {
                 this.data.SaveChanges();
-                return RedirectToAction("Private", "Profile", new { Area = WebConstants.UserArea });
+                return this.RedirectToAction("Private", "Profile", new { Area = WebConstants.UserArea });
             }
             catch
             {
                 // Implement better error handling
                 return View("Error");
             }
+
         }
+
         private void GetInfoNavigation(string nextPath)
         {
             var userId = User.Identity.GetUserId();

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Professional.Models
+﻿namespace Professional.Models
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class User
     {
         [Required]
@@ -25,6 +21,7 @@ namespace Professional.Models
         public string LastName { get; set; }
 
         public DateTime DateOfBirth { get; set; }
+
         public bool? IsMale { get; set; }
 
         [Column(TypeName = "ntext")]

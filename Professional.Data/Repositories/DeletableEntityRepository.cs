@@ -1,9 +1,10 @@
 ﻿namespace Professional.Data.Repositories.Base
 {
-    using Professional.Data.Contracts;
     using System;
     using System.Data.Entity;
     using System.Linq;
+
+    using Professional.Data.Contracts;
 
     public class DeletableEntityRepository<T> :
     GenericRepository<T>, IDeletableEntityRepository<T> where T : class, IDeletableEntity

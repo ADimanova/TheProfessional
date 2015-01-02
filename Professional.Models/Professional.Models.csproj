@@ -90,7 +90,7 @@
     <Compile Include="Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserContactInfo.cs" />
-    <Compile Include="UserMethods.cs" />
+    <Compile Include="UserAddOns.cs" />
     <Compile Include="UserPersonalInfo.cs" />
     <Compile Include="UserProfessionalInfo.cs" />
   </ItemGroup>

@@ -15,13 +15,13 @@
                     <div class="panel-heading" role="tab" id='@("heading" + item.ID)'>
                         <h4 class="panel-title panel-title-custom">
                             <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href='#@("collapse" + item.ID)' aria-expanded="false" aria-controls='@("collapse" + item.ID)'>
-                                @(item.AuthorLastName + ", " + item.AuthorFirstName)
+                                @item.EndorsingUserName
                             </a>
                         </h4>
                     </div>
                     <div id='@("collapse" + item.ID)' class="panel-collapse collapse" role="tabpanel" aria-labelledby='@("heading" + item.ID)'>
                         <div class="panel-body">
-                            @item.Content
+                            @item.Comment
                         </div>
                     </div>
                 </div>

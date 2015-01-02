@@ -1,14 +1,16 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Professional.Models;
-using Professional.Data.Migrations;
-using Professional.Data.Contracts;
-using Professional.Data.Contracts.CodeFirstConventions;
-
-namespace Professional.Data
+﻿namespace Professional.Data
 {
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
+
+    using Microsoft.AspNet.Identity.EntityFramework;
+
+    using Professional.Data.Contracts;
+    using Professional.Data.Contracts.CodeFirstConventions;
+    using Professional.Data.Migrations;
+    using Professional.Models;
+
     public class ApplicationDbContext : IdentityDbContext<User>, IApplicationDbContext
     {
         public ApplicationDbContext()
@@ -23,14 +25,23 @@ namespace Professional.Data
         }
 
         public virtual IDbSet<Company> Companies { get; set; }
+
         public virtual IDbSet<Post> Posts { get; set; }
+
         public virtual IDbSet<EndorsementOfPost> EndorsementsOfPosts { get; set; }
+
         public virtual IDbSet<EndorsementOfUser> EndorsementsOfUsers { get; set; }
+
         public virtual IDbSet<FieldOfExpertise> FieldsOfExpertise { get; set; }
+
         public virtual IDbSet<Occupation> Occupations { get; set; }
+
         public virtual IDbSet<Connection> Connections { get; set; }
+
         public virtual IDbSet<Notification> Notifications { get; set; }
+
         public virtual IDbSet<Image> Images { get; set; }
+
         public virtual IDbSet<Message> Messages { get; set; }
 
         public DbContext DbContext
@@ -39,6 +50,11 @@ namespace Professional.Data
             {
                 return this;
             }
+        }
+
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
         }
 
         public override int SaveChanges()
@@ -51,11 +67,6 @@ namespace Professional.Data
         public new IDbSet<T> Set<T>() where T : class
         {
             return base.Set<T>();
-        }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

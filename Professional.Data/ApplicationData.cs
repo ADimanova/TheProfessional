@@ -1,17 +1,15 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using Professional.Data.Contracts;
-using Professional.Data.Repositories;
-using Professional.Data.Repositories.Base;
-using Professional.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Professional.Data
+﻿namespace Professional.Data
 {
+    using System;
+    using System.Collections.Generic;
+
+    using Microsoft.AspNet.Identity.EntityFramework;
+
+    using Professional.Data.Contracts;
+    using Professional.Data.Repositories;
+    using Professional.Data.Repositories.Base;
+    using Professional.Models;
+
     public class ApplicationData : IApplicationData
     {
         private readonly IApplicationDbContext context;
@@ -33,62 +31,90 @@ namespace Professional.Data
 
         public IRepository<User> Users
         {
-            get { return this.GetRepository<User>(); }
+            get 
+            { 
+                return this.GetRepository<User>();
+            }
         }
+
         public IRepository<IdentityRole> Roles
         {
-            get { return this.GetRepository<IdentityRole>(); }
+            get 
+            { 
+                return this.GetRepository<IdentityRole>();
+            }
         }
 
         public IDeletableEntityRepository<Post> Posts
         {
-            get { return this.GetDeletableEntityRepository<Post>(); }
+            get 
+            {
+                return this.GetDeletableEntityRepository<Post>();
+            }
         }
 
         public IDeletableEntityRepository<EndorsementOfPost> EndorsementsOfPosts
         {
-            get { return this.GetDeletableEntityRepository<EndorsementOfPost>(); }
+            get 
+            { 
+                return this.GetDeletableEntityRepository<EndorsementOfPost>();
+            }
         }
 
         public IDeletableEntityRepository<EndorsementOfUser> EndorsementsOfUsers
         {
             get
-            { return this.GetDeletableEntityRepository<EndorsementOfUser>(); }
+            { 
+                return this.GetDeletableEntityRepository<EndorsementOfUser>();
+            }
         }
 
         public IDeletableEntityRepository<FieldOfExpertise> FieldsOfExpertise
         {
             get
-            { return this.GetDeletableEntityRepository<FieldOfExpertise>(); }
+            { 
+                return this.GetDeletableEntityRepository<FieldOfExpertise>();
+            }
         }
 
         public IDeletableEntityRepository<Occupation> Occupations
         {
             get
-            { return this.GetDeletableEntityRepository<Occupation>(); }
+            { 
+                return this.GetDeletableEntityRepository<Occupation>();
+            }
         }
 
         public IDeletableEntityRepository<Connection> Connections
         {
             get
-            { return this.GetDeletableEntityRepository<Connection>(); }
+            { 
+                return this.GetDeletableEntityRepository<Connection>();
+            }
         }
 
         public IDeletableEntityRepository<Notification> Notifications
         {
             get
-            { return this.GetDeletableEntityRepository<Notification>(); }
+            { 
+                return this.GetDeletableEntityRepository<Notification>();
+            }
         }
 
         public IDeletableEntityRepository<Image> Images
         {
             get
-            { return this.GetDeletableEntityRepository<Image>(); }
+            { 
+                return this.GetDeletableEntityRepository<Image>();
+            }
         }
+
         public IDeletableEntityRepository<Message> Messages
         {
             get
-            { return this.GetDeletableEntityRepository<Message>(); }
+            { 
+                return this.GetDeletableEntityRepository<Message>();
+            }
         }
 
         /// <summary>

@@ -12,6 +12,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Professional.Common.Extensions;
+using Professional.Web.Areas.UserArea.Models.Profile.Public;
+using AutoMapper.QueryableExtensions;
 
 namespace Professional.Web.Areas.UserArea.Controllers
 {
@@ -134,25 +136,18 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 .OrderBy(e => e.EndorsingUser.LastName)
                 .Skip((pageNumber - 1) * itemsPerPage)
                 .Take(itemsPerPage)
-                .Select(e => new EndorsementViewModel
-                {
-                    ID = e.ID,
-                    Content = e.Comment,
-                    AuthorFirstName = e.EndorsedUser.FirstName,
-                    AuthorLastName = e.EndorsedUser.LastName,
-                    AuthorID = e.EndorsingUserID
-                });
+                .Project().To<UserEndorsementViewModel>();
 
             var firstLetters = this.listingServices.GetLetters();
 
-            var groupedByFirstLetter = endorsementsPaged.GroupBy(s => s.AuthorLastName.Substring(0, 1))
+            var groupedByFirstLetter = endorsementsPaged.GroupBy(s => s.EndorsingUserName.Substring(0, 1))
                 .Select(g => new ItemsByFieldViewModel
                 {
                     Name = g.Key.ToString(),
                     Items = g.Select(i => new NavigationItemWithImage
                     {
-                        Content = i.AuthorLastName + ", " + i.AuthorFirstName,
-                        Url = WebConstants.PublicProfilePageRoute + i.AuthorID
+                        Content = i.EndorsingUserName,
+                        Url = WebConstants.PublicProfilePageRoute + i.EndorsingUserID
                     }).ToList()
                 });
 
