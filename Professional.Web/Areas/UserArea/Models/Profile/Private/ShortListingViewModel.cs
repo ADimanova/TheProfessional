@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Professional.Web.Areas.UserArea.Models.ListingViewModels
+﻿namespace Professional.Web.Areas.UserArea.Models.Profile.Private
 {
+    using System.Collections.Generic;
+
     public class ShortListingViewModel
     {
         public string Title { get; set; }
 
         public string Type { get; set; }
 
-        public string ItemsId { 
+        public string ItemsId 
+        { 
             get
             {
                 return "items" + this.Type;

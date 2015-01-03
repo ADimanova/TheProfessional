@@ -1,10 +1,6 @@
-﻿@model ListPanelViewModel
+﻿@using Professional.Web.Areas.UserArea.Models.Profile.Public
 
-@{
-    var uniqueItems = "items" + Model.UniqueIdentificator;
-    var uniqueForm = "form" + Model.UniqueIdentificator;
-    var uniqueInput = "input" + Model.UniqueIdentificator;
-}
+@model ListPanelViewModel
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -13,10 +9,10 @@
         @using (Ajax.BeginForm("Filter", null,
             new AjaxOptions
             {
-                UpdateTargetId = @uniqueItems,
+                UpdateTargetId = @Model.ItemsId,
                 HttpMethod = "POST",
                 InsertionMode = InsertionMode.Replace
-            }, new { id = @uniqueForm }))
+            }, new { id = @Model.FormId }))
         {
             <div class="dropdown pull-right">
                 <button class="btn btn-xs btn-default dropdown-toggle positioned" type="button" id="dropdownFields" data-toggle="dropdown">
@@ -31,12 +27,12 @@
                     }
                 </ul>
             </div>
-            <input type="text" id="@uniqueInput" class="non-input" name="query" />
+            <input type="text" id="@Model.InputId" class="non-input" name="query" />
             <input type="text" class="non-input hidden-item" name="condition" value="@Model.UniqueIdentificator" />
         }
     </div>
-    <div id="@uniqueItems" class="list-group list-group-margin">
-        @Html.Partial("~/Views/Shared/Partials/_ListItems.cshtml", Model.Items)
+    <div id="@Model.ItemsId" class="list-group list-group-margin">
+        @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ListItems.cshtml", Model.Items)
     </div>
 </div>
 

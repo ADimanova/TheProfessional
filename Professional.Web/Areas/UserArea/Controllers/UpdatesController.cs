@@ -1,78 +1,75 @@
-﻿using Professional.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Professional.Data;
-using System.Net;
-using Professional.Web.Helpers;
-
-namespace Professional.Web.Areas.UserArea.Controllers
+﻿namespace Professional.Web.Areas.UserArea.Controllers
 {
+    using System.Linq;
+    using System.Net;
+    using System.Web.Mvc;
+
+    using Professional.Data;
+    using Professional.Models;
+    using Professional.Web.Helpers;
+    using Professional.Web.Infrastructure.Services.Contracts;
+
     public class UpdatesController : UserController
     {
-        public UpdatesController(IApplicationData data)
+        private IUpdatesServices updatesServices;
+
+        public UpdatesController(IApplicationData data, IUpdatesServices updatesServices)
             : base(data)
         {
+            this.updatesServices = updatesServices;
         }
-        // GET: UserArea/Updates
+
         public ActionResult Connect(string id)
         {
-            var user = this.data.Users.GetById(id);
+            var user = this.GetUser(id);
             if (user == null)
-	        {
-		        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-	        }
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
             var newConnection = new Connection();
-            newConnection.FirstUserId = this.User.Identity.GetUserId();
+            newConnection.FirstUserId = this.GetLoggedUserId();
             newConnection.SecondUserId = id;
 
             try
             {
                 this.data.Connections.Add(newConnection);
                 this.data.SaveChanges();
-                return RedirectToAction("Public", "Profile", new { Area = WebConstants.UserArea, id = id });
+                return this.RedirectToAction("Public", "Profile", new { Area = WebConstants.UserArea, id = id });
             }
             catch
             {
-                return View("Error");
+                return this.View("Error");
             }
         }
 
         public ActionResult DeclineUser(string id)
         {
-            var user = this.data.Users.GetById(id);
+            var user = this.GetUser(id);
             if (user == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var loggedUserId = this.User.Identity.GetUserId();
-            var connection = this.data.Connections.All()
-                .FirstOrDefault(c => ((c.FirstUserId == id || c.SecondUserId == id) &&
-                (c.FirstUserId == loggedUserId || c.SecondUserId == loggedUserId) &&
-                id != loggedUserId));
-
+            var loggedUserId = this.GetLoggedUserId();
+            var connection = this.updatesServices.GetUsersConnection(id, loggedUserId);
             try
             {
                 this.data.Connections.Delete(connection);
                 this.data.SaveChanges();
-                return RedirectToAction("Public", "Profile", new { Area = WebConstants.UserArea, id = id });
+                return this.RedirectToAction("Public", "Profile", new { Area = WebConstants.UserArea, id = id });
             }
             catch
             {
-                return View("Error");
+                return this.View("Error");
             }
         }
 
         public ActionResult AcceptConnection(int id)
         {
             var connection = this.data.Connections.GetById(id);
-            var loggedUserId = this.User.Identity.GetUserId();
-            var isAuthorised = loggedUserId == connection.FirstUserId || loggedUserId == connection.SecondUserId;
+            var loggedUserId = this.GetLoggedUserId();
+            var isAuthorised = this.updatesServices.IsAuthorised(id, loggedUserId);
             if (connection == null || !isAuthorised)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -83,18 +80,18 @@ namespace Professional.Web.Areas.UserArea.Controllers
             try
             {
                 this.data.SaveChanges();
-                return RedirectToAction("Private", "Profile", new { Area = "UserArea" });
+                return this.RedirectToAction("Private", "Profile", new { Area = "UserArea" });
             }
             catch
             {
-                return View("Error");
+                return this.View("Error");
             }
         }
 
         public ActionResult DeclineConnection(int id)
         {
             var connection = this.data.Connections.GetById(id);
-            var loggedUserId = this.User.Identity.GetUserId();
+            var loggedUserId = this.GetLoggedUserId();
             var isAuthorised = loggedUserId == connection.FirstUserId || loggedUserId == connection.SecondUserId;
             if (connection == null || !isAuthorised)
             {
@@ -105,11 +102,11 @@ namespace Professional.Web.Areas.UserArea.Controllers
             {
                 this.data.Connections.Delete(connection);
                 this.data.SaveChanges();
-                return RedirectToAction("Private", "Profile", new { Area = "UserArea" });
+                return this.RedirectToAction("Private", "Profile", new { Area = "UserArea" });
             }
             catch
             {
-                return View("Error");
+                return this.View("Error");
             }
         }
     }

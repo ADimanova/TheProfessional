@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Web;
-using Microsoft.AspNet.SignalR;
-using Professional.Data;
-using Professional.Models;
-using Microsoft.AspNet.Identity;
-
-namespace SignalRChat
+﻿namespace SignalRChat
 {
+    using System;
+    using System.Linq;
+
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.SignalR;
+    using Professional.Data;
+    using Professional.Models;
+
     public class ChatHub : Hub
     {
         private IApplicationData data;
@@ -22,7 +22,7 @@ namespace SignalRChat
         {
             if (toId == null)
             {
-                throw new ArgumentNullException("");
+                throw new ArgumentNullException("The other participant in the chat is not set");
             }
 
             var chatUser = this.Context.User.Identity.GetUserId();
@@ -38,13 +38,16 @@ namespace SignalRChat
             for (int i = 0; i < messages.Count; i++)
             {
                 Clients.Group(groupName).addNewMessageToPage("Other", messages[i].Content);
+
                 // TODO: Open on Release
-                //messages[i].IsRead = true;
+                // messages[i].IsRead = true;
             }
+
             this.data.SaveChanges();
 
             this.Groups.Add(Context.ConnectionId, groupName);
         }
+
         public void Send(string toId, string message)
         {
             var chatUser = this.Context.User.Identity.GetUserId();

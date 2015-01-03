@@ -1,12 +1,9 @@
-﻿using Professional.Models;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Professional.Web.Models
+﻿namespace Professional.Web.Areas.UserArea.Models.Profile.Public
 {
+    using System.Collections.Generic;
+
+    using Professional.Web.Models.Shared;
+
     /// <summary>
     /// Displaying items that fullfill a certain criteria,
     /// fillterable by their respective fields.
@@ -29,5 +26,29 @@ namespace Professional.Web.Models
         /// Criteria for extracting items
         /// </summary>
         public string UniqueIdentificator { get; set; }
+
+        public string ItemsId
+        {
+            get
+            {
+                return "items" + this.UniqueIdentificator;
+            }
+        }
+
+        public string FormId
+        {
+            get
+            {
+                return "form" + this.UniqueIdentificator;
+            }
+        }
+
+        public string InputId
+        {
+            get
+            {
+                return "input" + this.UniqueIdentificator;
+            }
+        }
     }
 }

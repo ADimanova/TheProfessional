@@ -23,7 +23,6 @@ namespace Professional.Web
         public static void RegisterScripts(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery")
-                //.Include("~/Scripts/kendo/jquery.min.js"));
                 .Include("~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-ui-{version}.js"));
 
@@ -62,7 +61,6 @@ namespace Professional.Web
                       "~/Content/chat-styles.css"));
 
             bundles.Add(new StyleBundle("~/Content/jquery-css").Include(
-                      //"~/Content/jquery-ui.theme.css",
                       "~/Content/themes/base/jquery-ui.css"));
 
             bundles.Add(new StyleBundle("~/Css/kendo").Include(
@@ -70,7 +68,6 @@ namespace Professional.Web
                         "~/Content/kendo/kendo.silver.*",
                         "~/Content/kendo/images/",
                         "~/Content/kendo/custom-kendo.css"));
-                        //"~/Content/kendo/kendo.culture.en-US.min.js"));
         }
     }
 }

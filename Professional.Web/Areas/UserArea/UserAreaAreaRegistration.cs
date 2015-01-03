@@ -1,7 +1,7 @@
-﻿using System.Web.Mvc;
-
-namespace Professional.Web.Areas.UserArea
+﻿namespace Professional.Web.Areas.UserArea
 {
+    using System.Web.Mvc;
+
     public class UserAreaAreaRegistration : AreaRegistration 
     {
         public override string AreaName 
@@ -17,20 +17,17 @@ namespace Professional.Web.Areas.UserArea
             context.MapRoute(
                 "PostsOfUserListings",
                 "UserArea/Listing/Posts/User/{user}/{id}",
-                new { controller = "Listing", action = "Posts", id = UrlParameter.Optional }
-            );
+                new { controller = "Listing", action = "Posts", id = UrlParameter.Optional });
 
             context.MapRoute(
                 "ConnectionsOfUserListings",
                 "UserArea/Listing/Connections/User/{user}/{id}",
-                new { controller = "Listing", action = "Users", id = UrlParameter.Optional }
-            );
+                new { controller = "Listing", action = "Users", id = UrlParameter.Optional });
 
             context.MapRoute(
                 "UserArea_default",
                 "UserArea/{controller}/{action}/{id}",
-                new { controller = "Profile", action = "PublicProfile", id = UrlParameter.Optional }
-            );
+                new { controller = "Profile", action = "PublicProfile", id = UrlParameter.Optional });
         }
     }
 }

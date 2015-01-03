@@ -1,12 +1,10 @@
-﻿using Professional.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace Professional.Web.Controllers
+﻿namespace Professional.Web.Controllers
 {
+    using System.Web;
+    using System.Web.Mvc;
+
+    using Professional.Data;
+
     public class ImageController : BaseController
     {
         public ImageController(IApplicationData data)
@@ -23,7 +21,7 @@ namespace Professional.Web.Controllers
                 throw new HttpException(404, "Image not found");
             }
 
-            return File(image.Content, "image/" + image.FileExtension);
+            return this.File(image.Content, "image/" + image.FileExtension);
         }
     }
 }

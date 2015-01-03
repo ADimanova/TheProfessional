@@ -1,15 +1,14 @@
-﻿using Professional.Models;
-using Professional.Web.Infrastructure.Mappings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using AutoMapper;
-using System.Linq.Expressions;
-using System.ComponentModel.DataAnnotations;
-
-namespace Professional.Web.Models
+﻿namespace Professional.Web.Models.Home
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+
+    using AutoMapper;
+
+    using Professional.Models;
+    using Professional.Web.Infrastructure.Mappings;
+
     // Used to display featured users on the home page
     public class UserSimpleViewModel : IMapFrom<User>, IHaveCustomMappings
     {
@@ -24,14 +23,16 @@ namespace Professional.Web.Models
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<User, UserSimpleViewModel>()
-               .ForMember(p => p.FullName,
-               //options => options.MapFrom(u => u.FullName));
+               .ForMember(
+               p => p.FullName,
                options => options.MapFrom(u => u.FirstName + " " + u.LastName));
 
              configuration.CreateMap<User, UserSimpleViewModel>()
-                .ForMember(p => p.FieldList,
-                options => options
-                    .MapFrom(u => u.FieldsOfExpertise
+                .ForMember(
+                    p => p.FieldList,
+                    options => options
+                    .MapFrom(
+                        u => u.FieldsOfExpertise
                         .Where(f => f.IsDeleted == false)
                         .Select(f => f.Name)));
         }

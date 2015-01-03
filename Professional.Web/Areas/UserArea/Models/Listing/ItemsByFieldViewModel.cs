@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Professional.Models;
-using Professional.Web.Models;
-using Professional.Web.Models.Shared;
-
-namespace Professional.Web.Areas.UserArea.Models
+﻿namespace Professional.Web.Areas.UserArea.Models.Listing
 {
+    using System.Collections.Generic;
+
     public class ItemsByFieldViewModel
     {
         public string Name { get; set; }
+
         public IList<NavigationItemWithImage> Items { get; set; } 
     }
 }

@@ -12,7 +12,7 @@
         }
 
         protected IApplicationData Data { get; private set; }
-        protected ICacheService Cache { get; private set; }
 
+        protected ICacheService Cache { get; private set; }
     }
 }

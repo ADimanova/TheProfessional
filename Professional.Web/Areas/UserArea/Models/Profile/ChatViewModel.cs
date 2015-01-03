@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Professional.Web.Areas.UserArea.Models
+﻿namespace Professional.Web.Areas.UserArea.Models
 {
+    using System.Collections.Generic;
+
     public class ChatViewModel
     {
         public string ToUserId { get; set; }
+
         public IEnumerable<string> Messages { get; set; }
     }
 }

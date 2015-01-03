@@ -297,9 +297,11 @@
     <Compile Include="Infrastructure\Services\Contracts\IHomeServices.cs" />
     <Compile Include="Infrastructure\Services\Contracts\IListingServices.cs" />
     <Compile Include="Infrastructure\Services\Contracts\IProfileServices.cs" />
+    <Compile Include="Infrastructure\Services\Contracts\IUpdatesServices.cs" />
     <Compile Include="Infrastructure\Services\HomeServices.cs" />
     <Compile Include="Infrastructure\Services\ListingServices.cs" />
     <Compile Include="Infrastructure\Services\ProfileServices.cs" />
+    <Compile Include="Infrastructure\Services\UpdatesServices.cs" />
     <Compile Include="Infrastructure\Validation\DoesNotContainAttribute.cs" />
     <Compile Include="Models\AccountViewModels\AccountViewModels.cs" />
     <Compile Include="Models\Field\FieldViewModel.cs" />
@@ -309,7 +311,7 @@
     <Compile Include="Areas\UserArea\Models\Profile\Public\ListPanelViewModel.cs" />
     <Compile Include="Models\AccountViewModels\ManageViewModels.cs" />
     <Compile Include="Models\Shared\NavigationItem.cs" />
-    <Compile Include="Models\Post\PostSimpleViewModel.cs" />
+    <Compile Include="Models\Home\PostSimpleViewModel.cs" />
     <Compile Include="Models\Post\PostViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\Listing\NavigationItemWithImage.cs" />
     <Compile Include="Models\Home\UserSimpleViewModel.cs" />
@@ -651,7 +653,7 @@
     <Content Include="Views\Shared\Partials\_BtnNavigate.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\FormatedDate.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\YesNo.cshtml" />
-    <Content Include="Views\Shared\Partials\_ListPanel.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\Partials\_ListPanel.cshtml" />
     <Content Include="Views\Shared\Partials\_HorizontalNavBar.cshtml" />
     <Content Include="Views\Post\Info.cshtml" />
     <Content Include="Views\Shared\Partials\_Dropdown.cshtml" />
@@ -668,7 +670,7 @@
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Views\Shared\DisplayTemplates\MaleFemale.cshtml" />
     <Content Include="Views\Field\Info.cshtml" />
-    <Content Include="Views\Shared\Partials\_ListItems.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\Partials\_ListItems.cshtml" />
     <Content Include="Views\Shared\Partials\_SuccessAlert.cshtml" />
     <Content Include="Views\Shared\Partials\_FailAlert.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\BoolCheckbox.cshtml" />
@@ -685,11 +687,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\UserArea\Views\Updates\" />
     <Folder Include="Content\kendo\" />
     <Folder Include="Css\" />
     <Folder Include="Libraries\" />
-    <Folder Include="Models\Image\" />
     <Folder Include="Views\Image\" />
   </ItemGroup>
   <ItemGroup>

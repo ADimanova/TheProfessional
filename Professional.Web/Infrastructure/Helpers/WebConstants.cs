@@ -1,16 +1,13 @@
-﻿using Professional.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Professional.Web.Helpers
+﻿namespace Professional.Web.Helpers
 {
+    using System.Collections.Generic;
+
+    using Professional.Web.Models.Shared;
+
     public static class WebConstants
     {
-        public static readonly IList<string> EmptyList = new List<string> { "no values specified" };
-        public static readonly string DefaultHistory = "No personal history has been added.";
-        public static readonly string DefaultImage = "/Images/default-profile-pic.png";
+        public const string DefaultHistory = "No personal history has been added.";
+        public const string DefaultImage = "/Images/default-profile-pic.png";
 
         // Visualization counts
         public const int PostsPerPage = 5;
@@ -64,7 +61,8 @@ namespace Professional.Web.Helpers
         public const string FieldsListingPageRoute = "/Field/FieldsListing/";     
 
         // Navbars and Dropdowns data
-        public static List<NavigationItem> SiteSections = new List<NavigationItem> {
+        public static List<NavigationItem> SiteSections = new List<NavigationItem>
+        {
             new NavigationItem
             {
                 Content = "Users",
@@ -77,7 +75,8 @@ namespace Professional.Web.Helpers
             }
         };
 
-        public static List<NavigationItem> AdminSections = new List<NavigationItem> {
+        public static List<NavigationItem> AdminSections = new List<NavigationItem>
+        {
             new NavigationItem
             {
                 Content = "Users",
@@ -101,6 +100,3 @@ namespace Professional.Web.Helpers
         };
     }
 }
-
- 
- 

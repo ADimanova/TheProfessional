@@ -1,12 +1,9 @@
-﻿using Professional.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Professional.Web.Infrastructure.Services.Contracts
+﻿namespace Professional.Web.Infrastructure.Services.Contracts
 {
+    using System.Linq;
+
+    using Professional.Models;
+
     public interface IProfileServices
     {
         IQueryable<Post> GetAllPosts();

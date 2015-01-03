@@ -20,7 +20,7 @@
         [MaxLength(40)]
         public string LastName { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         public bool? IsMale { get; set; }
 

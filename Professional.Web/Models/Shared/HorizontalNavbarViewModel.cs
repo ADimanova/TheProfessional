@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Professional.Web.Models
+﻿namespace Professional.Web.Models.Shared
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// A horizontal navigation bar
     /// </summary>
     public class HorizontalNavbarViewModel
     {
         public string Title { get; set; }
+
         public IEnumerable<NavigationItem> ListItems { get; set; }
 
         /// <summary>

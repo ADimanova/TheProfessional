@@ -1,23 +1,17 @@
-﻿using AutoMapper.QueryableExtensions;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Professional.Common;
-using Professional.Models;
-using Professional.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Professional.Web.Infrastructure.HtmlSanitise;
-using System.Web.Caching;
-using Professional.Data;
-using Professional.Web.Helpers;
-using Professional.Web.Infrastructure.Services;
-using Professional.Web.Infrastructure.Services.Contracts;
-
-namespace Professional.Web.Controllers
+﻿namespace Professional.Web.Controllers
 {
+    using System.Linq;
+    using System.Web.Mvc;
+
+    using AutoMapper.QueryableExtensions;
+
+    using Professional.Data;
+    using Professional.Web.Helpers;
+    using Professional.Web.Infrastructure.Services.Contracts;
+    using Professional.Web.Models;
+    using Professional.Web.Models.Shared;
+    using Professional.Web.Models.Home;
+
     public class HomeController : BaseController
     {
         private const string FieldsNavBarTitle = "Our top fields";
@@ -26,6 +20,7 @@ namespace Professional.Web.Controllers
         private const int FeaturedCount = 3;
 
         private IHomeServices homeServices;
+
         public HomeController(IApplicationData data, IHomeServices homeServices)
             : base(data)
         {
@@ -61,22 +56,22 @@ namespace Professional.Web.Controllers
             vielModel.Posts = posts.ToList<PostSimpleViewModel>();
             vielModel.Featured = featured.ToList<UserSimpleViewModel>();
 
-            return View(vielModel);
+            return this.View(vielModel);
         }
  
         public ActionResult Error()
         {
-            return View();
+            return this.View();
         }
 
         public ActionResult About()
         {
-            return View();
+            return this.View();
         }
 
         public ActionResult Contact()
         {
-            return View();
+            return this.View();
         }
     }
 }

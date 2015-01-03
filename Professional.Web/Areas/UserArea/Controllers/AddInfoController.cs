@@ -1,18 +1,13 @@
 ﻿namespace Professional.Web.Areas.UserArea.Controllers
 {
-    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
 
-    using Microsoft.AspNet.Identity;
-
     using Professional.Data;
     using Professional.Models;
-    using Professional.Web.Areas.UserArea.Models.InputModels;
+    using Professional.Web.Areas.UserArea.Models.AddInfo;
     using Professional.Web.Helpers;
-    using System.Linq.Expressions;
-    using Antlr.Runtime.Misc;
 
     public class AddInfoController : UserController
     {
@@ -29,11 +24,13 @@
         }
 
         [HttpGet]
-        public ActionResult Personal()
+        public ActionResult Personal(bool? id)
         {
             this.GetInfoNavigation(WebConstants.AddProfessionalInfoPageRoute);
+            var model = new UserInputModel();
+            model.ContinueToProfile = id != true ? false : true;
 
-            return this.View();
+            return this.View(model);
         }
 
         [HttpPost]
@@ -42,11 +39,10 @@
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return this.View(model);
             }
 
-            var userId = User.Identity.GetUserId();
-            var user = this.data.Users.GetById(userId);
+            var user = this.GetLoggedUser();
 
             if (model.PersonalHistory != null)
             {
@@ -82,7 +78,15 @@
             {
                 this.data.Users.Update(user);
                 this.data.SaveChanges();
-                return this.RedirectToAction("Professional", "AddInfo", new { Area = WebConstants.UserArea });
+
+                if (model.ContinueToProfile)
+                {
+                    return this.RedirectToAction("Private", "Profile", new { Area = WebConstants.UserArea });
+                }
+                else
+                {
+                    return this.RedirectToAction("Professional", "AddInfo", new { Area = WebConstants.UserArea });
+                }
             }
             catch
             {
@@ -117,10 +121,9 @@
         [ValidateAntiForgeryToken]
         public ActionResult Professional(UserInputModel model)
         {
-            var userId = User.Identity.GetUserId();
-            var user = this.data.Users.GetById(userId);
+            var user = this.GetLoggedUser();
 
-            //TODO: Further refactor
+            // TODO: Further refactor
             if (model.Occupations != null)
             {
                 var occupations = model.Occupations.ToList();
@@ -172,10 +175,12 @@
 
         private void GetInfoNavigation(string nextPath)
         {
-            var userId = User.Identity.GetUserId();
+            var userId = this.GetLoggedUserId();
             var profilePath = WebConstants.PrivateProfilePageRoute + userId;
             ViewBag.Profile = profilePath;
             ViewBag.AddInfo = nextPath;
         }
+
+
     }
 }

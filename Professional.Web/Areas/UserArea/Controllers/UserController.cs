@@ -1,17 +1,14 @@
-﻿using Professional.Common;
-using Professional.Data;
-using Professional.Models;
-using Professional.Web.Controllers;
-using Professional.Web.Helpers;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace Professional.Web.Areas.UserArea.Controllers
+﻿namespace Professional.Web.Areas.UserArea.Controllers
 {
+    using System.Linq;
+    using System.Web.Mvc;
+
+    using Microsoft.AspNet.Identity;
+
+    using Professional.Data;
+    using Professional.Models;
+    using Professional.Web.Controllers;
+
     [Authorize]
     public abstract class UserController : BaseController
     {
@@ -20,10 +17,24 @@ namespace Professional.Web.Areas.UserArea.Controllers
         {
         }
 
-        public User GetUser(string currentUserId)
+        public User GetUser(string userId)
         {
-            var user = this.data.Users.All()
-                 .FirstOrDefault(u => u.Id == currentUserId);
+            var user = this.data.Users.GetById(userId);
+
+            return user;
+        }
+
+        public string GetLoggedUserId()
+        {
+            var userId = this.User.Identity.GetUserId();
+
+            return userId;
+        }
+
+        public User GetLoggedUser()
+        {
+            var userId = this.User.Identity.GetUserId();
+            var user = this.data.Users.GetById(userId);
 
             return user;
         }

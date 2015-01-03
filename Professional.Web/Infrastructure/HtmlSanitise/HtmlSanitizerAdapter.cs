@@ -1,13 +1,12 @@
-﻿using HtmlAgilityPack;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Web;
-
-namespace Professional.Web.Infrastructure.HtmlSanitise
+﻿namespace Professional.Web.Infrastructure.HtmlSanitise
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    using HtmlAgilityPack;
+
     // Source: https://eksith.wordpress.com/2011/06/14/whitelist-santize-htmlagilitypack/
     public class HtmlSanitizerAdapter : ISanitiser
     {
@@ -77,7 +76,9 @@ namespace Professional.Web.Infrastructure.HtmlSanitise
         {
             HtmlDocument html = GetHtml(source);
             if (html == null)
-                return String.Empty;
+            {
+                return string.Empty;
+            }
 
             // All the nodes
             HtmlNode allNodes = html.DocumentNode;
@@ -92,17 +93,21 @@ namespace Professional.Web.Infrastructure.HtmlSanitise
             // Filter the attributes of the remaining
             foreach (KeyValuePair<string, string[]> tag in ValidHtmlTags)
             {
-                IEnumerable<HtmlNode> nodes = (from n in allNodes.DescendantsAndSelf()
-                                               where n.Name == tag.Key
-                                               select n);
+                IEnumerable<HtmlNode> nodes = from n in allNodes.DescendantsAndSelf()
+                                              where n.Name == tag.Key
+                                              select n;
 
                 if (nodes == null)
+                {
                     continue;
+                }
 
                 foreach (var n in nodes)
                 {
                     if (!n.HasAttributes)
+                    {
                         continue;
+                    }
 
                     // Get all the allowed attributes for this tag
                     HtmlAttribute[] attr = n.Attributes.ToArray();
@@ -135,15 +140,19 @@ namespace Professional.Web.Infrastructure.HtmlSanitise
             source = this.Sanitize(source);
 
             // No need to continue if we have no clean Html
-            if (String.IsNullOrEmpty(source))
-                return String.Empty;
+            if (string.IsNullOrEmpty(source))
+            {
+                return string.Empty;
+            }
 
             HtmlDocument html = GetHtml(source);
             StringBuilder result = new StringBuilder();
 
             // For each node, extract only the innerText
             foreach (HtmlNode node in html.DocumentNode.ChildNodes)
+            {
                 result.Append(node.InnerText);
+            }
 
             return result.ToString();
         }
@@ -163,7 +172,9 @@ namespace Professional.Web.Infrastructure.HtmlSanitise
             }
 
             if (node.HasChildNodes)
+            {
                 CleanChildren(node, whitelist);
+            }
         }
 
         /// <summary>
@@ -172,7 +183,9 @@ namespace Professional.Web.Infrastructure.HtmlSanitise
         private static void CleanChildren(HtmlNode parent, string[] whitelist)
         {
             for (int i = parent.ChildNodes.Count - 1; i >= 0; i--)
+            {
                 CleanNodes(parent.ChildNodes[i], whitelist);
+            }
         }
 
         /// <summary>

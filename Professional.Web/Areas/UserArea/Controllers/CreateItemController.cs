@@ -7,15 +7,11 @@
 
     using AutoMapper;
 
-    using Microsoft.AspNet.Identity;
-
     using Professional.Data;
     using Professional.Models;
     using Professional.Web.Areas.UserArea.Models.CreateItem;
-    using Professional.Web.Areas.UserArea.Models.InputModels;
     using Professional.Web.Helpers;
     using Professional.Web.Infrastructure.HtmlSanitise;
-    using Professional.Web.Models.InputViewModels;
 
     public class CreateItemController : UserController
     {
@@ -44,7 +40,7 @@
         {
             if (ModelState.IsValid)
             {
-                var creator = User.Identity.GetUserId();
+                var creator = this.GetLoggedUserId();
                 var fieldId = this.data.FieldsOfExpertise.All()
                     .FirstOrDefault(f => f.Name == model.FieldName).ID;
 
@@ -113,7 +109,7 @@
                 throw new ArgumentException("The model is not valid");
             }
 
-            model.EndorsingUserID = User.Identity.GetUserId();
+            model.EndorsingUserID = this.GetLoggedUserId();
             var newEndorsement = Mapper.Map<V, T>(model);
             this.ManipulateEntity(newEndorsement, EntityState.Added);
         }

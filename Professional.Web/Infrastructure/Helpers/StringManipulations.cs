@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Professional.Web.Helpers
+﻿namespace Professional.Web.Helpers
 {
+    using System.Collections.Generic;
+
     public static class StringManipulations
     {
         public static string GetSubstring(string item, int startIndex, int size)
@@ -18,12 +15,14 @@ namespace Professional.Web.Helpers
                 return item;
             }
         }
+
         public static string UppercaseFirst(string s)
         {
             if (string.IsNullOrEmpty(s))
             {
                 return string.Empty;
             }
+
             char[] a = s.ToCharArray();
             a[0] = char.ToUpper(a[0]);
             return new string(a);
@@ -39,7 +38,7 @@ namespace Professional.Web.Helpers
             return string.Join(", ", items);
         }
 
-        //Source: http://www.codeproject.com/Articles/11902/Convert-HTML-to-Plain-Text
+        // Source: http://www.codeproject.com/Articles/11902/Convert-HTML-to-Plain-Text
         public static string StripHtml(string source)
         {
             try
@@ -50,14 +49,16 @@ namespace Professional.Web.Helpers
                 // Replace line breaks with space
                 // because browsers inserts space
                 result = source.Replace("\r", " ");
+
                 // Replace line breaks with space
                 // because browsers inserts space
                 result = result.Replace("\n", " ");
+
                 // Remove step-formatting
                 result = result.Replace("\t", string.Empty);
+
                 // Remove repeating spaces because browsers ignore them
-                result = System.Text.RegularExpressions.Regex.Replace(result,
-                                                                      @"( )+", " ");
+                result = System.Text.RegularExpressions.Regex.Replace(result, @"( )+", " ");
 
                 // Remove the header (prepare first by clearing attributes)
                 result = System.Text.RegularExpressions.Regex.Replace(result,
@@ -77,7 +78,8 @@ namespace Professional.Web.Helpers
                 result = System.Text.RegularExpressions.Regex.Replace(result,
                          @"(<( )*(/)( )*script( )*>)", "</script>",
                          System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-                //result = System.Text.RegularExpressions.Regex.Replace(result,
+
+                // result = System.Text.RegularExpressions.Regex.Replace(result,
                 //         @"(<script>)([^(<script>\.</script>)])*(</script>)",
                 //         string.Empty,
                 //         System.Text.RegularExpressions.RegexOptions.IgnoreCase);
@@ -159,6 +161,7 @@ namespace Professional.Web.Helpers
                 result = System.Text.RegularExpressions.Regex.Replace(result,
                          @"&reg;", "(r)",
                          System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
                 // Remove all others. More can be added, see
                 // http://hotwired.lycos.com/webmonkey/reference/special_characters/
                 result = System.Text.RegularExpressions.Regex.Replace(result,
@@ -166,7 +169,7 @@ namespace Professional.Web.Helpers
                          System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
                 // for testing
-                //System.Text.RegularExpressions.Regex.Replace(result,
+                // System.Text.RegularExpressions.Regex.Replace(result,
                 //       this.txtRegex.Text,string.Empty,
                 //       System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
@@ -189,16 +192,20 @@ namespace Professional.Web.Helpers
                 result = System.Text.RegularExpressions.Regex.Replace(result,
                          "(\r)( )+(\t)", "\r\t",
                          System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
                 // Remove redundant tabs
                 result = System.Text.RegularExpressions.Regex.Replace(result,
                          "(\r)(\t)+(\r)", "\r\r",
                          System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
                 // Remove multiple tabs following a line break with just one tab
                 result = System.Text.RegularExpressions.Regex.Replace(result,
                          "(\r)(\t)+", "\r\t",
                          System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
                 // Initial replacement target string for line breaks
                 string breaks = "\r\r\r";
+
                 // Initial replacement target string for tabs
                 string tabs = "\t\t\t\t\t";
                 for (int index = 0; index < result.Length; index++)
@@ -213,7 +220,7 @@ namespace Professional.Web.Helpers
             }
             catch
             {
-                //MessageBox.Show("Error");
+                // MessageBox.Show("Error");
                 return source;
             }
         }

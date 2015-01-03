@@ -1,11 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
-using Professional.Data;
-using System.Data.Entity;
-
-namespace Professional.Web.Controllers
+﻿namespace Professional.Web.Controllers
 {
+    using System.Data.Entity;
+    using System.Web.Mvc;
+
+    using Professional.Data;
+
     public class BaseController : Controller
     {
         protected IApplicationData data;

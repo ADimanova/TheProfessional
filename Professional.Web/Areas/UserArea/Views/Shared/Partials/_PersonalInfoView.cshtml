@@ -24,7 +24,7 @@
                 </div>
                 @if (@Model.IsPrivate)
                 {
-                    <a href="@WebConstants.AddPersonalInfoPageRoute" class="btn btn-default set-bottom-right">Edit</a>
+                    <a href="@(WebConstants.AddPersonalInfoPageRoute + "true")" class="btn btn-default set-bottom-right">Edit</a>
                 }
             </div>
         </div>

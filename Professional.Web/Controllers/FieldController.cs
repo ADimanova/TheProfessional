@@ -1,22 +1,19 @@
-﻿using AutoMapper;
-using Professional.Data;
-using Professional.Models;
-using Professional.Web.Models;
-using Professional.Web.Models.DatabaseViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace Professional.Web.Controllers
+﻿namespace Professional.Web.Controllers
 {
+    using System.Linq;
+    using System.Web.Mvc;
+
+    using AutoMapper;
+
+    using Professional.Data;
+    using Professional.Models;
+    using Professional.Web.Models.Field;
+
     public class FieldController : BaseController
     {
         public FieldController(IApplicationData data)
             : base(data)
         {
-
         }
 
         // GET: Field/Info
@@ -33,7 +30,7 @@ namespace Professional.Web.Controllers
             Mapper.CreateMap<FieldOfExpertise, FieldViewModel>();
             var fieldInfoForView = Mapper.Map<FieldViewModel>(field);
 
-            return View(fieldInfoForView);
+            return this.View(fieldInfoForView);
         }
 
         public ActionResult FieldsListing()
@@ -42,7 +39,7 @@ namespace Professional.Web.Controllers
                 .OrderByDescending(f => f.Name)
                 .Select(f => f.Name).ToList();
 
-            return View(fields);
+            return this.View(fields);
         }
     }
 }

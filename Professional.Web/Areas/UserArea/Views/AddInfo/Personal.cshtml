@@ -1,4 +1,4 @@
-﻿@using Professional.Web.Areas.UserArea.Models.InputModels
+﻿@using Professional.Web.Areas.UserArea.Models.AddInfo
 
 @model UserInputModel
 
@@ -44,6 +44,8 @@
             <input type="file" name="ProfileImage" />
         </div>
     </div>
+    
+    @Html.TextBoxFor(m => m.ContinueToProfile, new { type = "hidden", value = @Model.ContinueToProfile })
 
     <div class="form-group to-left">
         <div class="col-md-offset-2 col-md-5">

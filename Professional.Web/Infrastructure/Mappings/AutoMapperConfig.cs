@@ -6,6 +6,7 @@
     using System.Reflection;
 
     using AutoMapper;
+
     public class AutoMapperConfig
     {
         public void Execute()

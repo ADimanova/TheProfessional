@@ -1,23 +1,22 @@
-﻿using AutoMapper;
-using Professional.Data;
-using Professional.Models;
-using Professional.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Professional.Web.Models.InputViewModels;
-
-namespace Professional.Web.Controllers
+﻿namespace Professional.Web.Controllers
 {
+    using System.Linq;
+    using System.Web.Mvc;
+
+    using AutoMapper;
+
+    using Microsoft.AspNet.Identity;
+
+    using Professional.Data;
+    using Professional.Models;
+    using Professional.Web.Areas.UserArea.Models.CreateItem;
+    using Professional.Web.Models.Post;
+
     public class PostController : BaseController
     {
         public PostController(IApplicationData data)
             : base(data)
         {
-
         }
 
         // GET: Post/Info
@@ -53,7 +52,7 @@ namespace Professional.Web.Controllers
                 ViewBag.IsEndorsed = "true";
             }
 
-            return View(postInfoForView);
+            return this.View(postInfoForView);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿@using Professional.Web.Helpers
+@using Professional.Web.Areas.UserArea.Models.Profile.Public
+
 @model PublicProfileViewModel
 
 @{
@@ -20,8 +22,8 @@
         @Html.Partial("~/Views/Shared/Partials/_BtnNavigate.cshtml", Model.BtnNavigatePosts)
         @Html.Partial("~/Views/Shared/Partials/_BtnNavigate.cshtml", Model.BtnNavigateEndorsements)
 
-        @Html.Partial("~/Views/Shared/Partials/_ListPanel.cshtml", Model.TopPostsList)
-        @Html.Partial("~/Views/Shared/Partials/_ListPanel.cshtml", Model.RecentPostsList)
+        @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ListPanel.cshtml", Model.TopPostsList)
+        @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ListPanel.cshtml", Model.RecentPostsList)
     </div>
 </div>
 

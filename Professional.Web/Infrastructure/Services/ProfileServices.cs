@@ -1,16 +1,15 @@
-﻿using Professional.Data;
-using Professional.Models;
-using Professional.Web.Helpers;
-using Professional.Web.Infrastructure.Caching;
-using Professional.Web.Infrastructure.Services.Base;
-using Professional.Web.Infrastructure.Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Professional.Web.Infrastructure.Services
+﻿namespace Professional.Web.Infrastructure.Services
 {
+    using System;
+    using System.Linq;
+
+    using Professional.Data;
+    using Professional.Models;
+    using Professional.Web.Helpers;
+    using Professional.Web.Infrastructure.Caching;
+    using Professional.Web.Infrastructure.Services.Base;
+    using Professional.Web.Infrastructure.Services.Contracts;
+
     public class ProfileServices : BaseServices, IProfileServices
     {
         public ProfileServices(IApplicationData data, ICacheService cache)
@@ -92,6 +91,7 @@ namespace Professional.Web.Infrastructure.Services
 
             return isEndorsed;
         }
+
         public IQueryable<EndorsementOfUser> GetUserEndorsements(string currentUserId)
         {
             var endorsements = this.Data.EndorsementsOfUsers.All()
@@ -99,6 +99,7 @@ namespace Professional.Web.Infrastructure.Services
 
             return endorsements;
         }
+
         public bool IsConnected(string userId, string loggedUserId)
         {
             var isConnected = this.Data.Connections.All()

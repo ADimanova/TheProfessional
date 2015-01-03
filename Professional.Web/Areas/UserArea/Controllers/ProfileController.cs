@@ -11,18 +11,16 @@
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
 
-    using Microsoft.AspNet.Identity;
-
     using Professional.Data;
     using Professional.Models;
     using Professional.Web.Areas.UserArea.Models;
-    using Professional.Web.Areas.UserArea.Models.DatabaseVeiwModels;
+    using Professional.Web.Areas.UserArea.Models.CreateItem;
     using Professional.Web.Areas.UserArea.Models.ListingViewModels;
+    using Professional.Web.Areas.UserArea.Models.Profile.Private;
     using Professional.Web.Areas.UserArea.Models.Profile.Public;
     using Professional.Web.Helpers;
     using Professional.Web.Infrastructure.Services.Contracts;
-    using Professional.Web.Models;
-    using Professional.Web.Models.InputViewModels;
+    using Professional.Web.Models.Shared;
 
     public class ProfileController : UserController
     {
@@ -44,7 +42,7 @@
                 return this.RedirectToAction("Index", "Home", new { Area = string.Empty });   
             }
 
-            var userInfo = this.SetUserInfo(currentUser);
+            var userInfo = this.SetUserInfo(currentUser, false);
 
             var userFields = this.profileServices.GetUserFields(id)
                 .Select(f => f.Name).ToList();
@@ -79,7 +77,7 @@
             btnNavigateEndorsements.Content = "See endorsements's page";
             btnNavigateEndorsements.Url = WebConstants.UserEndorsementsPageRoute + id;
 
-            var loggedUserId = User.Identity.GetUserId();
+            var loggedUserId = this.GetLoggedUserId();
             var isEndorsed = this.profileServices.IsEndorsed(id, loggedUserId);
 
             var endorsements = this.profileServices.GetUserEndorsements(id)
@@ -112,10 +110,10 @@
 
         public ActionResult Private()
         {
-            string currentUserId = User.Identity.GetUserId();
+            string currentUserId = this.GetLoggedUserId();
 
             var currentUser = this.GetUser(currentUserId);
-            var userInfo = this.SetUserInfo(currentUser);
+            var userInfo = this.SetUserInfo(currentUser, true);
 
             var occupationsListing = new ShortListingViewModel();
             occupationsListing.Title = "Occupations";
@@ -186,7 +184,7 @@
 
         public ActionResult DeleteOccupation(string query, string title)
         {
-            string currentUserId = User.Identity.GetUserId();
+            string currentUserId = this.GetLoggedUserId();
             var currentUser = this.GetUser(currentUserId);
 
             var occupation = currentUser.Occupations.FirstOrDefault(f => f.Title == query);
@@ -201,9 +199,10 @@
 
             return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ShortListPanel.cshtml", listModel);
         }
+
         public ActionResult DeleteField(string query, string title)
         {
-            string currentUserId = User.Identity.GetUserId();
+            string currentUserId = this.GetLoggedUserId();
             var currentUser = this.GetUser(currentUserId);
 
             var field = currentUser.FieldsOfExpertise.FirstOrDefault(f => f.Name == query);
@@ -231,14 +230,14 @@
                     Url = WebConstants.PostPageRoute + i.ID
                 }).ToList();
 
-            return this.PartialView("~/Views/Shared/Partials/_ListItems.cshtml", resultPosts);
+            return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ListItems.cshtml", resultPosts);
         }
 
-        private UserViewModel SetUserInfo(User user)
+        private UserViewModel SetUserInfo(User user, bool isPrivate)
         {
             var userInfo = Mapper.Map<UserViewModel>(user);
             userInfo.PersonalHistory = this.GetModifiedHistory(userInfo.PersonalHistory);
-            userInfo.IsPrivate = false;
+            userInfo.IsPrivate = isPrivate;
             userInfo.ProfileImageUrl = userInfo.ProfileImageId == null ?
                 WebConstants.DefaultImage :
                 WebConstants.GetImagePageRoute + userInfo.ProfileImageId;

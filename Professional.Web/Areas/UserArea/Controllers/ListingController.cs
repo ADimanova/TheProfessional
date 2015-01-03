@@ -8,10 +8,10 @@
 
     using Professional.Data;
     using Professional.Web.Areas.UserArea.Models;
+    using Professional.Web.Areas.UserArea.Models.Listing;
     using Professional.Web.Areas.UserArea.Models.Profile.Public;
     using Professional.Web.Helpers;
     using Professional.Web.Infrastructure.Services.Contracts;
-    using Professional.Web.Models.Shared;
 
     public class ListingController : UserController
     {
