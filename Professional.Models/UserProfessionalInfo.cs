@@ -16,7 +16,6 @@
         public virtual ICollection<Occupation> Occupations
         {
             get { return this.occupations; }
-
             set { this.occupations = value; }
         }
 

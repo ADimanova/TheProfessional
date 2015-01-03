@@ -99,6 +99,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq.Dynamic">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.4\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -675,7 +678,7 @@
     <Content Include="Views\Shared\EditorTemplates\TextArea.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\TextInput.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_classic.cshtml" />
-    <Content Include="Areas\UserArea\Views\Shared\Partials\_Endorsement.cshtml" />
+    <Content Include="Views\Shared\Partials\_Endorsement.cshtml" />
     <Content Include="Views\Field\FieldsListing.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />

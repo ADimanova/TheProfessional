@@ -1,10 +1,12 @@
 ﻿@using Professional.Web.Helpers
 @using Professional.Web.Areas.UserArea.Models.InputModels
+
 @model UserInputModel
 
 @{
     ViewBag.Title = "Add Professional Information";
 }
+
 <div class="row">
     @using (Html.BeginForm())
     {
@@ -31,7 +33,7 @@
 
         <div class="rowto-left">
             <div class="col-md-offset-5 col-md-5">
-                <input type="submit" class="btn btn-custom btn-block" value="Post" />
+                <input type="submit" class="btn btn-custom btn-block" value="Add" />
             </div>
         </div>
     }

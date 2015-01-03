@@ -47,6 +47,34 @@ namespace Professional.Web.Infrastructure.Services
             return recentPost;
         }
 
+        public IQueryable<Post> GetFilteredPosts(string query, string condition)
+        {
+            var posts = this.GetAllPosts();
+
+            if (query != "All")
+            {
+                posts = posts
+                .Where(p => p.Field.Name == query);
+            }
+
+            if (condition == "Recent")
+            {
+                posts = posts
+                .OrderBy(p => p.CreatedOn);
+            }
+            else if (condition == "Top")
+            {
+                posts = posts
+                .OrderBy(p => p.Rank);
+            }
+            else
+            {
+                throw new ArgumentException("The passed condition is not supported");
+            }
+
+            return posts;
+        }
+
         public IQueryable<FieldOfExpertise> GetUserFields(string currentUserId)
         {
             var fields = this.Data.Users.All()
@@ -55,6 +83,7 @@ namespace Professional.Web.Infrastructure.Services
 
             return fields;
         }
+        
         public bool IsEndorsed(string userId, string loggedUserId)
         {
             var isEndorsed = this.Data.EndorsementsOfUsers.All()

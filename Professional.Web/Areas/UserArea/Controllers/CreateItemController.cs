@@ -1,24 +1,26 @@
-﻿using AutoMapper;
-using Microsoft.AspNet.Identity;
-using Professional.Data;
-using Professional.Models;
-using Professional.Web.Areas.UserArea.Models.CreateItem;
-using Professional.Web.Areas.UserArea.Models.InputModels;
-using Professional.Web.Helpers;
-using Professional.Web.Infrastructure.HtmlSanitise;
-using Professional.Web.Models;
-using Professional.Web.Models.InputViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace Professional.Web.Areas.UserArea.Controllers
+﻿namespace Professional.Web.Areas.UserArea.Controllers
 {
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Web.Mvc;
+
+    using AutoMapper;
+
+    using Microsoft.AspNet.Identity;
+
+    using Professional.Data;
+    using Professional.Models;
+    using Professional.Web.Areas.UserArea.Models.CreateItem;
+    using Professional.Web.Areas.UserArea.Models.InputModels;
+    using Professional.Web.Helpers;
+    using Professional.Web.Infrastructure.HtmlSanitise;
+    using Professional.Web.Models.InputViewModels;
+
     public class CreateItemController : UserController
     {
         private readonly ISanitiser sanitizer;
+
         public CreateItemController(IApplicationData data, ISanitiser sanitizer)
             : base(data)
         {
@@ -31,7 +33,8 @@ namespace Professional.Web.Areas.UserArea.Controllers
         {
             ViewBag.Fields = this.data.FieldsOfExpertise
                 .All().Select(f => f.Name);
-            return View();
+
+            return this.View();
         }
 
         // POST: UserArea/CreateItem/Post
@@ -60,53 +63,48 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 {
                     this.data.Posts.Add(newPost);
                     this.data.SaveChanges();
-                    return RedirectToAction("Index", "Home", new { Area = "" });
+                    return this.RedirectToAction("Index", "Home", new { Area = string.Empty });
                 }
                 catch
                 {
-                    // Implement better error handling
-                    return View("Error");
+                    return this.View("Error");
                 }
             }
 
-            // Something failed, redisplay form
-            return View(model);
+            return this.View(model);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // POST: UserArea/CreateItem/EndorsementOfPost
         public ActionResult EndorsementOfPost(PostEndorsementInputModel model)
         {
             try
             {
                 this.Endorse<EndorsementOfPost, PostEndorsementInputModel>(model);
-                return RedirectToAction("Index", "Home", new { Area = "" });
+                return this.RedirectToAction("Index", "Home", new { Area = string.Empty });
             }
             catch
             {
-                return View("Error");
+                return this.View("Error");
             }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // POST: UserArea/CreateItem/EndorsementOfPost
         public ActionResult EndorsementOfUser(UserEndorsementInputModel model)
         {
             try
             {
                 this.Endorse<EndorsementOfUser, UserEndorsementInputModel>(model);
-                return RedirectToAction("Index", "Home", new { Area = "" });
+                return this.RedirectToAction("Index", "Home", new { Area = string.Empty });
             }
             catch
             {
-                return View("Error");
+                return this.View("Error");
             }
         }
 
-        public void Endorse<T, V>(V model)
+        private void Endorse<T, V>(V model)
             where T : class
             where V : EndorsementInputModel
         {
@@ -117,11 +115,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
 
             model.EndorsingUserID = User.Identity.GetUserId();
             var newEndorsement = Mapper.Map<V, T>(model);
-
-            var set = this.data.Context.Set<T>();
-            set.Add(newEndorsement);
-            this.data.SaveChanges();
+            this.ManipulateEntity(newEndorsement, EntityState.Added);
         }
-
     }
 }

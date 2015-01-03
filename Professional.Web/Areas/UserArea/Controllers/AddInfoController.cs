@@ -11,6 +11,8 @@
     using Professional.Models;
     using Professional.Web.Areas.UserArea.Models.InputModels;
     using Professional.Web.Helpers;
+    using System.Linq.Expressions;
+    using Antlr.Runtime.Misc;
 
     public class AddInfoController : UserController
     {
@@ -23,7 +25,7 @@
         {
             this.GetInfoNavigation(WebConstants.AddPersonalInfoPageRoute);
 
-            return View();
+            return this.View();
         }
 
         [HttpGet]
@@ -31,56 +33,61 @@
         {
             this.GetInfoNavigation(WebConstants.AddProfessionalInfoPageRoute);
 
-            return View();
+            return this.View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Personal(UserInputModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var userId = User.Identity.GetUserId();
-                var user = this.data.Users.GetById(userId);
+                return View(model);
+            }
 
+            var userId = User.Identity.GetUserId();
+            var user = this.data.Users.GetById(userId);
+
+            if (model.PersonalHistory != null)
+            {
                 user.PersonalHistory = model.PersonalHistory;
-                if (user.IsMale != null)
-                {
-                    user.IsMale = model.IsMale;                    
-                }
+            }
 
+            if (model.IsMale != null)
+            {
+                user.IsMale = model.IsMale;                    
+            }
+
+            if (model.DateOfBirth != null)
+            {
                 user.DateOfBirth = model.DateOfBirth;
+            }
 
-                if (model.ProfileImage != null)
+            if (model.ProfileImage != null)
+            {
+                using (var memory = new MemoryStream())
                 {
-                    using (var memory = new MemoryStream())
+                    model.ProfileImage.InputStream.CopyTo(memory);
+                    var content = memory.GetBuffer();
+
+                    user.ProfileImage = new Image
                     {
-                        model.ProfileImage.InputStream.CopyTo(memory);
-                        var content = memory.GetBuffer();
-
-                        user.ProfileImage = new Image
-                        {
-                            Content = content,
-                            FileExtension = model.ProfileImage.FileName.Split(new[] { '.' }).Last()
-                        };
-                    }
-                }
-
-                try
-                {
-                    this.data.Users.Update(user);
-                    this.data.SaveChanges();
-                    return RedirectToAction("Professional", "AddInfo", new { Area = WebConstants.UserArea });
-                }
-                catch
-                {
-                    // Implement better error handling
-                    return View("Error");
+                        Content = content,
+                        FileExtension = model.ProfileImage.FileName.Split(new[] { '.' }).Last()
+                    };
                 }
             }
 
-            // Something failed, redisplay form
-            return View(model);
+            try
+            {
+                this.data.Users.Update(user);
+                this.data.SaveChanges();
+                return this.RedirectToAction("Professional", "AddInfo", new { Area = WebConstants.UserArea });
+            }
+            catch
+            {
+                return this.View(model);
+            }
         }
 
         [HttpGet]
@@ -102,11 +109,8 @@
 
             ViewBag.Occupations = occupations.ToList();
             ViewBag.Fields = fields.ToList();
-            var model =  new UserInputModel();
-            model.Occupations = new List<string>();
-            model.Fields = new List<string>();
 
-            return View(model);
+            return this.View();
         }
 
         [HttpPost]
@@ -116,9 +120,10 @@
             var userId = User.Identity.GetUserId();
             var user = this.data.Users.GetById(userId);
 
+            //TODO: Further refactor
             if (model.Occupations != null)
             {
-                var occupations = model.Occupations.ToList<string>();
+                var occupations = model.Occupations.ToList();
                 Occupation foundOccupation;
                 for (int i = 0; i < occupations.Count; i++)
                 {
@@ -137,7 +142,7 @@
 
             if (model.Fields != null)
             {
-                var fields = model.Fields.ToList<string>();
+                var fields = model.Fields.ToList();
                 FieldOfExpertise foundField;
                 for (int i = 0; i < fields.Count; i++)
                 {
@@ -161,10 +166,8 @@
             }
             catch
             {
-                // Implement better error handling
-                return View("Error");
+                return this.View(model);
             }
-
         }
 
         private void GetInfoNavigation(string nextPath)

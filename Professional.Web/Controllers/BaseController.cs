@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Professional.Data;
+using System.Data.Entity;
 
 namespace Professional.Web.Controllers
 {
@@ -12,6 +13,14 @@ namespace Professional.Web.Controllers
         public BaseController(IApplicationData data)
         {
             this.data = data;
+        }
+
+        [NonAction]
+        protected void ManipulateEntity(object dbModel, EntityState state)
+        {
+            var entry = this.data.Context.Entry(dbModel);
+            entry.State = state;
+            this.data.SaveChanges();
         }
     }
 }

@@ -1,62 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Professional.Data;
-using Professional.Models;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Professional.Web.Models.DatabaseViewModels;
-using Professional.Web.Areas.UserArea.Models;
-using Professional.Web.Models;
-using Professional.Web.Helpers;
-using Professional.Web.Areas.UserArea.Models.InputModels;
-using Professional.Web.Models.InputViewModels;
-using Professional.Web.Areas.UserArea.Models.ListingViewModels;
-using Professional.Web.Areas.UserArea.Models.DatabaseVeiwModels;
-using Professional.Web.Infrastructure.Services.Contracts;
-using Professional.Web.Areas.UserArea.Models.Profile.Public;
-
-namespace Professional.Web.Areas.UserArea.Controllers
+﻿namespace Professional.Web.Areas.UserArea.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Linq.Dynamic;
+    using System.Linq.Expressions;
+    using System.Web.Mvc;
+
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+
+    using Microsoft.AspNet.Identity;
+
+    using Professional.Data;
+    using Professional.Models;
+    using Professional.Web.Areas.UserArea.Models;
+    using Professional.Web.Areas.UserArea.Models.DatabaseVeiwModels;
+    using Professional.Web.Areas.UserArea.Models.ListingViewModels;
+    using Professional.Web.Areas.UserArea.Models.Profile.Public;
+    using Professional.Web.Helpers;
+    using Professional.Web.Infrastructure.Services.Contracts;
+    using Professional.Web.Models;
+    using Professional.Web.Models.InputViewModels;
+
     public class ProfileController : UserController
     {
         private static User currentUser;
-        private readonly IQueryable<Post> postsData;
         private IProfileServices profileServices;
+
         public ProfileController(IApplicationData data, IProfileServices profileServices)
             : base(data)
         {
-            this.postsData = profileServices.GetAllPosts();
             this.profileServices = profileServices;
         }
 
-        // GET: UserArea/Profile
         public ActionResult Public(string id)
         {
             currentUser = this.GetUser(id);
 
             if (currentUser == null)
             {
-                return this.RedirectToAction("Index", "Home", new { Area = "" });   
+                return this.RedirectToAction("Index", "Home", new { Area = string.Empty });   
             }
 
-            var userInfo = Mapper.Map<UserViewModel>(currentUser);
-            userInfo.PersonalHistory = this.GetModifiedHistory(userInfo.PersonalHistory);
-            userInfo.IsPrivate = false;
-            userInfo.ProfileImageUrl = userInfo.ProfileImageId == null ?
-                WebConstants.DefaultImage :
-                WebConstants.GetImagePageRoute + userInfo.ProfileImageId;
+            var userInfo = this.SetUserInfo(currentUser);
 
-            var userFields = profileServices.GetUserFields(id)
+            var userFields = this.profileServices.GetUserFields(id)
                 .Select(f => f.Name).ToList();
 
             var topPostPanel = new ListPanelViewModel();
             topPostPanel.UniqueIdentificator = "Top";
             topPostPanel.Title = "Top Posts";
-            topPostPanel.Items = profileServices.GetTopPosts(id)
+            topPostPanel.Items = this.profileServices.GetTopPosts(id)
                 .Select(p => new NavigationItem
                 {
                     Content = p.Title,
@@ -67,7 +63,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             var recentPostPanel = new ListPanelViewModel();
             recentPostPanel.UniqueIdentificator = "Recent";
             recentPostPanel.Title = "Recent Posts";
-            recentPostPanel.Items = profileServices.GetRecentPosts(id)
+            recentPostPanel.Items = this.profileServices.GetRecentPosts(id)
                 .Select(p => new NavigationItem
                 {
                     Content = p.Title,
@@ -84,15 +80,15 @@ namespace Professional.Web.Areas.UserArea.Controllers
             btnNavigateEndorsements.Url = WebConstants.UserEndorsementsPageRoute + id;
 
             var loggedUserId = User.Identity.GetUserId();
-            var isEndorsed = profileServices.IsEndorsed(id, loggedUserId);
+            var isEndorsed = this.profileServices.IsEndorsed(id, loggedUserId);
 
-            var endorsements = profileServices.GetUserEndorsements(id)
+            var endorsements = this.profileServices.GetUserEndorsements(id)
                 .Project().To<UserEndorsementViewModel>();
 
             var contactModel = new ContactViewModel();
             contactModel.FromUserId = id;
             contactModel.FromUserName = currentUser.FullName;
-            contactModel.IsConnected = profileServices.IsConnected(id, loggedUserId);
+            contactModel.IsConnected = this.profileServices.IsConnected(id, loggedUserId);
 
             var publicProfileInfo = new PublicProfileViewModel();
             publicProfileInfo.UserInfo = userInfo;
@@ -109,33 +105,17 @@ namespace Professional.Web.Areas.UserArea.Controllers
             publicProfileInfo.BtnNavigateEndorsements = btnNavigateEndorsements;
             publicProfileInfo.TopPostsList = topPostPanel;
             publicProfileInfo.RecentPostsList = recentPostPanel;
-            publicProfileInfo.UserInfo.Endorsements = endorsements.ToList(); ;
+            publicProfileInfo.UserInfo.Endorsements = endorsements.ToList();
 
-            return View(publicProfileInfo);
+            return this.View(publicProfileInfo);
         }
 
         public ActionResult Private()
         {
             string currentUserId = User.Identity.GetUserId();
+
             var currentUser = this.GetUser(currentUserId);
-
-            if (currentUser == null)
-            {
-                return this.RedirectToAction("Index", "Home", new { Area = "" });   
-            }
-
-            var userInfo = Mapper.Map<UserViewModel>(currentUser);
-            userInfo.PersonalHistory = this.GetModifiedHistory(userInfo.PersonalHistory);
-            userInfo.IsPrivate = true;
-
-            if (userInfo.ProfileImageId != null)
-            {
-                userInfo.ProfileImageUrl = Url.Action("ImageById", "Image", new { Area = "", id = userInfo.ProfileImageId.Value });
-            }
-            else
-            {
-                userInfo.ProfileImageUrl = "~/Images/default-profile-pic.png";
-            }
+            var userInfo = this.SetUserInfo(currentUser);
 
             var occupationsListing = new ShortListingViewModel();
             occupationsListing.Title = "Occupations";
@@ -151,7 +131,7 @@ namespace Professional.Web.Areas.UserArea.Controllers
             proInfo.OccupationsListing = occupationsListing;
             proInfo.FieldsListing = fieldsListing;
 
-            var messagesReceived = profileServices.GetUserMessages(currentUserId)
+            var messagesReceived = this.profileServices.GetUserMessages(currentUserId)
                 .GroupBy(m => m.FromUserId)
                 .Select(g => new MessageViewModel
                 {
@@ -161,10 +141,10 @@ namespace Professional.Web.Areas.UserArea.Controllers
                     IsRead = g.FirstOrDefault().IsRead
                 });
 
-            var connectionRequests = profileServices.GetUserConnectionRequests(currentUserId)
+            var connectionRequests = this.profileServices.GetUserConnectionRequests(currentUserId)
                 .Project().To<ConnectionViewModel>();
 
-            var notifications = profileServices.GetUserNotifications(currentUserId)
+            var notifications = this.profileServices.GetUserNotifications(currentUserId)
                 .Project().To<NotificationShortViewModel>();
 
             var updateModel = new UpdatesViewModel();
@@ -201,85 +181,49 @@ namespace Professional.Web.Areas.UserArea.Controllers
             privateProfileInfo.NavigationList = navList;
             privateProfileInfo.ProInfo = proInfo;
 
-            return View(privateProfileInfo);
+            return this.View(privateProfileInfo);
         }
 
-        public ActionResult EndorseUser(string id)
-        {
-            var endorsee = this.data.Users.GetById(id);
-            return Content(endorsee.FirstName);
-        }
-
-        public ActionResult Delete(string query, string type, string title)
+        public ActionResult DeleteOccupation(string query, string title)
         {
             string currentUserId = User.Identity.GetUserId();
             var currentUser = this.GetUser(currentUserId);
 
-            IEnumerable<string> editedResult;
+            var occupation = currentUser.Occupations.FirstOrDefault(f => f.Title == query);
+            currentUser.Occupations.Remove(occupation);
 
-            if (type == "Occupation")
-            {
-                var occupation = this.data.Occupations.All()
-                    .FirstOrDefault(f => f.Title == query);
-                currentUser.Occupations.Remove(occupation);
-                this.data.SaveChanges();
-
-                editedResult = currentUser.Occupations.Select(o => o.Title);
-            }
-            else if (type == "Field")
-            {
-                var field = this.data.FieldsOfExpertise.All()
-                    .FirstOrDefault(f => f.Name == query);
-                currentUser.FieldsOfExpertise.Remove(field);
-                this.data.SaveChanges();
-
-                editedResult = currentUser.FieldsOfExpertise.Select(o => o.Name);
-            }
-            else
-            {
-                return View("Error");
-            }
+            var editedResult = currentUser.Occupations.Select(o => o.Title);
 
             var listModel = new ShortListingViewModel();
             listModel.Title = title;
-            listModel.Type = type;
-            listModel.Items = editedResult;
+            listModel.Type = "Occupation";
+            listModel.Items = editedResult.ToList();
+
+            return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ShortListPanel.cshtml", listModel);
+        }
+        public ActionResult DeleteField(string query, string title)
+        {
+            string currentUserId = User.Identity.GetUserId();
+            var currentUser = this.GetUser(currentUserId);
+
+            var field = currentUser.FieldsOfExpertise.FirstOrDefault(f => f.Name == query);
+            currentUser.FieldsOfExpertise.Remove(field);
+
+            this.data.SaveChanges();
+
+            var editedResult = currentUser.FieldsOfExpertise.Select(o => o.Name);
+
+            var listModel = new ShortListingViewModel();
+            listModel.Title = title;
+            listModel.Type = "Field";
+            listModel.Items = editedResult.ToList();
 
             return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ShortListPanel.cshtml", listModel);
         }
 
         public ActionResult Filter(string query, string condition)
         {
-            if (currentUser == null)
-            {
-                return View("Error");
-            }
-
-            var posts = postsData
-                .Where(p => p.CreatorID == currentUser.Id);
-
-            if (query != "All")
-            {
-                posts = posts
-                .Where(p => p.Field.Name == query);
-            }
-
-            if (condition == "Recent")
-            {
-                posts = posts
-                .OrderBy(p => p.CreatedOn);
-            }
-            else if (condition == "Top")
-            {
-                posts = posts
-                .OrderBy(p => p.Rank);
-            }
-            else
-            {
-                return View("Error");
-            }
-
-            var resultPosts = posts
+            var resultPosts = this.profileServices.GetFilteredPosts(query, condition)
                 .Take(WebConstants.ListPanelCount)
                 .Select(i => new NavigationItem
                 {
@@ -288,6 +232,18 @@ namespace Professional.Web.Areas.UserArea.Controllers
                 }).ToList();
 
             return this.PartialView("~/Views/Shared/Partials/_ListItems.cshtml", resultPosts);
+        }
+
+        private UserViewModel SetUserInfo(User user)
+        {
+            var userInfo = Mapper.Map<UserViewModel>(user);
+            userInfo.PersonalHistory = this.GetModifiedHistory(userInfo.PersonalHistory);
+            userInfo.IsPrivate = false;
+            userInfo.ProfileImageUrl = userInfo.ProfileImageId == null ?
+                WebConstants.DefaultImage :
+                WebConstants.GetImagePageRoute + userInfo.ProfileImageId;
+
+            return userInfo;
         }
 
         private string GetModifiedHistory(string history)
@@ -306,19 +262,23 @@ namespace Professional.Web.Areas.UserArea.Controllers
         {
             return new List<NavigationItem>
             {
-                new NavigationItem { 
+                new NavigationItem 
+                { 
                     Content = "Create Post",
                     Url = WebConstants.CreatePostPageRoute
                 },
-                new NavigationItem { 
+                new NavigationItem 
+                { 
                     Content = "Posts",
                     Url = WebConstants.UserPostsPageRoute + currentUserId
                 },
-                new NavigationItem { 
+                new NavigationItem 
+                { 
                     Content = "Endorsements",
                     Url = WebConstants.UserEndorsementsPageRoute + currentUserId
                 },
-                new NavigationItem { 
+                new NavigationItem 
+                { 
                     Content = "Connections",
                     Url = WebConstants.UserConnectionsPageRoute + currentUserId
                 },

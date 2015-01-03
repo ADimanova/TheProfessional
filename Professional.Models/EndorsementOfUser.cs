@@ -17,7 +17,7 @@
 
         public string Comment { get; set; }
 
-        [Required]
+        //[Required]
         public string EndorsedUserID { get; set; }
 
         public virtual User EndorsedUser { get; set; }

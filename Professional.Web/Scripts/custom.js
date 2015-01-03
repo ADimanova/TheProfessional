@@ -1,5 +1,13 @@
 ﻿$(function () {
     $(document).ready(function () {
+        // Set max date for datepicker
+        $(function () {
+            $('[type="date"].datecontrol').prop('max', function () {
+                return new Date().toJSON().split('T')[0];
+            });
+        });
+        // Set max date for datepicker
+
         // Endorsement box
         $("#dialog").dialog({
             autoOpen: false,
@@ -82,7 +90,7 @@
         // Filtered listing by field scripts (AJAX)
 
         // Delete item on private profile page
-        $(".deleteLink").on("click", function () {
+        $("div.short-listing").on("click", "a", function () {
             var identificator = $(this).parent().parent().attr('data-type')
             $('#input' + identificator).val($(this).attr('data-query'));
             $('#form' + identificator).submit();
