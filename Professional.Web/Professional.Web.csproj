@@ -376,7 +376,7 @@
     <Content Include="Areas\Admin\Views\Shared\Partials\_AdminNotification.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Partials\_CreateNotification.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Partials\_CreateField.cshtml" />
-    <None Include="Areas\UserArea\Views\AddInfo\Personal.cshtml" />
+    <Content Include="Areas\UserArea\Views\AddInfo\Personal.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_PersonalInfoView.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\UserArea\Views\Listing\Users.cshtml" />
