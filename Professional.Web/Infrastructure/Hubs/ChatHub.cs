@@ -27,6 +27,7 @@
 
             var chatUser = this.Context.User.Identity.GetUserId();
             var groupName = string.Format("{0}/{1}", chatUser, toId);
+            this.Groups.Add(Context.ConnectionId, groupName);
 
             var messages = this.data.Messages.All()
                 .Where(m => m.IsRead == false)
@@ -37,15 +38,13 @@
 
             for (int i = 0; i < messages.Count; i++)
             {
-                Clients.Group(groupName).addNewMessageToPage("Other", messages[i].Content);
+                Clients.Group(groupName).addNewMessageToPage(other.FirstName, messages[i].Content);
 
                 // TODO: Open on Release
                 // messages[i].IsRead = true;
             }
 
             this.data.SaveChanges();
-
-            this.Groups.Add(Context.ConnectionId, groupName);
         }
 
         public void Send(string toId, string message)

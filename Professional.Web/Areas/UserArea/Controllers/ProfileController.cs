@@ -131,6 +131,8 @@
 
             var messagesReceived = this.profileServices.GetUserMessages(currentUserId)
                 .GroupBy(m => m.FromUserId)
+                .OrderByDescending(g => g.FirstOrDefault().CreatedOn)
+                .Take(5)
                 .Select(g => new MessageViewModel
                 {
                     FromUserId = g.Key,

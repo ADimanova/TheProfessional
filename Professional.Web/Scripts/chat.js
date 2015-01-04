@@ -4,15 +4,16 @@ $(function () {
     var chat = $.connection.chatHub;
 
     chat.client.addNewMessageToPage = function (name, message) {
-        var encodedName = htmlEncode(name);
+        var encodedName = htmlEncode(name); 
         var encodedMessage = htmlEncode(message);
         if (message.length > 0) {
             $('#discussion').append('<li><strong>' + encodedName +
                 '</strong>: ' + encodedMessage + '</li>');
         }
+        $(".chat-content").scrollTop($(".chat-content")[0].scrollHeight);
     };
 
-    $('.chat-close-btn').click(function () {
+    $('.chat-close-btn').on("click", function () {
         $('#chat').addClass('hide');
     });
  
@@ -20,7 +21,7 @@ $(function () {
 
     var currentChatPartner;
     $.connection.hub.start().done(function () {
-        $('.chat-open').click(function () {
+        $('.glif-updates.chat').on('click', '.chat-open', function () {
             // Show chat window
             $('#chat').removeClass('hide');
             // Mark update as checked
@@ -34,7 +35,7 @@ $(function () {
             // Start conversation
             chat.server.startConversation(currentChatPartner);
         });
-        $('#sendmessage').click(function () {
+        $('#sendmessage').on('click', function () {
             chat.server.send(currentChatPartner, $('#message').val());
             $('#message').val('').focus();
         });

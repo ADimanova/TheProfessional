@@ -16,8 +16,8 @@
     list-style-type: none;
     padding: 0 5px;
     margin: 0;
-    height: auto;
-    overflow-x: hidden;
+    height: 82%;
+    overflow-x: scroll;
 }
 
 .chat-header {
