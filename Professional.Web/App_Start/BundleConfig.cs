@@ -23,18 +23,18 @@ namespace Professional.Web
         public static void RegisterScripts(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery")
-                .Include("~/Scripts/jquery-{version}.js",
-                "~/Scripts/jquery-ui-{version}.js"));
+                .Include("~/Scripts/jquery-1.10.2.min.js",
+                "~/Scripts/jquery-ui-{1.11.2.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery.validate.min.js"));
                 
             bundles.Add(new ScriptBundle("~/bundles/unobtrusive-jquery").Include(
                     "~/Scripts/jquery.unobtrusive-ajax.min.js"));
 
-            bundles.Add(new ScriptBundle("~/Js/kendo").Include(
-                    "~/Scripts/kendo/kendo.all.min.js",
-                    "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
+            //bundles.Add(new ScriptBundle("~/Js/kendo").Include(
+            //        "~/Scripts/kendo/kendo.all.min.js",
+            //        "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
 
             bundles.Add(new ScriptBundle("~/Js/custom").Include(
                     "~/Scripts/custom.js"));
@@ -63,11 +63,11 @@ namespace Professional.Web
             bundles.Add(new StyleBundle("~/Content/jquery-css").Include(
                       "~/Content/themes/base/jquery-ui.css"));
 
-            bundles.Add(new StyleBundle("~/Css/kendo").Include(
-                        "~/Content/kendo/kendo.common.*",
-                        "~/Content/kendo/kendo.silver.*",
-                        "~/Content/kendo/images/",
-                        "~/Content/kendo/custom-kendo.css"));
+            //bundles.Add(new StyleBundle("~/Css/kendo").Include(
+            //            "~/Content/kendo/kendo.common.*",
+            //            "~/Content/kendo/kendo.silver.*",
+            //            "~/Content/kendo/images/",
+            //            "~/Content/kendo/custom-kendo.css"));
         }
     }
 }
