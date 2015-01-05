@@ -434,3 +434,19 @@ output {
     z-index: 100;
     margin-right: 3%;
 }
+
+.load-more {
+    margin-right: 10%;
+    margin-left: 30%;
+	background-color: #b9d8ee;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.load-more:focus {
+    outline: 0;
+}
+
+.stop-chat-loads {
+    background-color: #F5F5F5;
+}

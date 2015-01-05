@@ -30,7 +30,8 @@ namespace Professional.Web
                         "~/Scripts/jquery.validate.min.js"));
                 
             bundles.Add(new ScriptBundle("~/bundles/unobtrusive-jquery").Include(
-                    "~/Scripts/jquery.unobtrusive-ajax.min.js"));
+                    "~/Scripts/jquery.unobtrusive-ajax.min.js",
+                    "~/Scripts/jquery.validate.unobtrusive.min.js"));
 
             //bundles.Add(new ScriptBundle("~/Js/kendo").Include(
             //        "~/Scripts/kendo/kendo.all.min.js",

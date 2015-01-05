@@ -1,5 +1,12 @@
 ﻿$(function () {
     $(document).ready(function () {
+        // Load more chats
+        $(".dropdown-menu.position-dropdown").on("click", "a.load-more", function (event) {
+            event.stopPropagation();
+            $('#chat-list-form').submit();
+        });
+        // Load more chats
+
         // Set max date for datepicker
         $(function () {
             $('[type="date"].datecontrol').prop('max', function () {

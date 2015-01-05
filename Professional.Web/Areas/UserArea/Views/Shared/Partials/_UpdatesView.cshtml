@@ -3,74 +3,81 @@
 
 @model UpdatesViewModel
 
+@using (Ajax.BeginForm("LoadMore", null, new { Area = string.Empty },
+                new AjaxOptions
+                {
+                    UpdateTargetId = "chat-list",
+                    HttpMethod = "POST",
+                    InsertionMode = InsertionMode.InsertAfter
+                }, new { id = "chat-list-form" }))
+{
+    <input type="text" class="non-input hidden-item" name="count" value="2" />
+}
+
 <ul class="nav nav-pills extreme updates">
     <li role="presentation" class="glif-updates chat dropdown">
         <a class="dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-expanded="true" href="#">
             <span class="glyphicon glyphicon-envelope" data-messaged="@Model.HasNewMessages" aria-hidden="true"></span>
         </a>
-        @if (Model.ActiveChats != null && Model.ActiveChats.Count() > 0)
-        {
-            <ul class="dropdown-menu position-dropdown" role="menu" aria-labelledby="dropdownMenu">
-                @foreach (var item in Model.ActiveChats)
-                {
-                    <li role="presentation">
-                        <a role="menuitem" class="chat-open small" tabindex="-1" href="#"
-                           data-value="@item.FromUserId" data-discution-with="@item.FromUserName">
-                            <span class="bold">@item.FromUserName: </span> 
-                            @item.Preview
-                        </a>
-                    </li>
-                }
-            </ul>
-        }
+        <ul class="dropdown-menu position-dropdown" id="chat-list" aria-labelledby="dropdownMenu">
+            <li role="presentation">
+                <a role="menuitem" class="small load-more" tabindex="-1" href="#">
+                    Load more...
+                </a>
+            </li>
+            @if (Model.ActiveChats != null)
+            {
+                @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ActiveChatsListing.cshtml", Model.ActiveChats)
+            }
+        </ul>
     </li>
-    <li role="presentation" class="glif-updates">
-        <a class="dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-expanded="true" href="#">
-            <span class="glyphicon glyphicon-user" data-messaged="@Model.HasNewConnection" aria-hidden="true"></span>
-        </a>
-        @if (Model.ConnectionRequests != null && Model.ConnectionRequests.Count() > 0)
-        {
-            <ul class="dropdown-menu position-dropdown ul-wide" role="menu" aria-labelledby="dropdownMenu">
+<li role="presentation" class="glif-updates">
+    <a class="dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-expanded="true" href="#">
+        <span class="glyphicon glyphicon-user" data-messaged="@Model.HasNewConnection" aria-hidden="true"></span>
+    </a>
+    @if (Model.ConnectionRequests != null && Model.ConnectionRequests.Count() > 0)
+    {
+        <ul class="dropdown-menu position-dropdown ul-wide" role="menu" aria-labelledby="dropdownMenu">
+            <li role="presentation" class="li-wide">
+                <span class="bold">Requested connections</span>
+            </li>
+            @foreach (var item in Model.ConnectionRequests)
+            {
                 <li role="presentation" class="li-wide">
-                    <span class="bold">Requested connections</span>
-                </li>
-                @foreach (var item in Model.ConnectionRequests)
-                {
-                    <li role="presentation" class="li-wide">
-                        <span>@item.ConnectionUserName</span>
-                        <div class="pull-right">
-                            <a title="Accept" href="@(WebConstants.UpdateAcceptConnectionPageRoute + item.ID)">
-                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                            </a>
-                            <a title="Decline" href="@(WebConstants.UpdateDeclineConnectionPageRoute + item.ID)">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            </a>
-                        </div>
-                    </li>
-                }
-            </ul>
-        }
-    </li>
-    <li role="presentation" class="glif-updates">
-        <a class="dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-expanded="true" href="#">
-            <span class="glyphicon glyphicon-bullhorn" data-messaged="@Model.HasNewNotifications" aria-hidden="true"></span>
-        </a>
-        @if (Model.Notifications != null && Model.Notifications.Count() > 0)
-        {
-            <ul class="dropdown-menu position-dropdown" role="menu" aria-labelledby="dropdownMenu">
-                @foreach (var item in Model.Notifications)
-                {
-                    <li role="presentation" class="li-wide">
-                        <a role="menuitem" class="small" tabindex="-1" href="#">
-                            @*@item.ID*@
-                            <span class="bold">@item.Title</span>
-                            <br />
-                            @item.Preview
+                    <span>@item.ConnectionUserName</span>
+                    <div class="pull-right">
+                        <a title="Accept" href="@(WebConstants.UpdateAcceptConnectionPageRoute + item.ID)">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                         </a>
-                    </li>
-                }
-            </ul>
-        }
-    </li>
+                        <a title="Decline" href="@(WebConstants.UpdateDeclineConnectionPageRoute + item.ID)">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+</li>
+<li role="presentation" class="glif-updates">
+    <a class="dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-expanded="true" href="#">
+        <span class="glyphicon glyphicon-bullhorn" data-messaged="@Model.HasNewNotifications" aria-hidden="true"></span>
+    </a>
+    @if (Model.Notifications != null && Model.Notifications.Count() > 0)
+    {
+        <ul class="dropdown-menu position-dropdown" role="menu" aria-labelledby="dropdownMenu">
+            @foreach (var item in Model.Notifications)
+            {
+                <li role="presentation" class="li-wide">
+                    <a role="menuitem" class="small" tabindex="-1" href="#">
+                        @*@item.ID*@
+                        <span class="bold">@item.Title</span>
+                        <br />
+                        @item.Preview
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+</li>
 </ul>
 

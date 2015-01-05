@@ -24,8 +24,11 @@
 
     public class ProfileController : UserController
     {
+        private const int ItemsToTake = 1;
         private static User currentUser;
         private IProfileServices profileServices;
+        private static int chatMessagesCount;
+        private static bool LoadItems;
 
         public ProfileController(IApplicationData data, IProfileServices profileServices)
             : base(data)
@@ -129,17 +132,9 @@
             proInfo.OccupationsListing = occupationsListing;
             proInfo.FieldsListing = fieldsListing;
 
-            var messagesReceived = this.profileServices.GetUserMessages(currentUserId)
-                .GroupBy(m => m.FromUserId)
-                .OrderByDescending(g => g.FirstOrDefault().CreatedOn)
-                .Take(5)
-                .Select(g => new MessageViewModel
-                {
-                    FromUserId = g.Key,
-                    FromUserName = g.FirstOrDefault().FromUser.FirstName + " " + g.FirstOrDefault().FromUser.LastName,
-                    Preview = g.FirstOrDefault().Content.Substring(0, 20) + "...",
-                    IsRead = g.FirstOrDefault().IsRead
-                });
+            chatMessagesCount = ItemsToTake;
+            LoadItems = true;
+            var messagesReceived = this.GetQueriedMessages(currentUser.Id, 0, ItemsToTake);
 
             var connectionRequests = this.profileServices.GetUserConnectionRequests(currentUserId)
                 .Project().To<ConnectionViewModel>();
@@ -222,6 +217,23 @@
             return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ShortListPanel.cshtml", listModel);
         }
 
+        public ActionResult LoadMore()
+        {
+            if (!LoadItems)
+            {
+                return new EmptyResult();
+            }
+
+            var userId = this.GetLoggedUserId();
+            var messages = this.GetQueriedMessages(userId, chatMessagesCount, ItemsToTake).ToList();
+            if(messages.Count < ItemsToTake)
+            {
+                LoadItems = false;
+            }
+            chatMessagesCount = chatMessagesCount + ItemsToTake;
+            return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ActiveChatsListing.cshtml", messages);
+        }
+
         public ActionResult Filter(string query, string condition)
         {
             var resultPosts = this.profileServices.GetFilteredPosts(query, condition)
@@ -257,6 +269,24 @@
             {
                 return history;
             }
+        }
+
+        private IQueryable<MessageViewModel> GetQueriedMessages(string userId, int skipCount, int takeCount)
+        {
+            var messagesReceived = this.profileServices.GetUserMessages(userId)
+                .GroupBy(m => m.FromUserId)
+                .OrderByDescending(g => g.FirstOrDefault().CreatedOn)
+                .Skip(skipCount)
+                .Take(takeCount)
+                .Select(g => new MessageViewModel
+                {
+                    FromUserId = g.Key,
+                    FromUserName = g.FirstOrDefault().FromUser.FirstName + " " + g.FirstOrDefault().FromUser.LastName,
+                    Preview = g.FirstOrDefault().Content.Substring(0, 20) + "...",
+                    IsRead = g.FirstOrDefault().IsRead
+                });
+
+            return messagesReceived;
         }
 
         private IList<NavigationItem> GetNavItems(string currentUserId)

@@ -396,6 +396,7 @@
     <Content Include="Grid.mvc.readme" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_ContactView.cshtml" />
     <Content Include="Areas\UserArea\Views\Shared\Partials\_ConnectionView.cshtml" />
+    <Content Include="Areas\UserArea\Views\Shared\Partials\_ActiveChatsListing.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\gridmvc.js" />
