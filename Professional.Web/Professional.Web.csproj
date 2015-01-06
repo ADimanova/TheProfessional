@@ -241,6 +241,7 @@
     <Compile Include="Areas\UserArea\Models\CreateItem\PostEndorsementInputModel.cs" />
     <Compile Include="Areas\UserArea\Models\CreateItem\UserEndorsementInputModel.cs" />
     <Compile Include="Areas\UserArea\Models\Profile\ChatViewModel.cs" />
+    <Compile Include="Areas\UserArea\Models\Profile\Private\AddMassagesViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\Profile\Public\ContactViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\Profile\Private\ConnectionViewModel.cs" />
     <Compile Include="Areas\UserArea\Models\Profile\MessageViewModel.cs" />
@@ -270,6 +271,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Helpers\HtmlExtensions.cs" />
     <Compile Include="Infrastructure\Hubs\ChatHub.cs" />
     <Compile Include="Infrastructure\Helpers\StringManipulations.cs" />
     <Compile Include="Infrastructure\Helpers\WebConstants.cs" />

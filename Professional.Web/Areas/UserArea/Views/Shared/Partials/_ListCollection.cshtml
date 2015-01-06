@@ -30,7 +30,7 @@
                     for (int i = 0; i < Model.Fields.Count; i++)
                     {
                         var field = Model.Fields[i];
-                        <span class="list-group-item"><strong>-- @field.Name --</strong></span>
+                        <span class="list-group-item medium-text"><strong>-- @field.Name --</strong></span>
                         for (int j = 0; j < field.Items.Count; j++)
                         {
                             var item = field.Items[j];
@@ -39,14 +39,14 @@
                                 {
                                     <img src="@item.ImageUrl" alt="Image" class="img-circle logo-custom" height="45" width="45" />
                                 }
-                                <span class="enlarged-text">@item.Content</span>
+                                <span class="medium-text">@item.Content</span>
                             </a>
                         }
                     }
                 }
                 else
                 {
-                    <span class="list-group-item">No items found.</span>
+                    <span class="list-group-item medium-text">No items found.</span>
                 }
             </div>
             @if (ViewBag.Pages > 0)

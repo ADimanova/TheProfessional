@@ -40,8 +40,7 @@
             {
                 Clients.Group(groupName).addNewMessageToPage(other.FirstName, messages[i].Content);
 
-                // TODO: Open on Release
-                // messages[i].IsRead = true;
+                messages[i].IsRead = true;
             }
 
             this.data.SaveChanges();

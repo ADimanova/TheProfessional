@@ -148,9 +148,16 @@
                 updateModel.HasNewMessages = true;
             }
 
-            if (messagesReceived.Count() > 0)
+            var messagesCount = messagesReceived.Count();
+            if (messagesCount > 0)
             {
-                updateModel.ActiveChats = messagesReceived.ToList();
+                var chats = new AddMassagesViewModel();
+                chats.ChatsListing = messagesReceived.ToList();
+                if (messagesCount == ItemsToTake)
+	            {
+                    chats.LoadMore = true;
+	            }
+                updateModel.ActiveChats = chats;
             }
 
             if (connectionRequests.Count() > 0)
@@ -231,7 +238,10 @@
                 LoadItems = false;
             }
             chatMessagesCount = chatMessagesCount + ItemsToTake;
-            return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ActiveChatsListing.cshtml", messages);
+
+            var chats = new AddMassagesViewModel();
+            chats.ChatsListing = messages.ToList();
+            return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ActiveChatsListing.cshtml", chats);
         }
 
         public ActionResult Filter(string query, string condition)

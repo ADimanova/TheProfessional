@@ -1,5 +1,27 @@
 ﻿$(function () {
     $(document).ready(function () {
+        // Datepicker
+        $("#datepicker").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            minDate: new Date(1940, 1 - 1, 1),
+            maxDate: new Date()
+        });
+        // Datepicker
+
+        // Deactivating LoadMore button
+        $(document).ajaxComplete(function (event, xhr, settings) {
+            var urlParts = settings.url.split("/");
+            var partsCount = urlParts.length;
+            var action = urlParts[partsCount - 2] + "/" + urlParts[partsCount - 1];
+
+            if (action = "Profile/LoadMore") {
+                $("a.load-more").addClass("disabled");
+                $("a.load-more").text("All loaded")
+            }
+        });
+        // Deactivating LoadMore button
+
         // Load more chats
         $(".dropdown-menu.position-dropdown").on("click", "a.load-more", function (event) {
             event.stopPropagation();

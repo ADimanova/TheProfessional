@@ -20,14 +20,13 @@
             <span class="glyphicon glyphicon-envelope" data-messaged="@Model.HasNewMessages" aria-hidden="true"></span>
         </a>
         <ul class="dropdown-menu position-dropdown" id="chat-list" aria-labelledby="dropdownMenu">
-            <li role="presentation">
-                <a role="menuitem" class="small load-more" tabindex="-1" href="#">
-                    Load more...
-                </a>
-            </li>
             @if (Model.ActiveChats != null)
             {
                 @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ActiveChatsListing.cshtml", Model.ActiveChats)
+            }
+            else
+            {
+                <li class="no-items">No chat history.</li>
             }
         </ul>
     </li>

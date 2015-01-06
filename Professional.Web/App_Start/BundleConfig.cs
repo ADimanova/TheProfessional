@@ -62,7 +62,9 @@ namespace Professional.Web
                       "~/Content/chat-styles.css"));
 
             bundles.Add(new StyleBundle("~/Content/jquery-css").Include(
-                      "~/Content/themes/base/jquery-ui.css"));
+                      "~/Content/themes/base/jquery-ui.css",
+                      "~/Content/themes/base/theme.css",
+                      "~/Content/themes/base/datepicker.css"));
 
             //bundles.Add(new StyleBundle("~/Css/kendo").Include(
             //            "~/Content/kendo/kendo.common.*",

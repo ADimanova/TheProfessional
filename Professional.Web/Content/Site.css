@@ -87,6 +87,10 @@ textarea {
     position: relative;
 }
 
+.medium-text {
+    font-size: 1.1em;
+}
+
 .enlarged-text {
     font-size: 1.2em;
 }
@@ -449,4 +453,9 @@ output {
 
 .stop-chat-loads {
     background-color: #F5F5F5;
+}
+
+.no-items {
+    text-align: center;
+    color: #666;
 }

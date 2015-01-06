@@ -55,7 +55,7 @@
             var connection = this.updatesServices.GetUsersConnection(id, loggedUserId);
             try
             {
-                this.data.Connections.Delete(connection);
+                this.data.Connections.Delete(connection.ID);
                 this.data.SaveChanges();
                 return this.RedirectToAction("Public", "Profile", new { Area = WebConstants.UserArea, id = id });
             }

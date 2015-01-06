@@ -1,28 +1,22 @@
 ﻿@using Professional.Web.Areas.UserArea.Models.Profile.Private
 
-@model IEnumerable<MessageViewModel>
+@model AddMassagesViewModel
 
-@if (Model.Count() > 0)
-{
-    foreach (var item in Model)
-    {
-        <li role="presentation">
-            <a role="menuitem" class="chat-open small" tabindex="-1" href="#"
-               data-value="@item.FromUserId" data-discution-with="@item.FromUserName">
-                <span class="bold">@item.FromUserName: </span>
-                @item.Preview
-            </a>
-        </li>
-    }
-}
-else
+@if (Model.LoadMore)
 {
     <li role="presentation">
-        <a role="menuitem" tabindex="-1" class="stop-chat-loads" href="#">
-            All chats are loaded.
+        <a role="menuitem" class="small load-more" tabindex="-1" href="#">
+            Load more...
         </a>
     </li>
 }
-
-
-
+@foreach (var item in Model.ChatsListing)
+{
+    <li role="presentation">
+        <a role="menuitem" class="chat-open small" tabindex="-1" href="#"
+            data-value="@item.FromUserId" data-discution-with="@item.FromUserName">
+            <span class="bold">@item.FromUserName: </span>
+            @item.Preview
+        </a>
+    </li>
+}
