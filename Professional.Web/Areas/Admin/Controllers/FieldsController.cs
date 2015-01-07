@@ -40,12 +40,10 @@ namespace Professional.Web.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Error");
+                return View(model);
             }
 
-            var field = new FieldOfExpertise();
-            field.Name = this.sanitizer.Sanitize(model.Name);
-            field.Rank = model.Rank;
+            var field = Mapper.Map<FieldOfExpertise>(model);
 
             try
             {
@@ -62,18 +60,19 @@ namespace Professional.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int? id, string name, int? rank)
+        public ActionResult Edit(FieldAdminModel model)
         {
             if (ModelState.IsValid)
             {
-                var field = this.data.FieldsOfExpertise.GetById((int)id);
+                var field = this.data.FieldsOfExpertise.GetById(model.ID);
                 if (field == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                field.Name = this.sanitizer.Sanitize(name);
-                field.Rank = (int)rank;
+                field.Name = model.Name;
+                field.FieldInfo = model.FieldInfo;
+                field.Rank = model.Rank;
 
                 try
                 {

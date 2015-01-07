@@ -100,14 +100,14 @@
             return endorsements;
         }
 
-        public bool IsConnected(string userId, string loggedUserId)
+        public Connection GetConnection(string userId, string loggedUserId)
         {
-            var isConnected = this.Data.Connections.All()
-                .Any(c => ((c.FirstUserId == userId || c.SecondUserId == userId) &&
+            var connection = this.Data.Connections.All()
+                .FirstOrDefault(c => ((c.FirstUserId == userId || c.SecondUserId == userId) &&
                 (c.FirstUserId == loggedUserId || c.SecondUserId == loggedUserId) &&
                 userId != loggedUserId));
 
-            return isConnected;
+            return connection;
         }
 
         // Private

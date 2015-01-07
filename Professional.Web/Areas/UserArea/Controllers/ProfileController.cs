@@ -39,10 +39,15 @@
         public ActionResult Public(string id)
         {
             currentUser = this.GetUser(id);
-
             if (currentUser == null)
             {
-                return this.RedirectToAction("Index", "Home", new { Area = string.Empty });   
+                return this.RedirectToAction("Index", "Home", new { Area = string.Empty });
+            }
+
+            string loggedUserId = this.GetLoggedUserId();
+            if (currentUser.Id == loggedUserId)
+            {
+                return this.RedirectToAction("Private", "Profile", new { Area = "UserArea" });
             }
 
             var userInfo = this.SetUserInfo(currentUser, false);
@@ -80,16 +85,17 @@
             btnNavigateEndorsements.Content = "See endorsements's page";
             btnNavigateEndorsements.Url = WebConstants.UserEndorsementsPageRoute + id;
 
-            var loggedUserId = this.GetLoggedUserId();
             var isEndorsed = this.profileServices.IsEndorsed(id, loggedUserId);
 
             var endorsements = this.profileServices.GetUserEndorsements(id)
                 .Project().To<UserEndorsementViewModel>();
-
+            
+            var connection = this.profileServices.GetConnection(id, loggedUserId);
             var contactModel = new ContactViewModel();
             contactModel.FromUserId = id;
             contactModel.FromUserName = currentUser.FullName;
-            contactModel.IsConnected = this.profileServices.IsConnected(id, loggedUserId);
+            contactModel.IsConnected = connection != null;
+            contactModel.IsAccepted = connection != null ? connection.IsAccepted : false;
 
             var publicProfileInfo = new PublicProfileViewModel();
             publicProfileInfo.UserInfo = userInfo;

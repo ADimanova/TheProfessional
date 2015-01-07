@@ -7,6 +7,7 @@
     public static class WebConstants
     {
         public const string DefaultHistory = "No personal history has been added.";
+        public const string DefaultFieldInfo = "No information available.";
         public const string DefaultImage = "/Images/default-profile-pic.png";
 
         // Visualization counts

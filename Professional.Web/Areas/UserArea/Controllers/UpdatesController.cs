@@ -79,12 +79,15 @@
 
             try
             {
+                this.data.Connections.Update(connection);
                 this.data.SaveChanges();
-                return this.RedirectToAction("Private", "Profile", new { Area = "UserArea" });
+                var message = "Connection accepted successfully.";
+                return this.PartialView("~/Views/Shared/Partials/_SuccessAlert.cshtml", message);
             }
             catch
             {
-                return this.View("Error");
+                var message = "Something went wrong. Connection was not accepted.";
+                return this.PartialView("~/Views/Shared/Partials/_FailAlert.cshtml", message);
             }
         }
 

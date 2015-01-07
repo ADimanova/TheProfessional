@@ -15,24 +15,27 @@
                 @Model.Name
             </h1>
         </div>
-        <p class="enlarged">
+        <p class="medium-text">
             <b>Rank Points: </b> @Model.Rank
         </p>
         <p>
-            <b>Professionals in the field</b>
-            @if (Model.Holders.Count == 0)
-            {
-                <span>No one yet.</span>
-            }
-            else
-            {
-                <ul class="list-group">
-                    @foreach (var holder in Model.Holders)
+            <b>Field Information: </b> @Model.FieldInfo
+        </p>
+        <p>
+            <b>Field's high achievers:</b>
+            <div class="list-group">
+                @if (Model.Featured.Count == 0)
+                {
+                    <a class="list-group-item wrapped">No one yet.</a>
+                }
+                else
+                {
+                    foreach (var holder in Model.Featured)
                     {
-                        <li class="list-group-item wrapped">@holder</li>
+                        <a class="list-group-item wrapped" href="holder.Url">@holder.Content</a>
                     }
-                </ul>
-            }
+                }
+            </div>
         </p>
     </div>
     <div class="col-md-2"></div>

@@ -20,7 +20,7 @@
 
         IQueryable<EndorsementOfUser> GetUserEndorsements(string currentUserId);
 
-        bool IsConnected(string userId, string loggedUserId);
+        Connection GetConnection(string userId, string loggedUserId);
 
         IQueryable<Message> GetUserMessages(string currentUserId);
 

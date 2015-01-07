@@ -26,7 +26,7 @@
         [Required]
         public string Content { get; set; }
 
-        [Required]
+        //[Required]
         public string CreatorID { get; set; }
 
         public virtual User Creator { get; set; }

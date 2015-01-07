@@ -1,5 +1,18 @@
 ﻿$(function () {
     $(document).ready(function () {
+        // Accepting connection request
+        $("a.accept").on("click", function () {
+            var id = $(this).attr("data-id");
+            var requestUrl = "/UserArea/Updates/AcceptConnection/" + id;
+            $.ajax({
+                url: requestUrl,
+                context: document.body
+            }).done(function(res) {
+                $("#alert-holder").html(res);
+            });
+        });
+        // Accepting connection request
+
         // Datepicker
         $("#datepicker").datepicker({
             changeYear: true,

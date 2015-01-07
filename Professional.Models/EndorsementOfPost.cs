@@ -18,7 +18,7 @@
         public string Comment { get; set; }
 
         [Required]
-        public string EndorsedPostID { get; set; }
+        public int EndorsedPostID { get; set; }
 
         public virtual Post EndorsedPost { get; set; }
 

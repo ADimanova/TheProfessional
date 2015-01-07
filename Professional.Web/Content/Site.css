@@ -459,3 +459,17 @@ output {
     text-align: center;
     color: #666;
 }
+
+#alert-holder {
+    margin-left: 5%;
+    margin-right: 12.5%;
+    padding-bottom: 0.7em;
+    padding-top: 0.7em;
+    position: relative;
+    top: -1.8em;
+    font-size: 1.1em;
+}
+
+.styled-success {
+    background-color: #7ED253 !important;
+ }

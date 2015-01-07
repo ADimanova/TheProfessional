@@ -25,6 +25,9 @@
         [Required]
         public int Rank { get; set; }
 
+        [StringLength(500)]
+        public string FieldInfo { get; set; }
+
         public virtual ICollection<User> Holders
         {
             get { return this.holders; }

@@ -8,7 +8,8 @@
     @Html.Grid(Model.Fields).Columns(columns =>
     {
         columns.Add(c => c.Name).Titled("Name").Filterable(true).SetWidth(200);
-        columns.Add(c => c.Rank).Titled("Rank").Filterable(true).SetWidth(200);
+        columns.Add(c => c.FieldInfo).Titled("Filed Info").Filterable(true).SetWidth(300);
+        columns.Add(c => c.Rank).Titled("Rank").Filterable(true).SetWidth(100);
         columns.Add(o => o.CreatedOn)
             .Titled("Created on")
             .Format("{0:dd/MM/yyyy}")

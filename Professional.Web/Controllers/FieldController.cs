@@ -8,12 +8,19 @@
     using Professional.Data;
     using Professional.Models;
     using Professional.Web.Models.Field;
+    using Professional.Web.Infrastructure.HtmlSanitise;
+    using Professional.Web.Helpers;
+    using Professional.Web.Models.Shared;
+    using System.Collections.Generic;
+    using System.Collections;
 
     public class FieldController : BaseController
     {
-        public FieldController(IApplicationData data)
+        private readonly ISanitiser sanitizer;
+        public FieldController(IApplicationData data, ISanitiser sanitizer)
             : base(data)
         {
+            this.sanitizer = sanitizer;
         }
 
         // GET: Field/Info
@@ -27,8 +34,35 @@
                 return this.HttpNotFound("This field does not exist");
             }
 
-            Mapper.CreateMap<FieldOfExpertise, FieldViewModel>();
+            var featured = this.data.EndorsementsOfPosts.All()
+                .Where(e => e.EndorsedPost.FieldID == field.ID)
+                .GroupBy(e => e.EndorsedPost)
+                .Select(g => new
+                {
+                    Value = g.Average(i => i.Value),
+                    HolderId = g.Key.Creator.Id,
+                    Holder = g.Key.Creator.LastName + ", " + g.Key.Creator.FirstName,
+                })
+                .OrderByDescending(i => i.Value)
+                .Take(10)
+                .Select(p => new NavigationItem
+                {
+                    Url = WebConstants.PublicProfilePageRoute + p.HolderId,
+                    Content = p.Holder
+                });
+
             var fieldInfoForView = Mapper.Map<FieldViewModel>(field);
+            if (fieldInfoForView.Name == null)
+            {
+                return this.View("Error");
+            }
+
+            fieldInfoForView.Name = this.sanitizer.Sanitize(fieldInfoForView.Name);
+            fieldInfoForView.FieldInfo = fieldInfoForView.FieldInfo != null ?
+                this.sanitizer.Sanitize(fieldInfoForView.FieldInfo) :
+                WebConstants.DefaultFieldInfo;
+            fieldInfoForView.Featured = new List<NavigationItem>();
+            fieldInfoForView.Featured = featured.ToList();
 
             return this.View(fieldInfoForView);
         }

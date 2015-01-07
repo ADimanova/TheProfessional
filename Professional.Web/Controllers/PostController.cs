@@ -35,15 +35,14 @@
             var postInfoForView = Mapper.Map<PostViewModel>(post);
 
             var userID = User.Identity.GetUserId();
-            var postID = id.ToString();
             var isEndorsed = this.data.EndorsementsOfPosts.All()
                 .Where(e => e.EndorsingUserID == userID)
-                .Any(e => e.EndorsedPostID == postID);
+                .Any(e => e.EndorsedPostID == id);
 
             if (!isEndorsed)
             {
                 var endorseInfo = new EndorsementInputModel();
-                endorseInfo.EndorsedID = postID;
+                endorseInfo.EndorsedID = id.ToString();
                 endorseInfo.EndorseAction = "EndorsementOfPost";
                 postInfoForView.EndorseFunctionality = endorseInfo;
             }

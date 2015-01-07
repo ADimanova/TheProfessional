@@ -11,7 +11,6 @@
                     InsertionMode = InsertionMode.InsertAfter
                 }, new { id = "chat-list-form" }))
 {
-    <input type="text" class="non-input hidden-item" name="count" value="2" />
 }
 
 <ul class="nav nav-pills extreme updates">
@@ -45,7 +44,7 @@
                 <li role="presentation" class="li-wide">
                     <span>@item.ConnectionUserName</span>
                     <div class="pull-right">
-                        <a title="Accept" href="@(WebConstants.UpdateAcceptConnectionPageRoute + item.ID)">
+                        <a title="Accept" class="accept" data-id="@item.ID" href="#">
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                         </a>
                         <a title="Decline" href="@(WebConstants.UpdateDeclineConnectionPageRoute + item.ID)">

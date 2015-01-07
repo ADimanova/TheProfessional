@@ -8,7 +8,7 @@
         private ICollection<Occupation> occupations;
         private ICollection<FieldOfExpertise> fieldOfExpertise;
         private ICollection<Connection> connections;
-        private ICollection<EndorsementOfPost> postsEndorsements;
+        private ICollection<Post> posts;
         private ICollection<EndorsementOfUser> usersEndorsements;
 
         public int Rank { get; set; }
@@ -32,10 +32,10 @@
             set { this.connections = value; }
         }
 
-        public virtual ICollection<EndorsementOfPost> PostsEndorsementsents
+        public virtual ICollection<Post> Posts
         {
-            get { return this.postsEndorsements; }
-            set { this.postsEndorsements = value; }
+            get { return this.posts; }
+            set { this.posts = value; }
         }
 
         public virtual ICollection<EndorsementOfUser> UsersEndorsements
