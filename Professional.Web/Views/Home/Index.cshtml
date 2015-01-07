@@ -24,8 +24,8 @@
                             <img src="~/Images/news.png" style="width: 7em; height: auto;" />
                         </a>
                         <div class="media-body widden">
-                            <h5 class="media-heading">
-                                @post.Title
+                            <h5 class="media-heading" title="@post.Title">
+                                @post.ShortTitle
                             </h5>
                             @post.Content
                             <a href="@(WebConstants.PostPageRoute + post.ID)" class="btn btn-default set-bottom-right">Read more...</a>
@@ -47,7 +47,7 @@
             {
                 <div class="media">
                     <a class="media-left" href="@(WebConstants.PublicProfilePageRoute + pro.ID)">
-                        <img src="~/Images/default-profile-pic.png" alt="News Image" class="center-block img-circle" style="width: 5em; height: auto;" />
+                        <img src="@pro.ImageUrl" alt="User Image" class="center-block img-circle" style="width: 5em; height: auto;" />
                     </a>
                         <div class="media-body feature">
                             <h5 class="media-heading">@pro.FullName</h5>

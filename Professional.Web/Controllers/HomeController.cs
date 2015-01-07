@@ -41,6 +41,8 @@
                 .Project().To<PostSimpleViewModel>()
                 .ToList();
 
+            posts.ForEach(p => p.ShortTitle = StringManipulations.GetSubstring(p.Title, 0, WebConstants.TitleLength));
+
             var featured = this.homeServices.GetFeatured()
                 .Project().To<UserSimpleViewModel>()
                 .ToList();

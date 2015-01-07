@@ -64,13 +64,8 @@
             for (int i = 0; i < posts.Count; i++)
             {
                 var post = posts[i];
-
-                var title = StringManipulations.GetSubstring(post.Title, 0, WebConstants.TitleLength);
-
                 var content = StringManipulations.StripHtml(post.Content);
                 content = StringManipulations.GetSubstring(content, 0, WebConstants.TitleLength);
-
-                posts[i].Title = title;
                 posts[i].Content = content;
             }
 

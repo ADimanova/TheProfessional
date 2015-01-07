@@ -34,21 +34,21 @@
             Mapper.CreateMap<Post, PostViewModel>();
             var postInfoForView = Mapper.Map<PostViewModel>(post);
 
-            var userID = User.Identity.GetUserId();
+            var loggedUserId = this.GetLoggedUserId();
             var isEndorsed = this.data.EndorsementsOfPosts.All()
-                .Where(e => e.EndorsingUserID == userID)
+                .Where(e => e.EndorsingUserID == loggedUserId)
                 .Any(e => e.EndorsedPostID == id);
 
-            if (!isEndorsed)
+            if (!isEndorsed || postInfoForView.CreatorID == loggedUserId)
+            {
+                ViewBag.IsEndorsed = "true";
+            }
+            else
             {
                 var endorseInfo = new EndorsementInputModel();
                 endorseInfo.EndorsedID = id.ToString();
                 endorseInfo.EndorseAction = "EndorsementOfPost";
                 postInfoForView.EndorseFunctionality = endorseInfo;
-            }
-            else
-            {
-                ViewBag.IsEndorsed = "true";
             }
 
             return this.View(postInfoForView);

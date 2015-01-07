@@ -8,6 +8,7 @@
 
     using Professional.Models;
     using Professional.Web.Infrastructure.Mappings;
+    using Professional.Web.Helpers;
 
     // Used to display featured users on the home page
     public class UserSimpleViewModel : IMapFrom<User>, IHaveCustomMappings
@@ -19,6 +20,8 @@
 
         [Display(Name = "Fields of Expertise")]
         public ICollection<string> FieldList { get; set; }
+
+        public string ImageUrl { get; set; }
 
         public void CreateMappings(IConfiguration configuration)
         {
@@ -35,6 +38,15 @@
                         u => u.FieldsOfExpertise
                         .Where(f => f.IsDeleted == false)
                         .Select(f => f.Name)));
+
+            configuration.CreateMap<User, UserSimpleViewModel>()
+                .ForMember(
+                    p => p.ImageUrl,
+                    options => options
+                    .MapFrom(
+                        u => u.ProfileImage == null ?
+                            WebConstants.DefaultImage : 
+                            WebConstants.GetImagePageRoute + u.ProfileImageId));
         }
     }
 }
