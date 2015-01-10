@@ -24,6 +24,8 @@
 
         IQueryable<Message> GetUserMessages(string currentUserId);
 
+        IQueryable<Message> GetConversarionMessages(string firstUserId, string secondUserId);
+
         IQueryable<Connection> GetUserConnectionRequests(string currentUserId);
 
         IQueryable<Notification> GetUserNotifications(string currentUserId);

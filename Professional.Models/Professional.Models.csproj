@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChatGroup.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="EndorsementOfPost.cs" />

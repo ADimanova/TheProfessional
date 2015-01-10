@@ -26,6 +26,7 @@
         IDbSet<Image> Images { get; set; }
 
         IDbSet<Message> Messages { get; set; }
+        IDbSet<ChatGroup> ChatGroups { get; set; }
 
         DbContext DbContext { get; }
 

@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
 
-    public class AddMassagesViewModel
+    public class ChatsListingViewModel
     {
         public bool LoadMore { get; set; }
-        public IEnumerable<MessageViewModel> ChatsListing { get; set; }
+        public IEnumerable<ChatListedViewModel> ChatsListing { get; set; }
     }
 }

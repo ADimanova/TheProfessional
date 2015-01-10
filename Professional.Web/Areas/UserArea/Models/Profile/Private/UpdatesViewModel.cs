@@ -10,7 +10,7 @@
 
         public bool HasNewNotifications { get; set; }
 
-        public AddMassagesViewModel ActiveChats { get; set; }
+        public ChatsListingViewModel ActiveChats { get; set; }
 
         public IEnumerable<ConnectionViewModel> ConnectionRequests { get; set; }
 

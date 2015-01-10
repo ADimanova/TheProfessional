@@ -31,6 +31,8 @@
 
         IDeletableEntityRepository<Message> Messages { get; }
 
+        IDeletableEntityRepository<ChatGroup> ChatGroups { get; }
+
         int SaveChanges();
     }
 }

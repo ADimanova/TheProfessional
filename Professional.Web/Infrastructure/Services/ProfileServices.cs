@@ -120,6 +120,16 @@
             return messages;
         }
 
+        public IQueryable<Message> GetConversarionMessages(string firstUserId, string secondUserId)
+        {
+            var messages = this.Data.Messages.All()
+                .Where(m => m.ToUserId == firstUserId || m.FromUserId == firstUserId)
+                .Where(m => m.ToUserId == secondUserId || m.FromUserId == secondUserId)
+                .OrderByDescending(n => n.CreatedOn);
+
+            return messages;
+        }
+
         public IQueryable<Connection> GetUserConnectionRequests(string currentUserId)
         {
             var requests = this.Data.Connections.All()

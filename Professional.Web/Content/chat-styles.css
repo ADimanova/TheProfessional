@@ -13,11 +13,15 @@
 }
 
 .chat-content {
+    height: 82%;
+    overflow-x: scroll;
+    word-wrap: break-word; 
+}
+
+.chat-list {
     list-style-type: none;
     padding: 0 5px;
     margin: 0;
-    height: 82%;
-    overflow-x: scroll;
 }
 
 .chat-header {
@@ -92,10 +96,6 @@
     display: none;
 }
 
-/*.chat {
-    position: absolute;
-}*/
-
 .chat-close-btn {
     position: absolute;
     right: 0.3em;
@@ -105,4 +105,51 @@
 
 .chat-close-btn:hover {
     color: #1a1a1a;
+}
+
+.load-messages {
+    color: #46a7f3;
+    top: 5%;
+    margin-left: 2%;
+}
+
+.load-messages:hover {
+    text-decoration: none;
+}
+
+.less-visible, .less-visible:hover {
+    color: #89bde4;
+}
+
+.chat-content li {
+    padding-left: 1%;
+    padding-right: 1%;
+    border-radius: 4px;
+    -moz-box-shadow: -4px -2px 2px rgba(242,242,242,0.6);
+    -webkit-box-shadow: -4px -2px 2px rgba(242,242,242,0.6);
+    box-shadow: -4px -2px 4px rgba(242,242,242,0.6);
+}
+
+.first-partner {
+    background: #bfe2ed; /* Old browsers */
+    background: -moz-linear-gradient(left,  #bfe2ed 0%, #d0b1e5 0%, #d0b1e5 11%, #f2f2f2 34%, #f2f2f2 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#bfe2ed), color-stop(0%,#d0b1e5), color-stop(11%,#d0b1e5), color-stop(34%,#f2f2f2), color-stop(100%,#f2f2f2)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #bfe2ed 0%,#d0b1e5 0%,#d0b1e5 11%,#f2f2f2 34%,#f2f2f2 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #bfe2ed 0%,#d0b1e5 0%,#d0b1e5 11%,#f2f2f2 34%,#f2f2f2 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #bfe2ed 0%,#d0b1e5 0%,#d0b1e5 11%,#f2f2f2 34%,#f2f2f2 100%); /* IE10+ */
+    background: linear-gradient(to right,  #bfe2ed 0%,#d0b1e5 0%,#d0b1e5 11%,#f2f2f2 34%,#f2f2f2 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfe2ed', endColorstr='#f2f2f2',GradientType=1 ); /* IE6-9 */
+    /*background-color: rgba(152, 71, 207, 0.38)*/
+}
+
+.second-partner {
+    background: #bfe2ed; /* Old browsers */
+    background: -moz-linear-gradient(left,  #bfe2ed 0%, #bfe2ed 0%, #bfe2ed 11%, #f2f2f2 34%, #f2f2f2 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#bfe2ed), color-stop(0%,#bfe2ed), color-stop(11%,#bfe2ed), color-stop(34%,#f2f2f2), color-stop(100%,#f2f2f2)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #bfe2ed 0%,#bfe2ed 0%,#bfe2ed 11%,#f2f2f2 34%,#f2f2f2 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #bfe2ed 0%,#bfe2ed 0%,#bfe2ed 11%,#f2f2f2 34%,#f2f2f2 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #bfe2ed 0%,#bfe2ed 0%,#bfe2ed 11%,#f2f2f2 34%,#f2f2f2 100%); /* IE10+ */
+    background: linear-gradient(to right,  #bfe2ed 0%,#bfe2ed 0%,#bfe2ed 11%,#f2f2f2 34%,#f2f2f2 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfe2ed', endColorstr='#f2f2f2',GradientType=1 ); /* IE6-9 */
+    /*background-color: rgba(42, 179, 224, 0.25)*/
 }

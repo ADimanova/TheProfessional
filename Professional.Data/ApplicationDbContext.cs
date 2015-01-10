@@ -44,6 +44,8 @@
 
         public virtual IDbSet<Message> Messages { get; set; }
 
+        public virtual IDbSet<ChatGroup> ChatGroups { get; set; }
+
         public DbContext DbContext
         {
             get

@@ -1,6 +1,6 @@
 ﻿namespace Professional.Web.Areas.UserArea.Models
 {
-    public class MessageViewModel
+    public class ChatListedViewModel
     {
         public string FromUserId { get; set; }
 

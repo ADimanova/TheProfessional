@@ -21,14 +21,22 @@
     using Professional.Web.Helpers;
     using Professional.Web.Infrastructure.Services.Contracts;
     using Professional.Web.Models.Shared;
+    using Professional.Web.Areas.UserArea.Models.Shared;
+using Professional.Web.Areas.UserArea.Models.Profile;
 
     public class ProfileController : UserController
     {
-        private const int ItemsToTake = 1;
+        private const int ChatsToTake = 5;
+        private const int MessagesToTake = 5;
+
         private static User currentUser;
         private IProfileServices profileServices;
-        private static int chatMessagesCount;
-        private static bool LoadItems;
+
+        private static int chatsCount = 0;
+        private static int messagesCount = 0;
+
+        private static bool LoadChats;
+        private static bool LoadMessages;
 
         public ProfileController(IApplicationData data, IProfileServices profileServices)
             : base(data)
@@ -138,9 +146,12 @@
             proInfo.OccupationsListing = occupationsListing;
             proInfo.FieldsListing = fieldsListing;
 
-            chatMessagesCount = ItemsToTake;
-            LoadItems = true;
-            var messagesReceived = this.GetQueriedMessages(currentUser.Id, 0, ItemsToTake);
+            chatsCount = ChatsToTake;
+            LoadChats = true;
+            var messagesReceived = this.GetQueriedChats(currentUser.Id, 0, ChatsToTake);
+
+            LoadMessages = true;
+            messagesCount = 0;
 
             var connectionRequests = this.profileServices.GetUserConnectionRequests(currentUserId)
                 .Project().To<ConnectionViewModel>();
@@ -154,12 +165,12 @@
                 updateModel.HasNewMessages = true;
             }
 
-            var messagesCount = messagesReceived.Count();
-            if (messagesCount > 0)
+            var messagesCounted = messagesReceived.Count();
+            if (messagesCounted > 0)
             {
-                var chats = new AddMassagesViewModel();
+                var chats = new ChatsListingViewModel();
                 chats.ChatsListing = messagesReceived.ToList();
-                if (messagesCount == ItemsToTake)
+                if (messagesCounted == ChatsToTake)
 	            {
                     chats.LoadMore = true;
 	            }
@@ -230,24 +241,48 @@
             return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ShortListPanel.cshtml", listModel);
         }
 
-        public ActionResult LoadMore()
+        public ActionResult LoadMoreChats()
         {
-            if (!LoadItems)
+            if (!LoadChats)
             {
                 return new EmptyResult();
             }
 
             var userId = this.GetLoggedUserId();
-            var messages = this.GetQueriedMessages(userId, chatMessagesCount, ItemsToTake).ToList();
-            if(messages.Count < ItemsToTake)
+            var chat = this.GetQueriedChats(userId, chatsCount, ChatsToTake).ToList();
+            if (chat.Count < ChatsToTake)
             {
-                LoadItems = false;
+                LoadChats = false;
             }
-            chatMessagesCount = chatMessagesCount + ItemsToTake;
+            chatsCount = chatsCount + ChatsToTake;
 
-            var chats = new AddMassagesViewModel();
-            chats.ChatsListing = messages.ToList();
+            var chats = new ChatsListingViewModel();
+            chats.ChatsListing = chat.ToList();
             return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ActiveChatsListing.cshtml", chats);
+        }
+
+        [HttpPost]
+        public ActionResult LoadMoreMessages(LoadData data)
+        {
+            var secondUser = this.GetUser(data.Id);
+
+            if (!LoadMessages || secondUser == null)
+            {
+                return new EmptyResult();
+            }
+
+            var loggedUserId = this.GetLoggedUserId();
+            var messages = this.GetQueriedMessages(loggedUserId, data.Id, messagesCount, MessagesToTake, data.Time).ToList();
+            if (data.Loaded)
+            {
+                if (messages.Count < MessagesToTake)
+                {
+                    LoadMessages = false;
+                }
+                messagesCount = messagesCount + MessagesToTake;
+            }
+
+            return this.Json(messages);
         }
 
         public ActionResult Filter(string query, string condition)
@@ -261,6 +296,13 @@
                 }).ToList();
 
             return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ListItems.cshtml", resultPosts);
+        }
+
+        public ActionResult ResetMessageCount()
+        {
+            messagesCount = 0;
+            LoadMessages = true;
+            return new EmptyResult();
         }
 
         private UserViewModel SetUserInfo(User user, bool isPrivate)
@@ -287,23 +329,52 @@
             }
         }
 
-        private IQueryable<MessageViewModel> GetQueriedMessages(string userId, int skipCount, int takeCount)
+        private IQueryable<ChatListedViewModel> GetQueriedChats(string userId, int skipCount, int takeCount)
         {
             var messagesReceived = this.profileServices.GetUserMessages(userId)
                 .GroupBy(m => m.FromUserId)
                 .OrderByDescending(g => g.FirstOrDefault().CreatedOn)
                 .Skip(skipCount)
                 .Take(takeCount)
-                .Select(g => new MessageViewModel
+                .Select(g => new ChatListedViewModel
                 {
                     FromUserId = g.Key,
                     FromUserName = g.FirstOrDefault().FromUser.FirstName + " " + g.FirstOrDefault().FromUser.LastName,
-                    Preview = g.FirstOrDefault().Content.Substring(0, 20) + "...",
-                    IsRead = g.FirstOrDefault().IsRead
+                    Preview = g.OrderByDescending(m => m.CreatedOn).FirstOrDefault().Content.Substring(0, 20) + "...",
+                    IsRead = g.OrderByDescending(m => m.CreatedOn).FirstOrDefault().IsRead
                 });
 
             return messagesReceived;
         }
+
+        private IQueryable<MessageViewModel> GetQueriedMessages(
+            string firstUserId, string secondUserId, int skipCount, int takeCount, string date)
+        {
+            DateTime parsedDate;
+            var isValid = DateTime.TryParse(date, out parsedDate);
+
+            var messagesReceived = this.profileServices.GetConversarionMessages(firstUserId, secondUserId);
+
+            if (isValid)
+            {
+                messagesReceived = messagesReceived.Where(m => m.CreatedOn < parsedDate);
+            }
+
+            messagesReceived = messagesReceived
+                .OrderByDescending(m => m.CreatedOn)
+                .Skip(skipCount)
+                .Take(takeCount);
+
+            var messagesResult = messagesReceived.Select(m => new MessageViewModel
+                {
+                    Sender = m.FromUser.FirstName,
+                    Content = m.Content,
+                    FirstUserId = m.FromUser.Id
+                });
+
+            return messagesResult;
+        }
+
 
         private IList<NavigationItem> GetNavItems(string currentUserId)
         {

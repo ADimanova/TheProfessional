@@ -1,6 +1,6 @@
 ﻿@using Professional.Web.Areas.UserArea.Models.Profile.Private
 
-@model AddMassagesViewModel
+@model ChatsListingViewModel
 
 @if (Model.LoadMore)
 {
@@ -10,6 +10,7 @@
         </a>
     </li>
 }
+
 @foreach (var item in Model.ChatsListing)
 {
     <li role="presentation">

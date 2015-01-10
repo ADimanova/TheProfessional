@@ -117,6 +117,14 @@
             }
         }
 
+        public IDeletableEntityRepository<ChatGroup> ChatGroups
+        {
+            get
+            {
+                return this.GetDeletableEntityRepository<ChatGroup>();
+            }
+        }
+
         /// <summary>
         /// Saves all changes made in this context to the underlying database.
         /// </summary>
