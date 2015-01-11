@@ -8,6 +8,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Professional.Models;
 using Professional.Data.Contracts;
+using FakeDbSet;
 
 namespace Professional.Tests
 {
@@ -18,15 +19,24 @@ namespace Professional.Tests
         [TestMethod]
         public void GetLettersReturnsEnglishLettersTests()
         {
+            var fakeFields = new InMemoryDbSet<FieldOfExpertise> {
+                new FieldOfExpertise { Name = "A" },
+                new FieldOfExpertise { Name = "B" },
+                new FieldOfExpertise { Name = "C" },
+            };
+
+            var dbContext = new Mock<IApplicationDbContext>();
+            dbContext.Setup(f => f.Set<FieldOfExpertise>()).Returns(fakeFields);
+
             var data = new Mock<IApplicationData>();
+            data.Setup(f => f.Context).Returns(dbContext.Object);
+
             var cache = new Mock<ICacheService>();
             var listingServices = new ListingServices(data.Object, cache.Object);
 
-            var letters = listingServices.GetLetters();
+            var letters = listingServices.GetLetters<FieldOfExpertise>("Name");
             var testLetters = new List<string>
-            { "A", "B", "C", "D", "E", "F", "G", "H", 
-            "I", "J", "K", "L", "M", "N", "O", "P", "Q",
-            "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+            { "A", "B", "C", };
 
             CollectionAssert.AreEquivalent(testLetters, letters.ToList());
         }

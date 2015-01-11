@@ -59,7 +59,6 @@ $(document).ready(function () {
         };
 
         chat.client.addNewMessageToPage = function (name, message, userId) {
-            console.log(userId);
             var encodedName = htmlEncode(name);
             var encodedMessage = htmlEncode(message);
 
@@ -155,9 +154,4 @@ $(document).ready(function () {
         });
     });
     // Load older chat messages
-
-    // Reset chat on close
-    $(document).on("click", ".chat-close-btn", function () {
-        resetChat();
-    });
 });

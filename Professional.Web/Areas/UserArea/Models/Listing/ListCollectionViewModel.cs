@@ -11,7 +11,5 @@
         public IList<string> FieldsNames { get; set; }
 
         public string GetBy { get; set; }
-
-        public bool WithImage { get; set; }
     }
 }

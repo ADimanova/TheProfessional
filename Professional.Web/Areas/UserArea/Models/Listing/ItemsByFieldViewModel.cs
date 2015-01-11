@@ -6,6 +6,8 @@
     {
         public string Name { get; set; }
 
-        public IList<NavigationItemWithImage> Items { get; set; } 
+        public IList<NavigationItemWithImage> Items { get; set; }
+
+        public bool WithImage { get; set; }
     }
 }

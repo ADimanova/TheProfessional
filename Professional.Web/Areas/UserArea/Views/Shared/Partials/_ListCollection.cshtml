@@ -15,39 +15,17 @@
                     {
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span> Filter</button>
                         <ul class="dropdown-menu scrollable-menu" role="menu">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href='@(ViewBag.Url + "All")'>All</a></li>
+                            <li role="presentation"><a role="menuitem" class="filtered-listing" tabindex="-1" data-href="@(ViewBag.Url + "All")" href='#'>All</a></li>
                             @foreach (var fieldName in Model.FieldsNames)
                             {
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@(ViewBag.Url + fieldName)">@fieldName</a></li>
+                                <li role="presentation"><a role="menuitem" class="filtered-listing" tabindex="-1" data-href="@(ViewBag.Url + fieldName)" href="#">@fieldName</a></li>
                             }
                         </ul>
                     }
                 </div>
             </div>
-            <div class="list-group list-group-margin">      
-                @if (Model.Fields.Count > 0)
-                {
-                    for (int i = 0; i < Model.Fields.Count; i++)
-                    {
-                        var field = Model.Fields[i];
-                        <span class="list-group-item medium-text"><strong>-- @field.Name --</strong></span>
-                        for (int j = 0; j < field.Items.Count; j++)
-                        {
-                            var item = field.Items[j];
-                            <a href="@item.Url" class="list-group-item">
-                                @if (Model.WithImage)
-                                {
-                                    <img src="@item.ImageUrl" alt="Image" class="img-circle logo-custom" height="45" width="45" />
-                                }
-                                <span class="medium-text">@item.Content</span>
-                            </a>
-                        }
-                    }
-                }
-                else
-                {
-                    <span class="list-group-item medium-text">No items found.</span>
-                }
+            <div class="list-group list-group-margin" id="list-elements">
+                @Html.Partial("~/Areas/UserArea/Views/Shared/Partials/_ListCollectionInner.cshtml", Model.Fields)
             </div>
             @if (ViewBag.Pages > 0)
             {

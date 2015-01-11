@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
+    using System.Linq.Dynamic;
 
     using Professional.Data;
     using Professional.Models;
@@ -14,18 +16,12 @@
     {
         private string all = "All";
 
-        private IQueryable<string> letters = new List<string>
-            { 
-                "A", "B", "C", "D", "E", "F", "G", "H", "I",
-                "J", "K", "L", "M", "N", "O", "P", "Q", "R",
-                "S", "T", "U", "V", "W", "X", "Y", "Z" 
-            }
-            .AsQueryable<string>();
-
         public ListingServices(IApplicationData data, ICacheService cache)
             : base(data, cache)
         {
         }
+
+        public IList<string> FirstLetters { get; private set; }
 
         public IQueryable<User> GetUsers(string filter, string user)
         {
@@ -84,11 +80,27 @@
             return endorsements;
         }
 
-        public IQueryable<string> GetLetters()
-        {
-            var letters = this.letters;
+        //public IQueryable<string> GetLetters()
+        //{
+        //    var letters = this.letters;
 
-            return letters;
+        //    return letters;
+        //}
+
+        public IList<string> GetLetters<T>(string columnName) where T : class
+        {
+            var letters = this.Data.Context.Set<T>()
+                .Select(columnName);
+
+            var result = new List<string>();
+            foreach (var item in letters)
+            {
+                result.Add(item.ToString().Substring(0, 1));
+            }
+
+            this.FirstLetters = result;
+
+            return result;
         }
 
         public IQueryable<string> GetFeilds()

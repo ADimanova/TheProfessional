@@ -116,13 +116,10 @@
         // Admin pop-up
 
         // Filtered listing by field scripts (AJAX)
-        $(".dropdown-menu li a").click(function () {
-            localStorage.setItem("filter", $(this).text());
+        $(".dropdown.filter").on("click", ".dropdown-menu li a", function () {
+            $(this).parents(".dropdown.filter").find('.btn')
+                .html('<span class="caret"></span> filter: ' + $(this).text());
         });
-
-        if ($(".dropdown.filter").length > 0 && localStorage.getItem("filter") !== null) {
-            $(".dropdown-menu li a").parents(".dropdown.filter").find('.btn').append(": " + localStorage.getItem("filter"));
-        }
 
         $(".filterLink").on("click", function () {
             var identificator = $(this).parent().parent().attr('data-unique')
@@ -146,6 +143,16 @@
             else {
                 $(this).removeClass('active-updates');
             }
+        });
+
+        // Ajax on listings pages
+        $('.dropdown.filter').on('click', '.filtered-listing', function () {
+            var url = $(this).attr('data-href');
+            $.ajax({
+                type: 'GET',
+                url: url,
+                context: document.body
+            }).done(function (result) { $('#list-elements').html(result); });
         });
     });
 });

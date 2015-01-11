@@ -12,6 +12,8 @@
     using Professional.Web.Areas.UserArea.Models.Profile.Public;
     using Professional.Web.Helpers;
     using Professional.Web.Infrastructure.Services.Contracts;
+    using Professional.Models;
+    using System.Collections.Generic;
 
     public class ListingController : UserController
     {
@@ -36,12 +38,11 @@
                 .Skip((pageNumber - 1) * this.itemsPerPage)
                 .Take(this.itemsPerPage);
 
-            var firstLetters = this.listingServices.GetLetters();
-
             var groupedByFirstLetter = usersPaged.GroupBy(s => s.LastName.Substring(0, 1).ToUpper())
                 .Select(g => new ItemsByFieldViewModel
                 {
                     Name = g.Key.ToString(),
+                    WithImage = true,
                     Items = g.Select(i => new NavigationItemWithImage
                     {
                         Content = i.LastName + ", " + i.FirstName,
@@ -65,14 +66,23 @@
                 ViewBag.Url = WebConstants.UserConnectionsPageRoute + user + "/";
             }
 
-            var viewModel = new ListCollectionViewModel();
-            viewModel.WithImage = true;
-            viewModel.FieldsNames = firstLetters.ToList();
-            viewModel.Title = "Professionals";
-            viewModel.GetBy = "first letter";
-            viewModel.Fields = groupedByFirstLetter.ToList();
+            IList<string> firstLetters;
+            if (Request.IsAjaxRequest())
+            {
+                return this.PartialView("~/Areas/UserArea/Views/Shared/Partials/_ListCollectionInner.cshtml", groupedByFirstLetter.ToList());
+            }
+            else
+            {
+                firstLetters = this.listingServices.GetLetters<User>("LastName");
 
-            return this.View(viewModel);
+                var viewModel = new ListCollectionViewModel();
+                viewModel.FieldsNames = firstLetters;
+                viewModel.Title = "Professionals";
+                viewModel.GetBy = "first letter";
+                viewModel.Fields = groupedByFirstLetter.ToList();
+
+                return this.View(viewModel);
+            }           
         }
 
         public ActionResult Posts(string id, int? page, string user)
@@ -135,7 +145,7 @@
                 .Take(this.itemsPerPage)
                 .Project().To<UserEndorsementViewModel>();
 
-            var firstLetters = this.listingServices.GetLetters();
+            var firstLetters = this.listingServices.GetLetters<EndorsementOfUser>("Comment");
 
             var groupedByFirstLetter = endorsementsPaged.GroupBy(s => s.EndorsingUserName.Substring(0, 1))
                 .Select(g => new ItemsByFieldViewModel
@@ -153,7 +163,7 @@
             ViewBag.Url = WebConstants.UserEndorsementsPageRoute + id + "/";
 
             var viewModel = new ListCollectionViewModel();
-            viewModel.FieldsNames = firstLetters.ToList();
+            viewModel.FieldsNames = firstLetters;
             viewModel.Title = "Endorsements of user";
             viewModel.Fields = groupedByFirstLetter.ToList();
 
