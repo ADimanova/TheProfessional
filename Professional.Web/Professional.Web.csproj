@@ -327,6 +327,9 @@
     <Content Include="Content\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Images\bin.png" />
+    <Content Include="Images\star.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\chat.js" />
     <Content Include="Scripts\collapse.js" />
     <Content Include="Content\themes\base\accordion.css" />
