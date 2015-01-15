@@ -10,8 +10,14 @@
     <div class="col-md-2"></div>
     <div class="col-md-8 column grayed unedged">
         <div class="page-header">
+            <div class="rating">
+                <div class="rate-number">@Model.Rating</div>
+                <img src="~/Images/star.png" width="110" height="100"/>
+            </div>
             <h1 class="lessened wrapped">
-                @Model.Title <small>created by <a href="@(WebConstants.PublicProfilePageRoute + Model.CreatorID)">@Model.Creator</a></small>
+                @Model.Title
+                <br />
+                <small>created by <a href="@(WebConstants.PublicProfilePageRoute + Model.CreatorID)">@Model.Creator</a></small>
             </h1>
         </div>
         <div class="wrapped">

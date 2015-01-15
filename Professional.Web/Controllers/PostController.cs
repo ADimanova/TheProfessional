@@ -39,7 +39,7 @@
                 .Where(e => e.EndorsingUserID == loggedUserId)
                 .Any(e => e.EndorsedPostID == id);
 
-            if (!isEndorsed || postInfoForView.CreatorID == loggedUserId)
+            if (isEndorsed || postInfoForView.CreatorID == loggedUserId)
             {
                 ViewBag.IsEndorsed = "true";
             }
