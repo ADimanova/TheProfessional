@@ -20,7 +20,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="media">
-                        <a class="media-left" href="#">
+                        <a class="media-left  media-link" href="@(WebConstants.PostPageRoute + post.ID)">
                             <img src="~/Images/news.png" style="width: 7em; height: auto;" />
                         </a>
                         <div class="media-body widden">
@@ -45,14 +45,14 @@
             <hr />
             @foreach (var pro in Model.Featured)
             {
-                <div class="media">
-                    <a class="media-left" href="@(WebConstants.PublicProfilePageRoute + pro.ID)">
+                <div class="media featured-pros">
+                    <a class="media-left media-link" href="@(WebConstants.PublicProfilePageRoute + pro.ID)">
                         <img src="@pro.ImageUrl" alt="User Image" class="center-block img-circle" style="width: 5em; height: 5em;" />
                     </a>
-                        <div class="media-body feature">
-                            <h5 class="media-heading">@pro.FullName</h5>
-                            pro at @StringManipulations.GetJoinedList(pro.FieldList, "nothing.")
-                        </div>
+                    <div class="media-body feature">
+                        <h5 class="media-heading featured-heading">@pro.FullName</h5>
+                        pro at @StringManipulations.GetJoinedList(pro.FieldList, "nothing.")
+                    </div>
                 </div>
             }
         </div>

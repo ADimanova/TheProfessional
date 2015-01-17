@@ -154,6 +154,11 @@
                 context: document.body
             }).done(function (result) { $('#list-elements').html(result); });
         });
+
+        // Clicable media
+        $('.media').on('click', '.media-body', function () {
+            $(this).parent().children('a.media-link')[0].click();
+        });
     });
 });
 

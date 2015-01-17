@@ -517,3 +517,7 @@ output {
     color: #F0E24D;
     text-shadow: 1px 1px 0px #B68806;
 }
+
+.media-body {
+    cursor: pointer;
+}
