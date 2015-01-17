@@ -15,7 +15,7 @@
         public int ID { get; set; }
 
         public string Title { get; set; }
-        public int Rating { get; set; }
+        public int? Rating { get; set; }
 
         [Display(Name = "Created on")]
         public DateTime DateCreated { get; set; }
@@ -41,8 +41,10 @@
             configuration.CreateMap<Post, PostViewModel>()
                 .ForMember(
                 p => p.Rating, 
-                options => options.MapFrom(p => (int)p.PostEndorsementsents
-                    .Select(e => e.Value).Sum() / p.PostEndorsementsents.Count()));
+                options => options.MapFrom(p => p.PostEndorsementsents.Count() != 0 ?
+                    (int?)p.PostEndorsementsents.Select(e => e.Value).Sum() / p.PostEndorsementsents.Count() :
+                    null
+                    ));
         }
     }
 }

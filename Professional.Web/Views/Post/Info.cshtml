@@ -11,7 +11,16 @@
     <div class="col-md-8 column grayed unedged">
         <div class="page-header">
             <div class="rating">
-                <div class="rate-number">@Model.Rating</div>
+                <div class="rate-number">
+                    @if(Model.Rating != null) 
+                    { 
+                        @Model.Rating
+                    }
+                    else
+                    {
+                        <span>?</span>
+                    }
+                </div>
                 <img src="~/Images/star.png" style="width: 110px; height: 100px;" alt="Rating" />
             </div>
             <h1 class="lessened wrapped">
