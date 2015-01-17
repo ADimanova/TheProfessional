@@ -21,7 +21,11 @@
                         </h4>
                     </div>
                     <div id='@("collapse" + item.ID)' class="panel-collapse collapse" role="tabpanel" aria-labelledby='@("heading" + item.ID)'>
-                        <div class="panel-body">
+                        <div class="panel-body holder">
+                            <div class="floater holder rating-small">
+                                <span class="glyphicon glyphicon glyphicon-star small-star" aria-hidden="true"></span>
+                                <div class="rating-value">@item.Value</div>
+                            </div>
                             @item.Comment
                         </div>
                     </div>

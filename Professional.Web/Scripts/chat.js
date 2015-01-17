@@ -37,8 +37,9 @@ $(document).ready(function () {
         var loadMoreLink = $('.load-messages');
         $(loadMoreLink).text('All messages loaded.');
         $(loadMoreLink).addClass('less-visible');
-        $(loadMoreLink).on('click', function () {
+        $(loadMoreLink).on('click', function (e) {
             e.preventDefault();
+
         });
     }
 
