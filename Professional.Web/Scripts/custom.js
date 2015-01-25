@@ -54,8 +54,8 @@
         $("#dialog").dialog({
             autoOpen: false,
             title: "Endorse User",
-            width: 380,
-            height: 300,
+            width: 300,
+            height: 350,
             modal: true,
             buttons: {
                 "Save": function () {

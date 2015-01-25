@@ -1,4 +1,6 @@
-﻿@model Professional.Web.Models.RegisterViewModel
+﻿@using Recaptcha.Web.Mvc;
+
+@model Professional.Web.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
 }
@@ -42,9 +44,15 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, "Confirm your password *", new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.ConfirmPassword, "Confirm password *", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control bordered" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            @Html.Recaptcha(theme: Recaptcha.Web.RecaptchaTheme.Clean)
         </div>
     </div>
     <div class="form-group">

@@ -12,6 +12,7 @@
     using Professional.Web.Areas.UserArea.Models.CreateItem;
     using Professional.Web.Helpers;
     using Professional.Web.Infrastructure.HtmlSanitise;
+    using Professional.Web.Infrastructure.Filters;
 
     public class CreateItemController : UserController
     {
@@ -66,6 +67,11 @@
                     return this.View("Error");
                 }
             }
+            else
+            {
+                ViewBag.Fields = this.data.FieldsOfExpertise
+                    .All().Select(f => f.Name);
+            }
 
             return this.View(model);
         }
@@ -81,7 +87,7 @@
             }
             catch
             {
-                return this.View("Error");
+                return this.RedirectToAction("Info", "Post", new { Area = WebConstants.UserArea, id = model.EndorsedID });
             }
         }
 
@@ -96,7 +102,7 @@
             }
             catch
             {
-                return this.View("Error");
+                return this.RedirectToAction("Info", "Post", new { Area = WebConstants.UserArea, id = model.EndorsedID });
             }
         }
 

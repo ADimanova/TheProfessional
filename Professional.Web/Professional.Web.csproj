@@ -92,6 +92,9 @@
     <Reference Include="Ninject.Web.Mvc">
       <HintPath>..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Recaptcha.Web">
+      <HintPath>..\packages\RecaptchaNet.1.6.0\lib\net451\Recaptcha.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -273,6 +276,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Filters\CaptchaValidatorAttribute.cs" />
     <Compile Include="Infrastructure\Hubs\ChatHub.cs" />
     <Compile Include="Infrastructure\Helpers\StringManipulations.cs" />
     <Compile Include="Infrastructure\Helpers\WebConstants.cs" />
@@ -330,6 +334,7 @@
     <Content Include="Images\star.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="RecaptchaNet.ReadMe.txt" />
     <Content Include="Scripts\chat.js" />
     <Content Include="Scripts\collapse.js" />
     <Content Include="Content\themes\base\accordion.css" />

@@ -11,6 +11,9 @@ using Microsoft.Owin.Security;
 using Professional.Web.Models;
 using Professional.Models;
 using Professional.Web.Helpers;
+using Recaptcha.Web;
+using Recaptcha.Web.Mvc;
+using Professional.Web.Infrastructure.Filters;
 
 namespace Professional.Web.Controllers
 {
@@ -152,6 +155,7 @@ namespace Professional.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [CaptchaValidator]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
